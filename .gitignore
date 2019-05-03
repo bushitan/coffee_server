@@ -1,0 +1,9 @@
+# Python:
+*.pyc
+*.json
+/.idea
+/static/
+/media/
+/.idea/
+all.log
+db.sqlite3
