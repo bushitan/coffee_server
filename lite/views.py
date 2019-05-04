@@ -173,7 +173,7 @@ class SellerScan(ListView):
                 info_map.add( customer_uuid,MSG.score_success())
                 return MSG.scan_score(),{}
             else :
-                info_map.add( customer_uuid,MSG.share_receive())
+                info_map.add( customer_uuid,MSG.share_success())
                 return MSG.scan_share(),{}
         else:# 兑换奖品
         # if model == 'prize':
@@ -200,6 +200,12 @@ class SellerScan(ListView):
         # if model == 'share':
         #     return self.db_share.get_list(**query )
         # return action_store.scan(model,seller_uuid,customer_uuid)
+
+
+
+
+
+
 
 
 

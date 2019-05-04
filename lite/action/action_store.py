@@ -60,7 +60,6 @@ class ActionStore():
         #     return  {'is_seller':False}
 
     def update_store(self,store_uuid,seller_uuid,*args, **kwargs):
-        # TODO 验证seller，是否为store的host
         store = self.db_store.filter(uuid = store_uuid,)
         self.db_store.update(store,*args, **kwargs)
         return self.db_store.get_dict(uuid = store_uuid)
@@ -112,8 +111,14 @@ class ActionStore():
             self.db_score.add( store = store ,seller = seller ,customer = customer )
             return True
         else :
+            # 计算有效期
+            share_valid_time = store.share_valid_time
+            now = datetime.datetime.now()
+            now_stamp = time.mktime(now.timetuple())
+            valid = now_stamp + share_valid_time * UNIT_SECOND
+            valid_time = datetime.datetime.fromtimestamp(valid)
             # 分享集点
-            self.db_share.add( store = store ,seller = seller ,customer = customer )
+            self.db_share.add( store = store ,seller = seller ,customer = customer , valid_time = valid_time)
             return False
         # if model == 'score':
 
@@ -193,9 +198,11 @@ def _rule_score(store_uuid,customer_uuid):
     })
 def _rule_prize(store_uuid,customer_uuid):
     return dict(_rule_base(store_uuid,customer_uuid),**{
+
     })
 def _rule_share(store_uuid,customer_uuid):
     return dict(_rule_base(store_uuid,customer_uuid),**{
+        'valid_time__gt':  datetime.datetime.now()
     })
 
 
@@ -205,9 +212,17 @@ if __name__  == '__main__':
     a= ActionStore()
     # print (a.get_store_customer_list('8e6d4c98-63d3-11e9-ad07-b83312f00bac'))
 
-    r = a.check_share_score(
-        'a2bf5542-6c0c-11e9-bd7b-b83312f00bac',
-        '123327a6-6bf7-11e9-a5a7-b83312f00bac', # 器风了
-        # '78ba8814-6c0b-11e9-9b35-b83312f00bac', # 未啊喂
-    )
-    print (r)
+    # r = a.check_share_score(
+    #     'a2bf5542-6c0c-11e9-bd7b-b83312f00bac',
+    #     '123327a6-6bf7-11e9-a5a7-b83312f00bac', # 器风了
+    #     # '78ba8814-6c0b-11e9-9b35-b83312f00bac', # 未啊喂
+    # )
+    # print (r)
+
+    # now = datetime.datetime.now()
+    # now_stamp = time.mktime(now.timetuple())
+    # valid = now_stamp + 1 * UNIT_SECOND
+    # valid_time = datetime.datetime.fromtimestamp(valid)
+    # print (now_stamp,valid,valid_time)
+    # valid =
+    # store.share_limit_time * UNIT_SECOND

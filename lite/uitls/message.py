@@ -64,6 +64,7 @@ def prize_success():
     return {'code':CODE_PRIZE_SUCCESS,'title':u"兑换礼物成功" , 'content':u'请跟店家领取礼物哦'}
 
 # 04 分享券
+CODE_SHARE_SUCCESS   = "%s%s000" %(DIALOG,SHARE)  # 获得券
 CODE_SHARE_SEND      = "%s%s001" %(DIALOG,SHARE)  #赠送成功
 CODE_SHARE_RECEIVE   = "%s%s002" %(DIALOG,SHARE)  #获得成功
 CODE_SHARE_NONE      = "%s%s003" %(DIALOG,SHARE)  #不存在
@@ -73,10 +74,12 @@ CODE_SHARE_LIMIT     = "%s%s006" %(DIALOG,SHARE)  #限制期间，重复领取
 CODE_SHARE_VALID     = "%s%s007" %(DIALOG,SHARE)  #券已过期
 
 SHARE_FAIL = u'领取失败'
+def share_success():
+    return {'code':CODE_SHARE_SUCCESS,'title':u"获得分享券" , 'content':u''}
 def share_send(score):
     return {'code':CODE_SHARE_SEND,'title':u"分享好友成功" , 'content':u'获得了%s点' %(score)}
-def share_receive():
-    return {'code':CODE_SHARE_SEND,'title':u"领取分享成功" , 'content':u''}
+def share_receive(score):
+    return {'code':CODE_SHARE_SEND,'title':u"领取分享成功" , 'content':u'获得了%s点' %(score)}
 def share_is_none():
     return {'code':CODE_SHARE_NONE,'title':SHARE_FAIL , 'content':u'分享券不存在'}
 def share_is_used():
