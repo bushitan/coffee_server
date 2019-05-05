@@ -89,6 +89,20 @@ def seller_exists(func):
         return func(self,request,*args, **kwargs)
     return wrapper
 
+# 店家扫描别的二维码
+def scan_exists(func):
+    @base
+    def wrapper(self,request,*args, **kwargs):
+        store_uuid = request.POST.get('store_uuid','')
+        seller_uuid = request.POST.get('seller_uuid','')
+        seller = db_seller.get(uuid = seller_uuid)
+        if seller.store.uuid != store_uuid:
+            return MSG.view_scan_none(), {}
+        return func(self,request,*args, **kwargs)
+    return wrapper
+
+
+
 # 校验店铺和店家是否一致
 def seller_host(func):
     @base

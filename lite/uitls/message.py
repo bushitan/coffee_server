@@ -30,6 +30,7 @@ CODE_VIEW_STORE_NONE = "%s%s007" %(DIALOG,VIEW)  #店铺不存在
 CODE_VIEW_STORE_CLOSE = "%s%s008" %(DIALOG,VIEW)  #店铺已关门
 CODE_VIEW_STORE_UPDATE = "%s%s009" %(DIALOG,VIEW)  #店铺更新成功
 CODE_VIEW_STORE_HOST_NONE = "%s%s010" %(DIALOG,VIEW)  #不是店铺的主人
+CODE_VIEW_SCAN_NONE = "%s%s011" %(DIALOG,VIEW)  #扫其他二维码
 
 def view_login():
     return {'code':CODE_VIEW_LOGIN,'title':u"登陆成功" , 'content':u''}
@@ -52,6 +53,8 @@ def view_store_update():
     return {'code':CODE_VIEW_STORE_UPDATE,'title':u"更新成功" , 'content':u'店铺数据已更新'}
 def view_store_host_none():
     return {'code':CODE_VIEW_STORE_HOST_NONE,'title':u"您不是该店铺的主人" , 'content':u''}
+def view_scan_none():
+    return {'code':CODE_VIEW_SCAN_NONE,'title':u"扫码出错" , 'content':u'您扫的不是本店铺的二维码'}
 
 # 02 积分
 CODE_SCORE_SUCCESS = "%s%s001" %(DIALOG,SCORE)  #积分成功

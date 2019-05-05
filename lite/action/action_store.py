@@ -27,6 +27,16 @@ class ActionStore():
     def get_info(self,store_uuid):
         return self.db_store.get_dict(uuid = store_uuid)
 
+    def check_rel_store_customer(self,store_uuid,customer_uuid):
+        if self.db_rel_store_customer.is_exists(
+            store__uuid = store_uuid,
+            customer__uuid = customer_uuid
+        ) is False:
+            store = self.db_store.get(uuid = store_uuid)
+            customer = self.db_customer.get(uuid = customer_uuid)
+            self.db_rel_store_customer.add(store=store,customer = customer)
+        return True
+
     # 客户浏览店铺
     def get_store_customer_list(self,customer_uuid):
         return self.db_rel_store_customer.get_list(customer__uuid = customer_uuid)
@@ -202,6 +212,7 @@ def _rule_prize(store_uuid,customer_uuid):
     })
 def _rule_share(store_uuid,customer_uuid):
     return dict(_rule_base(store_uuid,customer_uuid),**{
+        'receive_customer':None,
         'valid_time__gt':  datetime.datetime.now()
     })
 

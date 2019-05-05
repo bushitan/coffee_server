@@ -56,6 +56,10 @@ class StoreInfo(ListView):
     @det.store_exists
     def post(self, request, *args, **kwargs):
         store_uuid = request.POST.get('store_uuid',"")
+        seller_uuid = request.POST.get('seller_uuid',"")
+        customer_uuid = request.POST.get('customer_uuid',"")
+        if customer_uuid != "":
+            action_store.check_rel_store_customer(store_uuid,customer_uuid)
         return MSG.sys_success(), action_store.get_info(store_uuid)
 
 # 客户获取已经浏览的列表
@@ -162,9 +166,10 @@ class SellerScan(ListView):
     @logged
     @det.seller_exists
     @det.customer_exists
+    @det.scan_exists
     def post(self, request, *args, **kwargs):
         model = request.POST.get('model','score')
-        # store_uuid = request.POST.get('store_uuid','')
+        store_uuid = request.POST.get('store_uuid','')
         seller_uuid = request.POST.get('seller_uuid','')
         customer_uuid = request.POST.get('customer_uuid','')
         if model == 'score': # 发放积分 or 分享券
