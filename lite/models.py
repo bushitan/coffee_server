@@ -29,9 +29,13 @@ class Store(Base):
     title = models.CharField(max_length=100, verbose_name=u'标题',default="",null=True,blank=True)
     summary = models.CharField(max_length=200, verbose_name=u'简介',default="",null=True,blank=True)
     description = models.CharField(max_length=500, verbose_name=u'描述',default="",null=True,blank=True)
-    logo = models.CharField(max_length=500, verbose_name=u'标志',default="",null=True,blank=True)
+    logo = models.CharField(max_length=500, verbose_name=u'LOGO',default="",null=True,blank=True)
+    share_logo = models.CharField(max_length=500, verbose_name=u'分享LOGO',default="",null=True,blank=True)
+    share_title = models.CharField(max_length=100, verbose_name=u'分享标题',default="",null=True,blank=True)
     icon = models.CharField(max_length=500, verbose_name=u'图标',default="",null=True,blank=True)
     phone =  models.CharField(max_length=32, verbose_name=u'电话',default="",null=True,blank=True)
+
+    qr =  models.TextField(verbose_name=u'店铺二维码',default="",null=True,blank=True)
 
     address = models.CharField(max_length=100, verbose_name=u'地址',default="",null=True,blank=True)
     latitude =  models.FloatField( verbose_name=u'纬度',default=0,null=True,blank=True)
@@ -42,13 +46,14 @@ class Store(Base):
     check_value = models.IntegerField(u'普通核销点数',default=1)
     share_check_value = models.IntegerField(u'分享券核销点数',default=1)
     share_gift_value = models.IntegerField(u'分享券获赠点数',default=1)
-    share_limit_time = models.IntegerField(u'分享券领取时间间隔',default=1)
-    share_valid_time = models.IntegerField(u'分享券有效期',default=1)
+    share_limit_time = models.IntegerField(u'分享券领取时间间隔(天）',default=1)
+    share_valid_time = models.IntegerField(u'分享券有效期(天）',default=1)
 
     class Meta:
         verbose_name_plural = verbose_name = u'商铺'
     def __str__(self):
-        return '%s' % (self.title)
+
+        return '%s' % (self.title )
 
 # 用户 虚函数
 class User(Base):
