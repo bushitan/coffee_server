@@ -123,12 +123,14 @@ class ActionStore():
         else :
             # 计算有效期
             share_valid_time = store.share_valid_time
+            share_num = store.share_num
             now = datetime.datetime.now()
             now_stamp = time.mktime(now.timetuple())
             valid = now_stamp + share_valid_time * UNIT_SECOND
             valid_time = datetime.datetime.fromtimestamp(valid)
             # 分享集点
-            self.db_share.add( store = store ,seller = seller ,customer = customer , valid_time = valid_time)
+            self.db_share.add( store = store ,seller = seller ,customer = customer ,
+                               alive = share_num,valid_time = valid_time)
             return False
         # if model == 'score':
 
@@ -151,35 +153,24 @@ class ActionStore():
 
     # 使用分享兑换积分
     def check_share_score(self,share_uuid,receive_customer_uuid):
-
-        # 基础查询信息
-        share = self.db_share.get(uuid = share_uuid)
-        receive_customer = self.db_customer.get(uuid =receive_customer_uuid)
-
-        # # 综合检测
-        # share_check = ShareCheck(share,receive_customer)
-        # result , message = share_check.result()
-        # if result is False: #返回
-        #     return result,message
-        #
-        # # 分享的时间间隔
-        # last = self.db_share.last(receive_customer = receive_customer)
-        # if last is not None:
-        #     receive_space = time.time() - time.mktime((last.receive_time.timetuple())) #接收者时间间隔
-        #     limit_space = share.store.share_limit_time * UNIT_SECOND # 限制的时间间隔
-        #     if receive_space < limit_space:
-        #         return False,MSG.share_is_limit(limit_space - receive_space)
-
+        # alive = 0
         with transaction.atomic():
+            # 基础查询信息
+            share = self.db_share.get(uuid = share_uuid)
+            receive_customer = self.db_customer.get(uuid =receive_customer_uuid)
             # 基础数据
             store = share.store
             seller = share.seller
             customer = share.customer
+            alive = share.alive
             share_check_value = share.store.share_check_value
             share_gift_value = share.store.share_gift_value
-            # 分享用户加点
-            for i in range(0,share_check_value):
-                self.db_score.add( store = store ,seller = seller ,customer = customer ,share=share )
+
+            # 可能有点多余
+            if alive <= 0:
+                raise(u"已经抢完啦")
+
+            new_alive = alive - 1
 
             # 获赠用户加点
             for i in range(0,share_gift_value):
@@ -187,9 +178,18 @@ class ActionStore():
 
             # 分享拳已使用
             share_filter = self.db_share.filter(uuid = share_uuid)
-            self.db_share.update(share_filter ,receive_customer = receive_customer,)
+            self.db_share.update(share_filter ,alive = new_alive) # 心跳减少1
+            # self.db_share.update(share_filter ,receive_customer = receive_customer,)
 
-            return {
+            is_send_customer = False
+            # 条件达成
+            if new_alive == 0:
+                # 分享用户加点
+                for i in range(0,share_check_value):
+                    self.db_score.add( store = store ,seller = seller ,customer = customer ,share=share )
+                is_send_customer = True
+
+            return is_send_customer,{
                 "customer_score_num":share.store.share_check_value,
                 "customer_uuid":share.customer.uuid,
                 "receive_customer_score_num":share.store.share_gift_value,
@@ -212,7 +212,8 @@ def _rule_prize(store_uuid,customer_uuid):
     })
 def _rule_share(store_uuid,customer_uuid):
     return dict(_rule_base(store_uuid,customer_uuid),**{
-        'receive_customer':None,
+        # 'receive_customer':None,
+        'alive__gt':0,
         'valid_time__gt':  datetime.datetime.now()
     })
 

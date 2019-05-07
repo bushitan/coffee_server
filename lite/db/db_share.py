@@ -12,6 +12,7 @@ class DBShare(DBData):
         _base = super()._pack_dict(object)
         # print (object)
         _new = {
+            "alive":object.alive,
             "receive_customer_id":object.receive_customer_id,
             "receive_customer_avatar_url":object.receive_customer.avatar_url if object.receive_customer is not None else "" ,
             "receive_customer_nick_name":object.receive_customer.nick_name if object.receive_customer is not None else "" ,

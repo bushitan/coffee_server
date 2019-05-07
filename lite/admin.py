@@ -16,7 +16,7 @@ class StoreAdmin(BaseAdmin):
 		(u"地址", {'fields': ['address','latitude','longitude',]}),
 		(u"核销兑换", {'fields': ['mode', 'exchange_value',]}),
 		(u"普通模式", {'fields': ['check_value',]}),
-		(u"分享模式", {'fields': [ 'share_check_value','share_gift_value',
+		(u"分享模式", {'fields': [ 'share_check_value','share_gift_value','share_num',
                                'share_limit_time','share_valid_time', ]}),
     )
 	search_fields = ('id','name',)
@@ -84,9 +84,9 @@ class PrizeAdmin(BaseAdmin):
 admin.site.register(Prize,PrizeAdmin)
 
 class ShareAdmin(BaseAdmin):
-	list_display = ('id','store_id','uuid','seller_id','customer_id','receive_customer','valid_time','create_time',)
+	list_display = ('id','store_id','uuid','seller_id','customer_id','receive_customer','alive','valid_time','create_time',)
 	fieldsets = (
-        (u"兑换", {'fields': ['uuid','store','seller','customer','receive_customer','receive_time','valid_time','create_time',]}),
+        (u"兑换", {'fields': ['uuid','store','seller','customer','receive_customer','receive_time','alive','valid_time','create_time',]}),
     )
 	search_fields = ('id',)
 admin.site.register(Share,ShareAdmin)

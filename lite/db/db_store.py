@@ -30,6 +30,7 @@ class DBStore(DB):
             "exchange_value":object.exchange_value,
             "check_value":object.check_value,
             "share_check_value":object.share_check_value,
+            "share_num":object.share_num,
             "share_gift_value":object.share_gift_value,
             "share_limit_time":object.share_limit_time,
             "share_valid_time":object.share_valid_time,

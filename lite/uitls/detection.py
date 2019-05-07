@@ -134,6 +134,10 @@ def share_exists(func):
         if share.receive_customer is not None :
             return MSG.share_is_used() ,{}
 
+        # 分享份数已被领取完毕
+        if share.alive <= 0 :
+            return MSG.share_is_used() ,{}
+
         # 分享给自己
         if share.customer_id == receive_customer.id:
             return MSG.share_is_self() ,{}

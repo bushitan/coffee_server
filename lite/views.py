@@ -104,8 +104,10 @@ class CustomerShare(ListView):
     def post(self, request, *args, **kwargs):
         share_uuid = request.POST.get('share_uuid',"")
         receive_customer_uuid = request.POST.get('customer_uuid',"")
-        message = action_store.check_share_score(share_uuid,receive_customer_uuid)
-        info_map.add( message['customer_uuid'],MSG.share_send(message['customer_score_num']))
+        is_send_customer , message = action_store.check_share_score(share_uuid,receive_customer_uuid)
+        # 是否通知分享人
+        if is_send_customer is True:
+            info_map.add( message['customer_uuid'],MSG.share_send(message['customer_score_num']))
         return MSG.share_receive(message['receive_customer_score_num']),{}
 
 # 客户在定时刷新自己的信息
@@ -142,7 +144,7 @@ class SellerUpdate(ListView):
         print(seller_uuid)
         key_list = ['title','summary','description','logo','icon','phone','address','latitude','longitude',
                     'mode','exchange_value','check_value',
-                    'share_check_value','share_gift_value','share_limit_time','share_valid_time',]
+                    'share_check_value','share_gift_value','share_num','share_limit_time','share_valid_time',]
         key_dict = {}
         for key in key_list:
             value = request.POST.get(key,"")

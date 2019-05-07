@@ -46,6 +46,7 @@ class Store(Base):
     check_value = models.IntegerField(u'普通核销点数',default=1)
     share_check_value = models.IntegerField(u'分享券核销点数',default=1)
     share_gift_value = models.IntegerField(u'分享券获赠点数',default=1)
+    share_num = models.IntegerField(u'分享人数',default=1)
     share_limit_time = models.IntegerField(u'分享券领取时间间隔(天）',default=1)
     share_valid_time = models.IntegerField(u'分享券有效期(天）',default=1)
 
@@ -132,7 +133,7 @@ class Prize(DataBase):
 class Share(DataBase):
     receive_customer = models.ForeignKey(Customer,related_name='receive_customer', verbose_name=u'接受客户',null=True,blank=True)
     receive_time = models.DateTimeField(u'接受时间',default = timezone.now)
-
+    alive = models.IntegerField(u'有效份数',default=1)
     class Meta:
         verbose_name_plural = verbose_name = u'分享券'
     def __unicode__(self):
