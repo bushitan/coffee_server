@@ -18,6 +18,9 @@ class DBStore(DB):
             "icon":object.icon,
             "phone":object.phone,
 
+            "share_logo":object.share_logo,
+            "share_title":object.share_title,
+
             "address":object.address,
             "latitude":object.latitude,
             "longitude":object.longitude,
