@@ -147,9 +147,11 @@ def share_exists(func):
             return MSG.share_is_valid() ,{}
 
         # 分享的时间间隔
-        last = db_share.last(receive_customer = receive_customer)
-        if last is not None:
-            receive_space = time.time() - time.mktime((last.receive_time.timetuple())) #接收者时间间隔
+        # last = db_share.last(receive_customer = receive_customer)
+        # last = db_score.last(customer = receive_customer,store = share.store,share = share)
+        last = db_score.latest(customer = receive_customer,store = share.store)
+        if last is not False:
+            receive_space = time.time() - time.mktime((last.create_time.timetuple())) #接收者时间间隔
             limit_space = share.store.share_limit_time * UNIT_SECOND # 限制的时间间隔
             if receive_space < limit_space:
                 return MSG.share_is_limit(limit_space - receive_space) ,{}

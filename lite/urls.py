@@ -18,6 +18,7 @@ urlpatterns = [
     # …Ãªß
     url(r'^store/update/seller/',SellerUpdate.as_view()),
     url(r'^store/data/seller/',SellerData.as_view()),
+    url(r'^store/host/data/seller/',SellerHostData.as_view()),
     url(r'^scan/seller/',SellerScan.as_view()),
 
  # url(r'^store/invite/seller/',SellerInvite.as_view()),

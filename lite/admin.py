@@ -19,7 +19,7 @@ class StoreAdmin(BaseAdmin):
 		(u"分享模式", {'fields': [ 'share_check_value','share_gift_value','share_num',
                                'share_limit_time','share_valid_time', ]}),
     )
-	search_fields = ('id','name',)
+	search_fields = ('id','name','uuid',)
 	def qr_image(self, obj):
 		return  mark_safe('<img src="%s" width="100px" />' % (obj.qr))
 	qr_image.short_description = u'店铺二维码'
@@ -36,7 +36,7 @@ class SellerAdmin(BaseAdmin):
 		(u"微信数据", {'fields': ['nick_name','avatar_url','gender','city','province','country',]}),
 		(u"系统数据", {'fields': ['wx_openid','wx_session','wx_unionid',]}),
     )
-	search_fields = ('id','wx_openid','uuid',)
+	search_fields = ('id','wx_openid','uuid','nick_name','store__title',)
 	readonly_fields = ("uuid",'wx_openid','wx_session','wx_unionid',)
 admin.site.register(Seller,SellerAdmin)
 
@@ -64,9 +64,9 @@ admin.site.register(RelStoreCustomer,RelStoreCustomerAdmin)
 
 
 class ScoreAdmin(BaseAdmin):
-	list_display = ('id','is_used','store_id','seller_id','customer_id','exchange_time','share_id','is_delete',)
+	list_display = ('id','is_used','store_id','seller_id','customer_id','exchange_time','share','is_delete','create_time',)
 	fieldsets = (
-        (u"公共数据", {'fields': ['is_used','exchange_time','share',]}),
+        (u"公共数据", {'fields': ['is_used','exchange_time','share','create_time',]}),
         (u"集点数据", {'fields': ['store','seller','customer',]}),
         (u" 删除状态", {'fields': ['is_delete','delete_seller',]}),
         # (u"分享积分", {'fields': ['share',]}),

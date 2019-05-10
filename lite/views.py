@@ -163,6 +163,16 @@ class SellerData(ListView):
         range = request.POST.get('range','')
         return MSG.sys_success(),action_store.get_data_seller(model,seller_uuid)
 
+# 查店主总数
+class SellerHostData(ListView):
+    @logged
+    @det.seller_exists
+    @det.seller_host
+    def post(self, request, *args, **kwargs):
+        store_uuid = request.POST.get('store_uuid','')
+        # seller_uuid = request.POST.get('seller_uuid','')
+        return MSG.sys_success(),action_store.get_host_data(store_uuid)
+
 # 扫码
 class SellerScan(ListView):
     @logged

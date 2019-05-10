@@ -196,6 +196,14 @@ class ActionStore():
                 "receive_customer_uuid":receive_customer_uuid,
             }
 
+    # 店主家的数据
+    def get_host_data(self,store_uuid):
+        return {
+            'score_num':self.db_score.count(store__uuid=store_uuid),
+            'prize_num':self.db_prize.count(store__uuid=store_uuid),
+            'share_num':self.db_share.count(store__uuid=store_uuid),
+        }
+
 # 查询积分d规则
 def _rule_base(store_uuid,customer_uuid):
     return  {

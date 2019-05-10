@@ -64,7 +64,7 @@ def score_success():
 # 03 礼品
 CODE_PRIZE_SUCCESS = "%s%s001" %(DIALOG,PRIZE)  #积分成功
 def prize_success():
-    return {'code':CODE_PRIZE_SUCCESS,'title':u"兑换礼物成功" , 'content':u'请跟店家领取礼物哦'}
+    return {'code':CODE_PRIZE_SUCCESS,'title':u"兑换福利成功" , 'content':u'请跟店家领取福利哦'}
 
 # 04 分享券
 CODE_SHARE_SUCCESS   = "%s%s000" %(DIALOG,SHARE)  # 获得券
@@ -78,17 +78,17 @@ CODE_SHARE_VALID     = "%s%s007" %(DIALOG,SHARE)  #券已过期
 
 SHARE_FAIL = u'领取失败'
 def share_success():
-    return {'code':CODE_SHARE_SUCCESS,'title':u"获得分享券" , 'content':u''}
+    return {'code':CODE_SHARE_SUCCESS,'title':u"获得福利分享券" , 'content':u''}
 def share_send(score):
     return {'code':CODE_SHARE_SEND,'title':u"分享好友成功" , 'content':u'获得了%s点' %(score)}
 def share_receive(score):
     return {'code':CODE_SHARE_SEND,'title':u"领取分享成功" , 'content':u'获得了%s点' %(score)}
 def share_is_none():
-    return {'code':CODE_SHARE_NONE,'title':SHARE_FAIL , 'content':u'分享券不存在'}
+    return {'code':CODE_SHARE_NONE,'title':SHARE_FAIL , 'content':u'福利分享券不存在'}
 def share_is_used():
-    return {'code':CODE_SHARE_USED,'title':SHARE_FAIL , 'content':u'分享券已经被领取'}
+    return {'code':CODE_SHARE_USED,'title':SHARE_FAIL , 'content':u'福利分享券已经被领取'}
 def share_is_self():
-    return {'code':CODE_SHARE_SELF,'title':SHARE_FAIL , 'content':u'这是您自己的分享券，邀请好友同分享'}
+    return {'code':CODE_SHARE_SELF,'title':SHARE_FAIL , 'content':u'这是您自己的福利分享券，邀请好友同分享'}
 def share_is_limit(date):
     hour = (date/3600)
     if hour < 24:
@@ -98,7 +98,7 @@ def share_is_limit(date):
         d = "%s天" %( math.ceil(day))
     return {'code':CODE_SHARE_LIMIT,'title':SHARE_FAIL , 'content':u'请在%s之后继续领取'%(d) }
 def share_is_valid():
-    return {'code':CODE_SHARE_VALID,'title':SHARE_FAIL , 'content':u'分享券已过期'}
+    return {'code':CODE_SHARE_VALID,'title':SHARE_FAIL , 'content':u'福利分享券已过期'}
 
 # 05 扫码
 CODE_SCAN_SCORE      = "%s%s001" %(DIALOG,SCAN)  #发放集点
@@ -108,9 +108,9 @@ CODE_SCAN_PRIZE_USED      = "%s%s004" %(DIALOG,SCAN)  #礼品已经发放
 def scan_score():
     return {'code':CODE_SCAN_SCORE,'title':u"发放集点成功" , 'content':u''}
 def scan_prize():
-    return {'code':CODE_SCAN_PRIZE,'title':u"发放礼物成功" , 'content':u''}
+    return {'code':CODE_SCAN_PRIZE,'title':u"发放福利成功" , 'content':u''}
 def scan_share():
-    return {'code':CODE_SCAN_SHARE,'title':u"发放分享券成功" , 'content':u''}
+    return {'code':CODE_SCAN_SHARE,'title':u"发放福利分享券成功" , 'content':u''}
 def scan_prize_none():
-    return {'code':CODE_SCAN_PRIZE_USED,'title':u"兑换失败" , 'content':u'兑换奖品所需点数不够'}
+    return {'code':CODE_SCAN_PRIZE_USED,'title':u"兑换失败" , 'content':u'兑换福利所需点数不够'}
 

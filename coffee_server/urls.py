@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from coffee_server.settings import ENV_URL
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^lite/', include('lite.urls')),
+    url(ENV_URL + r'admin/', include(admin.site.urls)),
+    url(ENV_URL + r'lite/', include('lite.urls')),
 ]
+# urlpatterns = [
+#     url(r'^admin/', include(admin.site.urls)),
+#     url(r'^lite/', include('lite.urls')),
+# ]

@@ -3,6 +3,8 @@ from django.db import models
 from lib.util import *
 import django.utils.timezone as timezone
 import uuid
+import pymysql
+pymysql.install_as_MySQLdb()
 
 # 基础类 虚函数
 class Base(models.Model):
@@ -120,14 +122,15 @@ class Score(DataBase):
     delete_seller = models.ForeignKey(Seller, related_name='delete_seller',verbose_name=u'删除的店员',null=True,blank=True)
     class Meta:
         verbose_name_plural = verbose_name = u'积分'
-    def __unicode__(self):
+        ordering = ['-create_time']
+    def __str__(self):
         return '%s' % (self.id)
 
 # 奖品
 class Prize(DataBase):
     class Meta:
         verbose_name_plural = verbose_name = u'奖品'
-    def __unicode__(self):
+    def __str__(self):
         return '%s' % (self.id)
 # 分享券
 class Share(DataBase):
@@ -136,7 +139,7 @@ class Share(DataBase):
     alive = models.IntegerField(u'有效份数',default=1)
     class Meta:
         verbose_name_plural = verbose_name = u'分享券'
-    def __unicode__(self):
+    def __str__(self):
         return '%s' % (self.id)
 
 

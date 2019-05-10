@@ -16,10 +16,25 @@ class DBScore(DBData):
             "share_id":object.share_id,
         }
         return dict(_base,**_new)
+
+    def latest(self,customer,store):
+        if self.model.objects.filter(customer = customer,store = store,)\
+                .exclude(share=None).exists() is True:
+            return  self.model.objects.filter(customer = customer,store = store,)\
+                .exclude(share=None)[0]
+        else:
+            return False
+
+
+
 if __name__ == '__main__':
     import django
     django.setup()
     s = DBScore()
-    query = { 'store_': 1}
-    l =  s.get_list(**query )
-    print (l)
+    share = Share.objects.get(id=18)
+    customer = Customer.objects.get(id=1)
+
+    print (s.latest(customer,share.store))
+    # query = { 'store_': 1}
+    # l =  s.get_list(**query )
+    # print (l)
