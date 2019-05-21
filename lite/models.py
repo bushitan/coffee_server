@@ -2,9 +2,14 @@
 from django.db import models
 from lib.util import *
 import django.utils.timezone as timezone
+def day_365_hence(): #集点默认365天有效期
+    return timezone.now() + timezone.timedelta(days=365)
+
 import uuid
 import pymysql
 pymysql.install_as_MySQLdb()
+
+
 
 # 基础类 虚函数
 class Base(models.Model):
@@ -51,6 +56,9 @@ class Store(Base):
     share_num = models.IntegerField(u'分享人数',default=1)
     share_limit_time = models.IntegerField(u'分享券领取时间间隔(天）',default=1)
     share_valid_time = models.IntegerField(u'分享券有效期(天）',default=1)
+
+    start_time = models.DateTimeField(u'集点开始时间',default = timezone.now)
+    end_time = models.DateTimeField(u'集点结束时间',default = day_365_hence)
 
     class Meta:
         verbose_name_plural = verbose_name = u'商铺'

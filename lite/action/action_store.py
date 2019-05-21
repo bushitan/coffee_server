@@ -44,7 +44,8 @@ class ActionStore():
     # 查询客户总数据
     def get_store_customer_data(self,store_uuid,customer_uuid):
         return {
-            'score_num':self.db_score.count(**_rule_score(store_uuid,customer_uuid)),
+            # 'score_num':self.db_score.count(**_rule_score(store_uuid,customer_uuid)),
+            'score_num':self.db_score.count_valid(store_uuid,customer_uuid),
             'prize_num':self.db_prize.count(**_rule_prize(store_uuid,customer_uuid)),
             'share_num':self.db_share.count(**_rule_share(store_uuid,customer_uuid)),
         }
@@ -140,7 +141,8 @@ class ActionStore():
         store = seller.store
 
         # 查询可用积分的数量
-        score_count = self.db_score.count(store=store,customer=customer,is_used = False,is_delete=False)
+        # score_count = self.db_score.count(store=store,customer=customer,is_used = False,is_delete=False)
+        score_count = self.db_score.count_valid(store.uuid,customer_uuid),
         print ( store.exchange_value, score_count)
         if store.exchange_value <= score_count:
             with transaction.atomic():

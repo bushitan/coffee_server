@@ -81,6 +81,7 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
+
      'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'coffee_server',
@@ -106,7 +107,62 @@ USE_L10N = True
 
 USE_TZ = False #计算机所在地时间#
 
+LOG_FILE = "./all.log"
+LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': True,
 
+        'filters': {
+            'require_debug_false': {
+                '()': 'django.utils.log.RequireDebugFalse'
+                }
+            },
+        'formatters': {
+            'simple': {
+                'format': '[%(levelname)s] %(module)s : %(message)s'
+                },
+            'verbose': {
+                'format':
+                    '[%(asctime)s] [%(levelname)s] %(module)s : %(message)s'
+                }
+            },
+
+        'handlers': {
+            'null': {
+                'level': 'DEBUG',
+                'class': 'django.utils.log.NullHandler',
+                },
+            'console': {
+                'level': 'INFO',
+                'class': 'logging.StreamHandler',
+                'formatter': 'verbose'
+                },
+            'file': {
+                'level': 'INFO',
+                'class': 'logging.FileHandler',
+                'formatter': 'verbose',
+                'filename': LOG_FILE,
+                'mode': 'a',
+                },
+            'mail_admins': {
+                'level': 'ERROR',
+                'class': 'django.utils.log.AdminEmailHandler',
+                'filters': ['require_debug_false']
+                }
+            },
+        'loggers': {
+            'django': {
+                'handlers': ['file', 'console'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+             'django.request': {
+                'handlers': ['mail_admins', 'console'],
+                'level': 'ERROR',
+                'propagate': True,
+            },
+        }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/

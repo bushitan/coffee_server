@@ -7,7 +7,7 @@ class BaseAdmin(admin.ModelAdmin):
 
 from django.utils.safestring import mark_safe
 class StoreAdmin(BaseAdmin):
-	list_display = ('id','is_business','title','uuid','qr_image','mode','exchange_value','address','latitude','longitude',)
+	list_display = ('id','is_business','title','uuid','qr_image','mode','exchange_value','address','start_time','end_time',)
 
 	fieldsets = (
 		(u"展示内容", {'fields': ['is_business','uuid','title','summary','description','logo','icon','phone',]}),
@@ -18,6 +18,7 @@ class StoreAdmin(BaseAdmin):
 		(u"普通模式", {'fields': ['check_value',]}),
 		(u"分享模式", {'fields': [ 'share_check_value','share_gift_value','share_num',
                                'share_limit_time','share_valid_time', ]}),
+		(u"集点有效时间", {'fields': ['start_time','end_time',]}),
     )
 	search_fields = ('id','name','uuid',)
 	def qr_image(self, obj):
