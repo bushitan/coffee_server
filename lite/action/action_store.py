@@ -14,6 +14,7 @@ from lib.util import *
 import lite.uitls.message as MSG
 from lite.uitls.share_check import *
 import time
+import datetime
 
 class ActionStore():
     def __init__(self):
@@ -91,7 +92,7 @@ class ActionStore():
          return self.db_seller.update( self.db_seller.filter(uuid = employee_uuid) ,store = None)
 
     # 获取seller的数据
-    def get_data_seller(self,model,seller_uuid):
+    def get_data_seller(self,model,seller_uuid,page_num,range):
         # print (seller_uuid)
         seller = self.db_seller.get(uuid =seller_uuid)
         if  seller.is_host is True:
@@ -100,10 +101,10 @@ class ActionStore():
         else :
             query = { 'seller__uuid': seller_uuid}  # 一般员工，只能看自己的
         if model == 'score':
-            return self.db_score.get_list(**query )
+            return self.db_score.get_list_range(page_num,range,**query )
         if model == 'prize':
-            return self.db_prize.get_list(**query )
-        return self.db_share.get_list(**query )
+            return self.db_prize.get_list_range(page_num,range,**query )
+        return self.db_share.get_list_range(page_num,range,**query )
 
     def get_seller_store(self,seller_uuid):
         seller = self.db_seller.get(uuid =seller_uuid)
@@ -200,10 +201,22 @@ class ActionStore():
 
     # 店主家的数据
     def get_host_data(self,store_uuid):
+
+        today = datetime.date.today()
+        tomorrow = today + datetime.timedelta(days=1)
+        month_start = today.strftime('%Y-%m') + "-01"
         return {
-            'score_num':self.db_score.count(store__uuid=store_uuid),
-            'prize_num':self.db_prize.count(store__uuid=store_uuid),
-            'share_num':self.db_share.count(store__uuid=store_uuid),
+            'score_day':self.db_score.count(store__uuid=store_uuid,create_time__range=[today, tomorrow]),
+            'score_month':self.db_score.count(store__uuid=store_uuid,create_time__range=[month_start, tomorrow]),
+            'score_all':self.db_score.count(store__uuid=store_uuid),
+
+            'prize_day':self.db_prize.count(store__uuid=store_uuid,create_time__range=[today, tomorrow]),
+            'prize_month':self.db_prize.count(store__uuid=store_uuid,create_time__range=[month_start, tomorrow]),
+            'prize_all':self.db_prize.count(store__uuid=store_uuid),
+
+            'share_day':self.db_share.count(store__uuid=store_uuid,create_time__range=[today, tomorrow]),
+            'share_month':self.db_share.count(store__uuid=store_uuid,create_time__range=[month_start, tomorrow]),
+            'share_all':self.db_share.count(store__uuid=store_uuid),
         }
 
 # 查询积分d规则

@@ -17,6 +17,8 @@ class DBStore(DB):
             "logo":object.logo,
             "icon":object.icon,
             "phone":object.phone,
+            "start_time":object.start_time.strftime("%Y-%m-%d"),
+            "end_time":object.end_time.strftime("%Y-%m-%d"),
 
             "share_logo":object.share_logo,
             "share_title":object.share_title,

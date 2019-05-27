@@ -4,10 +4,11 @@ from lite.models import *
 
 class BaseAdmin(admin.ModelAdmin):
 	readonly_fields = ("uuid",)
+	list_per_page = 20
 
 from django.utils.safestring import mark_safe
 class StoreAdmin(BaseAdmin):
-	list_display = ('id','is_business','title','uuid','qr_image','mode','exchange_value','address','start_time','end_time',)
+	list_display = ('id','is_business','title','uuid','mode','exchange_value','address','start_time','end_time',)
 
 	fieldsets = (
 		(u"展示内容", {'fields': ['is_business','uuid','title','summary','description','logo','icon','phone',]}),

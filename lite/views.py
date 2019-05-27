@@ -159,9 +159,10 @@ class SellerData(ListView):
     def post(self, request, *args, **kwargs):
         model = request.POST.get('model','score')
         seller_uuid = request.POST.get('seller_uuid','')
-        page_num = request.POST.get('page_num','')
-        range = request.POST.get('range','')
-        return MSG.sys_success(),action_store.get_data_seller(model,seller_uuid)
+        page_num = int( request.POST.get('page_num',0))
+        range = int(request.POST.get('range',10))
+        print (page_num,range)
+        return MSG.sys_success(),action_store.get_data_seller(model,seller_uuid,page_num,range)
 
 # 查店主总数
 class SellerHostData(ListView):

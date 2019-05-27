@@ -37,7 +37,7 @@ class DB(object):
 		return _m
 
 	def count(self,*args,**kwargs):
-		print (self.model.objects.filter(*args,**kwargs))
+		# print (self.model.objects.filter(*args,**kwargs))
 		_count = self.model.objects.filter(*args,**kwargs).count()
 		return _count
 
@@ -47,6 +47,13 @@ class DB(object):
 
 	def get_list(self,*args,**kwargs):
 		_m = self.model.objects.filter(*args,**kwargs)
+		return self._pack_list( self._pack_dict,_m)
+
+	# 获取一定范围内的数据
+	def get_list_range(self,page_num,range,*args,**kwargs):
+		start_index = page_num * range
+		end_index = (page_num + 1)* range
+		_m = self.model.objects.filter(*args,**kwargs)[start_index:end_index]
 		return self._pack_list( self._pack_dict,_m)
 
 	def update(self,model,*args,**kwargs):

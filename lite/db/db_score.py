@@ -47,8 +47,9 @@ if __name__ == '__main__':
     s = DBScore()
     share = Share.objects.get(id=18)
     customer = Customer.objects.get(id=1)
-
-    print (s.filter(seller__uuid = '6a6c8366-7606-11e9-9df9-e95aa2c51b5d'))
+    score = Score.objects.filter(seller__uuid = '6a6c8366-7606-11e9-9df9-e95aa2c51b5d')[0:10]
+    print( score)
+    # print (s.filter(seller__uuid = '6a6c8366-7606-11e9-9df9-e95aa2c51b5d'))
     # print (s.latest(customer,share.store))
     # query = { 'store_': 1}
     # l =  s.get_list(**query )
