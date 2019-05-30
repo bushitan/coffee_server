@@ -20,23 +20,26 @@ class DBShare(DBData):
         }
         return dict(_base,**_new)
 if __name__ == '__main__':
-    import django
-    django.setup()
+    # import django
+    # django.setup()
     # s = DBShare()
     # l = s.get_list()
-    import time,datetime
-    # print (time.strftime('%Y-%m-%d',time.localtime(time.time())))
-    today = datetime.date.today()
-    tomorrow = today + datetime.timedelta(days=1)
-    month_start = today.strftime('%Y-%m') + "-01"
-    # print (today.strftime('%Y-%m') + "-01")
 
+    # 分享拳的日期计算
+    # import time,datetime
+    # # print (time.strftime('%Y-%m-%d',time.localtime(time.time())))
+    # today = datetime.date.today()
+    # tomorrow = today + datetime.timedelta(days=1)
+    # month_start = today.strftime('%Y-%m') + "-01"
+    # db_share = DBShare()
+    # c = db_share.count(store__uuid='d4c572a6-74ba-11e9-a565-e95aa2c51b5d',create_time__range=[today, tomorrow])
 
-    # print (today.strftime('%Y-%m-%d'))
-
-    # print (tomorrow.strftime('%Y-%m-%d'))
-
-    db_share = DBShare()
-    c = db_share.count(store__uuid='d4c572a6-74ba-11e9-a565-e95aa2c51b5d',create_time__range=[today, tomorrow])
-    print (c)
+    # base64 编解码
+    import base64
+    import json
+    encodestr = base64.b64decode('eyJtb2RlIjoiYXV0b19zaGFyZSIsInN0b3JlX3V1aWQiOiIzMjEiLCJzZWxsZXJfdXVpZCI6IjEyMyIsImRlYWRfdGltZSI6IjIwMTktNS0zMCJ9')
+    print(encodestr)
+    j = json.loads( str(encodestr,'utf-8'))
+    print (j['mode'])
+    # print (c)
     # print (l)

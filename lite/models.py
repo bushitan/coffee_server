@@ -138,6 +138,7 @@ class Score(DataBase):
 class Prize(DataBase):
     class Meta:
         verbose_name_plural = verbose_name = u'奖品'
+        ordering = ['-create_time']
     def __str__(self):
         return '%s' % (self.id)
 # 分享券
@@ -147,6 +148,7 @@ class Share(DataBase):
     alive = models.IntegerField(u'有效份数',default=1)
     class Meta:
         verbose_name_plural = verbose_name = u'分享券'
+        ordering = ['-create_time']
     def __str__(self):
         return '%s' % (self.id)
 

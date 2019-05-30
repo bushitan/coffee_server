@@ -9,6 +9,8 @@ action_seller = ActionSeller()
 action_customer = ActionCustomer()
 from lite.action.action_store import *
 action_store = ActionStore()
+from lite.action.action_store_cus import *
+action_store_cus = ActionStoreCus()
 
 from lib.info_map import *
 info_map = InfoMap()
@@ -116,10 +118,23 @@ class CustomerRefresh(ListView):
     @det.customer_exists
     def post(self, request, *args, **kwargs):
         customer_uuid = request.POST.get('customer_uuid',"")
-
         return MSG.sys_success(), {
             'info_list':info_map.pop(customer_uuid)
         }
+
+# 客户自助扫二维码领券
+class CustomerScanAutoShare(ListView):
+    @logged
+    @det.customer_exists
+    def post(self, request, *args, **kwargs):
+        customer_uuid = request.POST.get('customer_uuid',"")
+        qr_base64 = request.POST.get('qr_base64',"")
+        qr_json = action_store_cus.check_qr_base64(qr_base64)
+        seller_uuid = qr_json['seller_uuid']
+        action_store_cus.get_auto_share(seller_uuid,customer_uuid)
+        return MSG.share_success(), {}
+        # print (customer_uuid,qr_base64)
+        # return MSG.sys_success(), {}
 
 
 

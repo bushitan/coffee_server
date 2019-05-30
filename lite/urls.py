@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^store/share/customer/',CustomerShare.as_view()),
     url(r'^refresh/customer',CustomerRefresh.as_view()),
 
+    url(r'^scan/auto_share/customer/',CustomerScanAutoShare.as_view()),
     # …Ãªß
     url(r'^store/update/seller/',SellerUpdate.as_view()),
     url(r'^store/data/seller/',SellerData.as_view()),
