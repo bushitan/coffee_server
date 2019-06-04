@@ -28,6 +28,7 @@ class DBStore(DB):
             "longitude":object.longitude,
 
 
+            "is_auto":object.is_auto,
             "mode":object.mode,
             "exchange_value":object.exchange_value,
             "check_value":object.check_value,
@@ -36,5 +37,10 @@ class DBStore(DB):
             "share_gift_value":object.share_gift_value,
             "share_limit_time":object.share_limit_time,
             "share_valid_time":object.share_valid_time,
+
+            'icon_mode':object.icon_mode,
+            'icon_check_image_url':object.icon_check_image_url,
+            'icon_un_check_image_url':object.icon_un_check_image_url,
+            'icon_full_image_url':object.icon_full_image_url
         }
         return dict(_base,**_new)

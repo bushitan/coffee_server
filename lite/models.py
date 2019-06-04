@@ -25,11 +25,6 @@ class Base(models.Model):
                 self.uuid = str( uuid.uuid1())
             super(Base,self).save(*args, **kwargs)
 
-
-STORE_MODE =  {
-	STORE_MODE_NORMAL:u"普通模式",
-	STORE_MODE_SHARE:u"分享模式",
-}
 # 店铺
 class Store(Base):
     is_business = models.BooleanField(u'是否营业',default=True)
@@ -48,6 +43,7 @@ class Store(Base):
     latitude =  models.FloatField( verbose_name=u'纬度',default=0,null=True,blank=True)
     longitude =  models.FloatField(  verbose_name=u'经度',default=0,null=True,blank=True)
 
+    is_auto = models.BooleanField(u'是否自助集点',default=False)
     mode = models.IntegerField(u'集点模式',default=STORE_MODE_NORMAL,choices=STORE_MODE.items())
     exchange_value = models.IntegerField(u'兑换礼物点数',default=10)
     check_value = models.IntegerField(u'普通核销点数',default=1)
@@ -56,6 +52,12 @@ class Store(Base):
     share_num = models.IntegerField(u'分享人数',default=1)
     share_limit_time = models.IntegerField(u'分享券领取时间间隔(天）',default=1)
     share_valid_time = models.IntegerField(u'分享券有效期(天）',default=1)
+
+    icon_mode = models.IntegerField(u'图标模式',default=STORE_ICON_MODE_CUP,choices=STORE_ICON_MODE.items())
+    icon_check_image_url = models.CharField(max_length=500, verbose_name=u'已集点印章图标',default="",null=True,blank=True)
+    icon_un_check_image_url = models.CharField(max_length=500, verbose_name=u'未集点印章图标',default="",null=True,blank=True)
+    icon_full_image_url = models.CharField(max_length=500, verbose_name=u'集满点印章图标',default="",null=True,blank=True)
+    icon_un_full_image_url = models.CharField(max_length=500, verbose_name=u'未集满点印章图标',default="",null=True,blank=True)
 
     start_time = models.DateTimeField(u'集点开始时间',default = timezone.now)
     end_time = models.DateTimeField(u'集点结束时间',default = day_365_hence)

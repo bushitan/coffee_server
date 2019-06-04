@@ -8,17 +8,19 @@ class BaseAdmin(admin.ModelAdmin):
 
 from django.utils.safestring import mark_safe
 class StoreAdmin(BaseAdmin):
-	list_display = ('id','is_business','title','uuid','mode','exchange_value','address','start_time','end_time',)
+	list_display = ('id','is_business','title','uuid','icon_mode','is_auto','mode','exchange_value','address','start_time','end_time',)
 
 	fieldsets = (
 		(u"展示内容", {'fields': ['is_business','uuid','title','summary','description','logo','icon','phone',]}),
 		(u"分享内容", {'fields': ['share_logo','share_title',]}),
 		(u"二维码", {'fields': ['qr_image','qr',]}),
 		(u"地址", {'fields': ['address','latitude','longitude',]}),
-		(u"核销兑换", {'fields': ['mode', 'exchange_value',]}),
+		(u"核销兑换", {'fields': ['is_auto','mode','exchange_value',]}),
 		(u"普通模式", {'fields': ['check_value',]}),
 		(u"分享模式", {'fields': [ 'share_check_value','share_gift_value','share_num',
                                'share_limit_time','share_valid_time', ]}),
+
+		(u"图标模式", {'fields': ['icon_mode','icon_check_image_url','icon_un_check_image_url','icon_full_image_url',]}),
 		(u"集点有效时间", {'fields': ['start_time','end_time',]}),
     )
 	search_fields = ('id','name','uuid',)
