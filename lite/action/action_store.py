@@ -261,11 +261,23 @@ class ActionStore():
             "scene":scene
         }
 
+    def delete_share(self,share_uuid):
+
+
+        with transaction.atomic():
+
+            share = self.db_share.filter(uuid = share_uuid)
+            score = self.db_score.filter(share = share)
+            # share.update(alive=0)
+            # TODO 把share设置为删除
+            pass
+
 # 查询积分d规则
 def _rule_base(store_uuid,customer_uuid):
     return  {
         'store__uuid':store_uuid,
         'customer__uuid':customer_uuid,
+        # 'is_delete':False,
     }
 def _rule_score(store_uuid,customer_uuid):
     return dict(_rule_base(store_uuid,customer_uuid),**{

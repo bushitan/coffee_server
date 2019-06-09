@@ -169,19 +169,25 @@ def share_auto_time_out(func):
         current_unix = int(time.time())
         if current_unix > unix:
              return MSG.share_is_auto_time_out(), db_store.get_dict(id = store_id)  # 返回店铺信息
-
         # store = db_store.get(uuid = store_uuid)
         # if db_seller.is_exists(uuid = seller_uuid ,store = store ,is_host = True) is False:
         #     return MSG.view_store_host_none(), {}
-
-
-
         return func(self,request,*args, **kwargs)
     return wrapper
 
 
-
-
+# 校验销售是否用拥有分享券的删除权限
+def seller_own_share(func):
+    @base
+    def wrapper(self,request,*args, **kwargs):
+        share_uuid = request.POST.get('share_uuid',"")
+        seller_uuid = request.POST.get('seller_uuid','')
+        seller = db_seller.get(uuid = seller_uuid)
+        share = db_share.get(uuid = share_uuid)
+        if seller.store_id != share.store_id: # 所属店铺不一样
+             return MSG.share_delete_other(), {}
+        return func(self,request,*args, **kwargs)
+    return wrapper
 
 
 

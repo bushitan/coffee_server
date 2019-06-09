@@ -77,7 +77,8 @@ CODE_SHARE_LIMIT     = "%s%s006" %(DIALOG,SHARE)  #限制期间，重复领取
 CODE_SHARE_VALID     = "%s%s007" %(DIALOG,SHARE)  #券已过期
 CODE_SHARE_AUTO_ERROR  = "%s%s008" %(DIALOG,SHARE)  #自助领券信息错误
 CODE_SHARE_AUTO_TIME_OUT  = "%s%s009" %(DIALOG,SHARE)  #自助领券超时
-CODE_SHARE_DELETE  = "%s%s010" %(DIALOG,SHARE)  #删除成功
+CODE_SHARE_DELETE_SUCCESS  = "%s%s010" %(DIALOG,SHARE)  #删除成功
+CODE_SHARE_DELETE_OTHER  = "%s%s011" %(DIALOG,SHARE)  #删除成功
 
 SHARE_FAIL = u'领取失败'
 def share_success():
@@ -107,8 +108,9 @@ def share_is_auto_error():
 def share_is_auto_time_out():
     return {'code':CODE_SHARE_AUTO_TIME_OUT,'title':"自助领券二维码已超时" , 'content':u'请跟店员确认后，再次扫码'}
 def share_delete():
-    return {'code':CODE_SHARE_DELETE,'title':"操作提示" , 'content':u'分享券删除成功'}
-
+    return {'code':CODE_SHARE_DELETE_SUCCESS,'title':"删除成功" , 'content':u'分享券和相应积分删除成功'}
+def share_delete_other():
+    return {'code':CODE_SHARE_DELETE_OTHER,'title':"操作提示" , 'content':u'这个分享券不是本店铺的'}
 
 
 

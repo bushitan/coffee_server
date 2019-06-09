@@ -232,10 +232,12 @@ class SellerAutoShareQR(ListView):
 class SellerShareDelete(ListView):
     @logged
     @det.seller_exists
+    @det.seller_own_share
     def post(self, request, *args, **kwargs):
         share_uuid = request.POST.get('share_uuid',"")
         seller_uuid = request.POST.get('seller_uuid','')
 
+        action_store.delete_share(share_uuid)
         return MSG.share_delete(),{}
 
 
