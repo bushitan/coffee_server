@@ -34,12 +34,16 @@ class ActionStoreCus():
         print(j['dead_time'])
         return j
 
+    def get_info_by_id(self,store_id ):
+        return self.db_store.get_dict(id = store_id)
 
     # 发放福利分享券
-    def get_auto_share(self,seller_uuid,customer_uuid):
-        seller = self.db_seller.get(uuid =seller_uuid)
+    def get_auto_share(self,store_id,seller_id,customer_uuid):
+        seller = self.db_seller.get(id =seller_id)
         customer = self.db_customer.get(uuid =customer_uuid)
         store = seller.store
+        if store.id != int(store_id):
+            return False
 
         # 计算有效期
         share_valid_time = store.share_valid_time
@@ -51,4 +55,23 @@ class ActionStoreCus():
         # 分享集点
         self.db_share.add( store = store ,seller = seller ,customer = customer ,
                            alive = share_num,valid_time = valid_time)
+
         return True
+
+    # 发放福利分享券（已废弃）
+    # def get_auto_share11111(self,seller_uuid,customer_uuid):
+    #     seller = self.db_seller.get(uuid =seller_uuid)
+    #     customer = self.db_customer.get(uuid =customer_uuid)
+    #     store = seller.store
+    #
+    #     # 计算有效期
+    #     share_valid_time = store.share_valid_time
+    #     share_num = store.share_num
+    #     now = datetime.datetime.now()
+    #     now_stamp = time.mktime(now.timetuple())
+    #     valid = now_stamp + share_valid_time * UNIT_SECOND
+    #     valid_time = datetime.datetime.fromtimestamp(valid)
+    #     # 分享集点
+    #     self.db_share.add( store = store ,seller = seller ,customer = customer ,
+    #                        alive = share_num,valid_time = valid_time)
+    #     return True

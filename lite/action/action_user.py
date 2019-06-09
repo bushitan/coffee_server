@@ -2,12 +2,24 @@
 from weixin import WeixinLogin
 from lite.db.db_customer import *
 from lite.db.db_seller import *
+import requests
+import time
+import json
+import base64
+
+import urllib
+import urllib.request
+from urllib import parse, request
 
 class ActionUser():
 	def __init__(self,model,app_id,app_secret):
 		self.db_user = model()
+		self.app_id = app_id
+		self.app_secret = app_secret
+		self.ACCESS_TOKEN = {'access_token':"",'expires_in':7200,'valid_unix':0}
 		self.wxLogin = WeixinLogin(app_id, app_secret)
 
+	# 根据js_code获取session
 	def checkSession(self,code,uuid):
 		# print code,user_id
 		if uuid == "" or self.db_user.is_exists(uuid = uuid) is False:
@@ -16,6 +28,47 @@ class ActionUser():
 			print (data)
 			return self._checkUser(data) # 新用户存入
 		return self.db_user.get_dict(uuid = uuid)
+
+	# 获取不受限制的菊花吗
+	def get_un_limit_qr(self,access_token ,data):
+		url = 'https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=%s' % (access_token)
+		headers = {'content-type': 'application/json'}
+		r = requests.post(url,data=json.dumps(data), headers=headers )
+
+		# file_name = "aa1a.jpg"
+		file_name = data["scene"] + ".jpg" #按照sence，生成菊花码图片文件
+		file_path = "C:\server\wxacodeunlimit/" + file_name
+		f=open(file_path,"wb")
+		f.write(r.content)
+		f.close()
+		return file_name
+
+	# 获取token
+	def get_access_token(self):
+		print ('in token ', self.ACCESS_TOKEN)
+		current_unix = time.time()
+		if current_unix > self.ACCESS_TOKEN['valid_unix']:
+			self._update_token()
+		print ('out token ',self.ACCESS_TOKEN)
+		return self.ACCESS_TOKEN['access_token']
+
+	# 更新touken
+	def _update_token(self):
+		expires_in = 7000
+		current_unix = time.time()
+		valid_unix = current_unix + expires_in
+		_res = self._weixin_token()
+		_res['valid_unix'] = valid_unix
+		self.ACCESS_TOKEN = _res
+		return  _res
+
+	# 请求token
+	def _weixin_token(self):
+		url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s' % (self.app_id , self.app_secret)
+		r = requests.get(url)
+		return json.loads( r.text)
+		# print (int(t))
+		# print(r.text)
 
 	# 获取登陆信息
 	# def getLogin(self,app_id,code):
@@ -60,4 +113,15 @@ class ActionCustomer(ActionUser):
 
 if __name__  == '__main__':
 	a= ActionCustomer()
-	a.checkSession('011m3Wv42jb4IP0QRFy42cW0w42m3Wvu','')
+	# a.checkSession('011m3Wv42jb4IP0QRFy42cW0w42m3Wvu','')
+
+	# str(b'123', encoding='utf-8')
+	# a = bytes.decode(b'123')
+	# print (a)
+	# a.get_access_token()
+	data = {
+            "scene":"sdfghjkl",
+            "page":"pages/route/route",
+        }
+	a.get_un_limit_qr("22_yZ9oeDbaM5z_G7-b7-0LPX1ahrcQAsoX4qntnBcAUYUU3yZqBHbTgqxNwY50xQ-yYYFb6K-Ob7FLwN_pKFAWZQ_rJuhOtk-2cjTJf3xju_js8jcbTX6YX1T9C_DvwJxmIaaAXEsfWO8ImVdiUEYhAAAAKE"
+					  ,data)

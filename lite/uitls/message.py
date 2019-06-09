@@ -75,6 +75,9 @@ CODE_SHARE_USED      = "%s%s004" %(DIALOG,SHARE)  #已领取
 CODE_SHARE_SELF      = "%s%s005" %(DIALOG,SHARE)  #不能领取自己的券
 CODE_SHARE_LIMIT     = "%s%s006" %(DIALOG,SHARE)  #限制期间，重复领取
 CODE_SHARE_VALID     = "%s%s007" %(DIALOG,SHARE)  #券已过期
+CODE_SHARE_AUTO_ERROR  = "%s%s008" %(DIALOG,SHARE)  #自助领券信息错误
+CODE_SHARE_AUTO_TIME_OUT  = "%s%s009" %(DIALOG,SHARE)  #自助领券超时
+CODE_SHARE_DELETE  = "%s%s010" %(DIALOG,SHARE)  #删除成功
 
 SHARE_FAIL = u'领取失败'
 def share_success():
@@ -82,7 +85,7 @@ def share_success():
 def share_send(score):
     return {'code':CODE_SHARE_SEND,'title':u"分享好友成功" , 'content':u'获得了%s点' %(score)}
 def share_receive(score):
-    return {'code':CODE_SHARE_SEND,'title':u"领取分享成功" , 'content':u'获得了%s点' %(score)}
+    return {'code':CODE_SHARE_RECEIVE,'title':u"领取分享成功" , 'content':u'获得了%s点' %(score)}
 def share_is_none():
     return {'code':CODE_SHARE_NONE,'title':SHARE_FAIL , 'content':u'福利分享券不存在'}
 def share_is_used():
@@ -99,6 +102,15 @@ def share_is_limit(date):
     return {'code':CODE_SHARE_LIMIT,'title':SHARE_FAIL , 'content':u'请在%s之后继续领取'%(d) }
 def share_is_valid():
     return {'code':CODE_SHARE_VALID,'title':SHARE_FAIL , 'content':u'福利分享券已过期'}
+def share_is_auto_error():
+    return {'code':CODE_SHARE_AUTO_ERROR,'title':"自助领券信息错误" , 'content':u'请跟店员确认后，再次扫码'}
+def share_is_auto_time_out():
+    return {'code':CODE_SHARE_AUTO_TIME_OUT,'title':"自助领券二维码已超时" , 'content':u'请跟店员确认后，再次扫码'}
+def share_delete():
+    return {'code':CODE_SHARE_DELETE,'title':"操作提示" , 'content':u'分享券删除成功'}
+
+
+
 
 # 05 扫码
 CODE_SCAN_SCORE      = "%s%s001" %(DIALOG,SCAN)  #发放集点

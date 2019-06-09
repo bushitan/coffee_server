@@ -32,7 +32,7 @@ if __name__ == '__main__':
     # tomorrow = today + datetime.timedelta(days=1)
     # month_start = today.strftime('%Y-%m') + "-01"
     # db_share = DBShare()
-    # c = db_share.count(store__uuid='d4c572a6-74ba-11e9-a565-e95aa2c51b5d',create_time__range=[today, tomorrow])
+    # c = db_share.count(store__uuid='d4c572a6-74ba-11e9-a56    5-e95aa2c51b5d',create_time__range=[today, tomorrow])
 
     # base64 编解码
     import base64

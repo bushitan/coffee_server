@@ -20,7 +20,8 @@ class StoreAdmin(BaseAdmin):
 		(u"分享模式", {'fields': [ 'share_check_value','share_gift_value','share_num',
                                'share_limit_time','share_valid_time', ]}),
 
-		(u"图标模式", {'fields': ['icon_mode','icon_check_image_url','icon_un_check_image_url','icon_full_image_url',]}),
+		(u"图标模式", {'fields': ['icon_mode','icon_check_image_url','icon_un_check_image_url',
+							  'icon_full_image_url','icon_un_full_image_url',]}),
 		(u"集点有效时间", {'fields': ['start_time','end_time',]}),
     )
 	search_fields = ('id','name','uuid',)

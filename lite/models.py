@@ -120,6 +120,7 @@ class DataBase(Base):
     seller = models.ForeignKey(Seller, verbose_name=u'核销店员',null=True,blank=True)
     customer = models.ForeignKey(Customer,verbose_name=u'所属客户',null=True,blank=True)
     valid_time = models.DateTimeField(u'有效期',default = timezone.now)
+    is_delete = models.BooleanField(u'是否被删除',default=False)
     class Meta:
         abstract = True
 # 积分
@@ -128,7 +129,7 @@ class Score(DataBase):
     exchange_time = models.DateTimeField(u'礼物兑换时间',default = timezone.now)
     share = models.ForeignKey('Share', verbose_name=u'分享券',null=True,blank=True)
 
-    is_delete = models.BooleanField(u'是否被删除',default=False)
+    # is_delete = models.BooleanField(u'是否被删除',default=False)
     delete_seller = models.ForeignKey(Seller, related_name='delete_seller',verbose_name=u'删除的店员',null=True,blank=True)
     class Meta:
         verbose_name_plural = verbose_name = u'积分'

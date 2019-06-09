@@ -12,6 +12,8 @@ STORE_MODE =  {
 	STORE_MODE_SHARE:u"分享模式",
     STORE_MODE_ALL:u"普通分享并行模式",
 }
+#自助分享全领取码有效期
+STORE_AUTO_SHARE_EXPIRES = 600 #10分钟
 
 
 #######积分卡模式##############
@@ -30,3 +32,19 @@ STORE_ICON_MODE =  {
 	STORE_ICON_MODE_CUP:u"杯子图案",
 	STORE_ICON_MODE_STAMP:u"印章图案",
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

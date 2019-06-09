@@ -116,7 +116,7 @@ def seller_host(func):
     return wrapper
 
 
-# 校验顾客存在
+# 查询分享券是否存在
 def share_exists(func):
     @base
     def wrapper(self,request,*args, **kwargs):
@@ -159,8 +159,25 @@ def share_exists(func):
         return func(self,request,*args, **kwargs)
     return wrapper
 
+import time
+# 自动分享券是否超时
+def share_auto_time_out(func):
+    @base
+    def wrapper(self,request,*args, **kwargs):
+        unix = int(request.POST.get('unix',""))
+        store_id = request.POST.get('store_id',"")
+        current_unix = int(time.time())
+        if current_unix > unix:
+             return MSG.share_is_auto_time_out(), db_store.get_dict(id = store_id)  # 返回店铺信息
+
+        # store = db_store.get(uuid = store_uuid)
+        # if db_seller.is_exists(uuid = seller_uuid ,store = store ,is_host = True) is False:
+        #     return MSG.view_store_host_none(), {}
 
 
+
+        return func(self,request,*args, **kwargs)
+    return wrapper
 
 
 

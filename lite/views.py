@@ -126,13 +126,33 @@ class CustomerRefresh(ListView):
 class CustomerScanAutoShare(ListView):
     @logged
     @det.customer_exists
+    @det.share_auto_time_out
     def post(self, request, *args, **kwargs):
+        # TODO store_id
+        store_id = request.POST.get('store_id',"")
+        seller_id =  request.POST.get('seller_id',"")
+        # unix =  request.POST.get('unix',"")
         customer_uuid = request.POST.get('customer_uuid',"")
-        qr_base64 = request.POST.get('qr_base64',"")
-        qr_json = action_store_cus.check_qr_base64(qr_base64)
-        seller_uuid = qr_json['seller_uuid']
-        action_store_cus.get_auto_share(seller_uuid,customer_uuid)
-        return MSG.share_success(), {}
+        r = action_store_cus.get_auto_share(store_id,seller_id,customer_uuid)
+        if r is True :
+            return MSG.share_success(), action_store_cus.get_info_by_id(store_id)
+        else:
+            return MSG.share_is_auto_error ,{}
+
+# 客户自助扫二维码领券(已废弃）
+# class CustomerScanAutoShare111111(ListView):
+#     @logged
+#     @det.customer_exists
+#     def post(self, request, *args, **kwargs):
+#         # 二维码分享--废弃
+#         customer_uuid = request.POST.get('customer_uuid',"")
+#         qr_base64 = request.POST.get('qr_base64',"")
+#         qr_json = action_store_cus.check_qr_base64(qr_base64)
+#         seller_uuid = qr_json['seller_uuid']
+#         action_store_cus.get_auto_share(seller_uuid,customer_uuid)
+#         return MSG.share_success(), {}
+
+
         # print (customer_uuid,qr_base64)
         # return MSG.sys_success(), {}
 
@@ -189,6 +209,36 @@ class SellerHostData(ListView):
         # seller_uuid = request.POST.get('seller_uuid','')
         return MSG.sys_success(),action_store.get_host_data(store_uuid)
 
+# 获取自助分享模式二维码
+class SellerAutoShareQR(ListView):
+    @logged
+    @det.seller_exists
+    def post(self, request, *args, **kwargs):
+        # store_uuid = request.POST.get('store_uuid','')
+        seller_uuid = request.POST.get('seller_uuid','')
+        # print(seller_uuid)
+        qr_data = action_store.get_auto_share_qr_data(seller_uuid)
+        # 生成自助二维码
+        access_token = action_customer.get_access_token()
+        qr = action_customer.get_un_limit_qr( access_token ,qr_data )
+        return MSG.sys_success(),{'token': action_customer.get_access_token(),"qr":qr}
+        # seller_uuid = request.POST.get('seller_uuid','')
+        # data = {
+        #     "scene":"sdfghjkl",
+        #     "page":"pages/route/route",
+        # }
+
+    # 获取自助分享模式二维码
+class SellerShareDelete(ListView):
+    @logged
+    @det.seller_exists
+    def post(self, request, *args, **kwargs):
+        share_uuid = request.POST.get('share_uuid',"")
+        seller_uuid = request.POST.get('seller_uuid','')
+
+        return MSG.share_delete(),{}
+
+
 # 扫码
 class SellerScan(ListView):
     @logged
@@ -217,6 +267,66 @@ class SellerScan(ListView):
             else:
                 return MSG.scan_prize_none(),{}
 
+
+# 扫码集点
+class SellerScanScore(ListView):
+    @logged
+    @det.seller_exists
+    @det.customer_exists
+    @det.scan_exists
+    def post(self, request, *args, **kwargs):
+        seller_uuid = request.POST.get('seller_uuid','')
+        customer_uuid = request.POST.get('customer_uuid','')
+        action_store.add_score(seller_uuid,customer_uuid)
+        info_map.add( customer_uuid,MSG.score_success())
+        return MSG.scan_score(),{}
+
+# 发放分享券
+class SellerScanShare(ListView):
+    @logged
+    @det.seller_exists
+    @det.customer_exists
+    @det.scan_exists
+    def post(self, request, *args, **kwargs):
+        seller_uuid = request.POST.get('seller_uuid','')
+        customer_uuid = request.POST.get('customer_uuid','')
+        action_store.add_share(seller_uuid,customer_uuid)
+        info_map.add( customer_uuid,MSG.share_success())
+        return MSG.scan_share(),{}
+
+# 兑换福利
+class SellerScanPrize(ListView):
+    @logged
+    @det.seller_exists
+    @det.customer_exists
+    @det.scan_exists
+    def post(self, request, *args, **kwargs):
+        seller_uuid = request.POST.get('seller_uuid','')
+        customer_uuid = request.POST.get('customer_uuid','')
+        is_success = action_store.add_prize(seller_uuid,customer_uuid)
+        if is_success:
+            info_map.add( customer_uuid,MSG.prize_success())
+            return MSG.scan_prize(),{}
+        else:
+            return MSG.scan_prize_none(),{}
+
+
+        # if model == 'score': # 发放积分 or 分享券
+        #     is_score = action_store.add_score(seller_uuid,customer_uuid)
+        #     if is_score:
+        #         info_map.add( customer_uuid,MSG.score_success())
+        #         return MSG.scan_score(),{}
+        #     else :
+        #         info_map.add( customer_uuid,MSG.share_success())
+        #         return MSG.scan_share(),{}
+        # else:# 兑换奖品
+        # # if model == 'prize':
+        #     is_success = action_store.add_prize(seller_uuid,customer_uuid)
+        #     if is_success:
+        #         info_map.add( customer_uuid,MSG.prize_success())
+        #         return MSG.scan_prize(),{}
+        #     else:
+        #         return MSG.scan_prize_none(),{}
 
         # # 核查销售权限
         # store = action_store.get_seller_store(seller_uuid)

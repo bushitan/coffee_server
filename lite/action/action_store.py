@@ -25,9 +25,11 @@ class ActionStore():
         self.db_score = DBScore()
         self.db_prize = DBPrize()
         self.db_share = DBShare()
-    def get_info(self,store_uuid):
+
+    def get_info(self,store_uuid ):
         return self.db_store.get_dict(uuid = store_uuid)
 
+    # 增加用户关系列表
     def check_rel_store_customer(self,store_uuid,customer_uuid):
         if self.db_rel_store_customer.is_exists(
             store__uuid = store_uuid,
@@ -113,36 +115,37 @@ class ActionStore():
         else:
             return seller.store
 
+    # 增加积分，普通集点
     def add_score(self,seller_uuid,customer_uuid):
         seller = self.db_seller.get(uuid =seller_uuid)
         customer = self.db_customer.get(uuid =customer_uuid)
         store = seller.store
+        # 普通集点
+        self.db_score.add( store = store ,seller = seller ,customer = customer )
+        return True
 
-        if store.mode == STORE_MODE_NORMAL:
-            # 普通集点
-            self.db_score.add( store = store ,seller = seller ,customer = customer )
-            return True
-        else :
-            # 计算有效期
-            share_valid_time = store.share_valid_time
-            share_num = store.share_num
-            now = datetime.datetime.now()
-            now_stamp = time.mktime(now.timetuple())
-            valid = now_stamp + share_valid_time * UNIT_SECOND
-            valid_time = datetime.datetime.fromtimestamp(valid)
-            # 分享集点
-            self.db_share.add( store = store ,seller = seller ,customer = customer ,
-                               alive = share_num,valid_time = valid_time)
-            return False
-        # if model == 'score':
+    #  发放分享券
+    def add_share(self,seller_uuid,customer_uuid):
+        seller = self.db_seller.get(uuid =seller_uuid)
+        customer = self.db_customer.get(uuid =customer_uuid)
+        store = seller.store
+        # 计算有效期
+        share_valid_time = store.share_valid_time
+        share_num = store.share_num
+        now = datetime.datetime.now()
+        now_stamp = time.mktime(now.timetuple())
+        valid = now_stamp + share_valid_time * UNIT_SECOND
+        valid_time = datetime.datetime.fromtimestamp(valid)
+        # 分享集点
+        self.db_share.add( store = store ,seller = seller ,customer = customer ,
+                           alive = share_num,valid_time = valid_time)
+        return True
 
+    # 兑换福利
     def add_prize(self,seller_uuid,customer_uuid):
         seller = self.db_seller.get(uuid =seller_uuid)
         customer = self.db_customer.get(uuid =customer_uuid)
         store = seller.store
-
-        # 查询可用积分的数量
-        # score_count = self.db_score.count(store=store,customer=customer,is_used = False,is_delete=False)
         score_count = self.db_score.count_valid(store.uuid,customer_uuid),
         print ( store.exchange_value, score_count)
         if store.exchange_value <= score_count:
@@ -153,6 +156,34 @@ class ActionStore():
             return True
         else:
             return False
+
+    # def add_score(self,seller_uuid,customer_uuid):
+    #     seller = self.db_seller.get(uuid =seller_uuid)
+    #     customer = self.db_customer.get(uuid =customer_uuid)
+    #     store = seller.store
+    #
+    #     if store.mode == STORE_MODE_NORMAL:
+    #         # 普通集点
+    #         self.db_score.add( store = store ,seller = seller ,customer = customer )
+    #         return True
+    #     else :
+    #         # 计算有效期
+    #         share_valid_time = store.share_valid_time
+    #         share_num = store.share_num
+    #         now = datetime.datetime.now()
+    #         now_stamp = time.mktime(now.timetuple())
+    #         valid = now_stamp + share_valid_time * UNIT_SECOND
+    #         valid_time = datetime.datetime.fromtimestamp(valid)
+    #         # 分享集点
+    #         self.db_share.add( store = store ,seller = seller ,customer = customer ,
+    #                            alive = share_num,valid_time = valid_time)
+    #         return False
+
+
+
+        # 查询可用积分的数量
+        # score_count = self.db_score.count(store=store,customer=customer,is_used = False,is_delete=False)
+
 
     # 使用分享兑换积分
     def check_share_score(self,share_uuid,receive_customer_uuid):
@@ -219,6 +250,17 @@ class ActionStore():
             'share_all':self.db_share.count(store__uuid=store_uuid),
         }
 
+    #获取自助二维码信息
+    def get_auto_share_qr_data(self,seller_uuid):
+        seller = self.db_seller.get(uuid = seller_uuid)
+        store_id = seller.store_id
+        seller_id = seller.id
+        end_unix = int( time.time() + STORE_AUTO_SHARE_EXPIRES)
+        scene = "sh_%s_%s_%s" % ( str(store_id),str(seller_id), str(end_unix))
+        return {
+            "scene":scene
+        }
+
 # 查询积分d规则
 def _rule_base(store_uuid,customer_uuid):
     return  {
@@ -245,6 +287,7 @@ if __name__  == '__main__':
     import django
     django.setup()
     a= ActionStore()
+    a.get_auto_share_qr_data("1bb68822-7156-11e9-902f-e95aa2c51b5d")
     # print (a.get_store_customer_list('8e6d4c98-63d3-11e9-ad07-b83312f00bac'))
 
     # r = a.check_share_score(
