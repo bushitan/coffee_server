@@ -76,22 +76,6 @@ WSGI_APPLICATION = 'coffee_server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
-
-     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'coffee_server',
-        'USER': 'root',
-        'PASSWORD':'root',
-        'HOST':'127.0.0.1',
-        'PORT':'3306',
-    }
-}
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -167,12 +151,30 @@ LOGGING = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-ENV_URL = 'dev/'
-STATIC_URL = '/dev/static/'
 
 
+# 上线环境数据库版本
+# TODO 以dev + 日期，例如：dev20190611 作为编号，区分数据库版本号
+DATABASES = {
+     'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'coffee_server',
+        'NAME': 'coffee_server_20190611', # TODO
+        'USER': 'root',
+        'PASSWORD':'root',
+        'HOST':'127.0.0.1',
+        'PORT':'3306',
+    }
+}
+
+# 上线环境版本号
+# TODO 以dev + 日期，例如：dev20190611 作为编号，区分服务器版本号
+ENV_URL = 'dev/' # TODO
+
+STATIC_URL = '/static/' #静态文件，nginx已经固定目录，可以不需要更改
 # ENV_URL = ''
-# STATIC_URL = '/static/'
 
 
+# 原生操作
 # STATIC_URL = '/static/'
+# STATIC_ROOT = '/static/'

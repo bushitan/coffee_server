@@ -20,8 +20,9 @@ def logged(func):
         except BaseException as e:
             logger.error(self.__class__.__name__ +" ---- " + str(e)) #打印错误日志
             _dict = {
-                'class_name' : self.__class__.__name__,
-                "error":str(e),
+                'message':MSG.sys_error() ,
+                'class_name': self.__class__.__name__,
+                'error':  str(e)
             }
             return HttpResponse( json.dumps( _dict ),content_type="application/json" )
     return wrapper

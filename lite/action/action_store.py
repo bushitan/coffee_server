@@ -146,7 +146,7 @@ class ActionStore():
         seller = self.db_seller.get(uuid =seller_uuid)
         customer = self.db_customer.get(uuid =customer_uuid)
         store = seller.store
-        score_count = self.db_score.count_valid(store.uuid,customer_uuid),
+        score_count = self.db_score.count_valid(store.uuid,customer_uuid)
         print ( store.exchange_value, score_count)
         if store.exchange_value <= score_count:
             with transaction.atomic():

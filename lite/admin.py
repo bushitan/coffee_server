@@ -81,17 +81,19 @@ admin.site.register(Score,ScoreAdmin)
 
 
 class PrizeAdmin(BaseAdmin):
-	list_display = ('id','store_id','seller_id','customer_id',)
+	list_display = ('id','store_id','seller_id','customer_id','is_delete','create_time',)
 	fieldsets = (
         (u"兑换", {'fields': ['store','customer','seller',]}),
+        (u" 删除状态", {'fields': ['is_delete','delete_seller',]}),
     )
 	search_fields = ('id',)
 admin.site.register(Prize,PrizeAdmin)
 
 class ShareAdmin(BaseAdmin):
-	list_display = ('id','store_id','uuid','seller_id','customer_id','receive_customer','alive','valid_time','create_time',)
+	list_display = ('id','store_id','uuid','seller_id','customer_id','receive_customer','alive','valid_time','is_delete','create_time',)
 	fieldsets = (
         (u"兑换", {'fields': ['uuid','store','seller','customer','receive_customer','receive_time','alive','valid_time','create_time',]}),
+        (u" 删除状态", {'fields': ['is_delete','delete_seller',]}),
     )
 	search_fields = ('id',)
 admin.site.register(Share,ShareAdmin)
