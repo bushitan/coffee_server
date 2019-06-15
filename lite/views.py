@@ -11,9 +11,12 @@ from lite.action.action_store import *
 action_store = ActionStore()
 from lite.action.action_store_cus import *
 action_store_cus = ActionStoreCus()
+from lite.action.action_wm import *
+action_wm = ActionWm()
 
 from lib.info_map import *
 info_map = InfoMap()
+from lib.util import *
 
 # @log
 class UserLogin(ListView):
@@ -137,7 +140,33 @@ class CustomerScanAutoShare(ListView):
         if r is True :
             return MSG.share_success(), action_store_cus.get_info_by_id(store_id)
         else:
-            return MSG.share_is_auto_error ,{}
+            return MSG.share_is_auto_error() ,{}
+
+
+# 外卖模式--客户自助扫领取
+class CustomerScanWm(ListView):
+    @logged
+    @det.customer_exists
+    @det.wm_qr_exist
+    @det.wm_qr_status
+    def post(self, request, *args, **kwargs):
+        wm_short_uuid = request.POST.get('wm_short_uuid',"")
+        customer_uuid =  request.POST.get('customer_uuid',"")
+        mode = action_wm.get_mode(wm_short_uuid)
+        call_back_data =  action_wm.get_store_uuid(wm_short_uuid)
+        if mode == STORE_WM_MODE_NORMAL : #积分模式
+            score_num = action_wm.check_add_score(wm_short_uuid,customer_uuid)
+            return MSG.wm_score(score_num) ,call_back_data
+        elif mode == STORE_WM_MODE_SHARE: #分享模式
+            share_num = action_wm.check_add_share(wm_short_uuid,customer_uuid)
+            return MSG.wm_share(share_num) ,call_back_data
+        elif mode == STORE_WM_MODE_ALL: #并行模式
+            score_num = action_wm.check_add_score(wm_short_uuid,customer_uuid)
+            share_num = action_wm.check_add_share(wm_short_uuid,customer_uuid)
+            return MSG.wm_all(score_num,share_num) ,call_back_data
+        else : #外卖已关闭
+            return MSG.wm_close() ,{}
+
 
 # 客户自助扫二维码领券(已废弃）
 # class CustomerScanAutoShare111111(ListView):

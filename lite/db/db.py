@@ -103,6 +103,7 @@ class DBData(DB):
             "customer_avatar_url":object.customer.avatar_url if object.customer is not None else "" ,
             "customer_nick_name":object.customer.nick_name if object.customer is not None else "" ,
             "valid_time":object.valid_time.strftime("%Y-%m-%d %H:%M:%S"),
+			"is_delete":object.is_delete,
 		}
 		return dict(_base,**_new)
 	# def __init__(self):

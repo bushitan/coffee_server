@@ -23,6 +23,7 @@ class StoreAdmin(BaseAdmin):
 		(u"图标模式", {'fields': ['icon_mode','icon_check_image_url','icon_un_check_image_url',
 							  'icon_full_image_url','icon_un_full_image_url',]}),
 		(u"集点有效时间", {'fields': ['start_time','end_time',]}),
+		(u"外卖", {'fields': ['wm_mode','wm_check_num','wm_share_num',]}),
     )
 	search_fields = ('id','name','uuid',)
 	def qr_image(self, obj):
@@ -74,11 +75,24 @@ class ScoreAdmin(BaseAdmin):
         (u"公共数据", {'fields': ['is_used','exchange_time','share','create_time',]}),
         (u"集点数据", {'fields': ['store','seller','customer',]}),
         (u" 删除状态", {'fields': ['is_delete','delete_seller',]}),
+        (u" 外卖", {'fields': ['wm_ticket',]}),
         # (u"分享积分", {'fields': ['share',]}),
     )
 	search_fields = ('id',)
 admin.site.register(Score,ScoreAdmin)
 
+
+
+class ShareAdmin(BaseAdmin):
+	list_display = ('id','store_id','uuid','seller_id','customer_id',
+					'alive','valid_time','is_delete','create_time',)
+	fieldsets = (
+        (u"兑换", {'fields': ['uuid','store','seller','customer','receive_customer','receive_time','alive','valid_time','create_time',]}),
+        (u" 删除状态", {'fields': ['is_delete','delete_seller',]}),
+        (u" 外卖", {'fields': ['wm_ticket',]}),
+    )
+	search_fields = ('id',)
+admin.site.register(Share,ShareAdmin)
 
 class PrizeAdmin(BaseAdmin):
 	list_display = ('id','store_id','seller_id','customer_id','is_delete','create_time',)
@@ -89,11 +103,14 @@ class PrizeAdmin(BaseAdmin):
 	search_fields = ('id',)
 admin.site.register(Prize,PrizeAdmin)
 
-class ShareAdmin(BaseAdmin):
-	list_display = ('id','store_id','uuid','seller_id','customer_id','receive_customer','alive','valid_time','is_delete','create_time',)
-	fieldsets = (
-        (u"兑换", {'fields': ['uuid','store','seller','customer','receive_customer','receive_time','alive','valid_time','create_time',]}),
-        (u" 删除状态", {'fields': ['is_delete','delete_seller',]}),
-    )
+
+# 外卖
+
+class WmTicketAdmin(BaseAdmin):
+	list_display = ('id','short_uuid','store','customer','is_used','is_delete','create_time',)
+	# fieldsets = (
+	#     (u"兑换", {'fields': ['uuid','store','seller','customer','receive_customer','receive_time','alive','valid_time','create_time',]}),
+	#     (u" 删除状态", {'fields': ['is_delete','delete_seller',]}),
+	# )
 	search_fields = ('id',)
-admin.site.register(Share,ShareAdmin)
+admin.site.register(WmTicket,WmTicketAdmin)

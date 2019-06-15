@@ -15,7 +15,8 @@ urlpatterns = [
     url(r'^store/share/customer/',CustomerShare.as_view()),
     url(r'^refresh/customer',CustomerRefresh.as_view()),
 
-    url(r'^scan/auto_share/customer/',CustomerScanAutoShare.as_view()), #客户扫码，自助模式
+    url(r'^scan/auto_share/customer/',CustomerScanAutoShare.as_view()),
+    url(r'^scan/wm/customer/',CustomerScanWm.as_view()), #客户扫码，自助模式
 
     # 商户
     url(r'^store/update/seller/',SellerUpdate.as_view()),
@@ -29,6 +30,7 @@ urlpatterns = [
     url(r'^scan/score/seller/',SellerScanScore.as_view()),
     url(r'^scan/share/seller/',SellerScanShare.as_view()),
     url(r'^scan/prize/seller/',SellerScanPrize.as_view()),
+
  # url(r'^store/invite/seller/',SellerInvite.as_view()),
  #    url(r'^store/quit/seller/',SellerQuit.as_view()),
     # url(r'^store/apply/seller/',SellerApply.as_view()), # 暂无

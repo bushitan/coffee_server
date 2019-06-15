@@ -41,6 +41,11 @@ class DBStore(DB):
             'icon_mode':object.icon_mode,
             'icon_check_image_url':object.icon_check_image_url,
             'icon_un_check_image_url':object.icon_un_check_image_url,
-            'icon_full_image_url':object.icon_full_image_url
+            'icon_full_image_url':object.icon_full_image_url,
+
+            # 外卖模式
+            "wm_mode":object.wm_mode,
+            "wm_check_num":object.wm_check_num,
+            "wm_share_num":object.wm_share_num,
         }
         return dict(_base,**_new)

@@ -10,6 +10,7 @@ SCORE = "02"     #积分
 PRIZE = "03"     # 礼品
 SHARE = "04"    #分享
 SCAN  = "05"     #扫码
+WM  = "06"     #外卖
 
 # 00 系统
 CODE_SYS_SUCCESS = "%s%s001" %(DIALOG,SYS)  # 正常返回，无任何提示
@@ -63,7 +64,7 @@ def view_scan_none():
 # 02 积分
 CODE_SCORE_SUCCESS = "%s%s001" %(DIALOG,SCORE)  #积分成功
 def score_success():
-    return {'code':CODE_SCORE_SUCCESS,'title':u"集点成功" , 'content':u''}
+    return {'code':CODE_SCORE_SUCCESS,'title':u"集点成功" , 'content':u'获得了1点'}
 
 # 03 礼品
 CODE_PRIZE_SUCCESS = "%s%s001" %(DIALOG,PRIZE)  #积分成功
@@ -132,3 +133,31 @@ def scan_share():
 def scan_prize_none():
     return {'code':CODE_SCAN_PRIZE_USED,'title':u"兑换失败" , 'content':u'兑换福利所需点数不够'}
 
+
+# 05 扫码
+CODE_WM_SCORE      = "%s%s001" %(DIALOG,WM)  #发放集点
+CODE_WM_SHARE      = "%s%s002" %(DIALOG,WM)  #发放福利分享券
+CODE_WM_ALL      = "%s%s003" %(DIALOG,WM)  #并行模式
+CODE_WM_CLOSE      = "%s%s004" %(DIALOG,WM)  #外卖已关闭
+CODE_WM_TIME_OUT      = "%s%s005" %(DIALOG,WM)  #外卖已关闭
+CODE_WM_USED      = "%s%s006" %(DIALOG,WM)  #外卖已关闭
+CODE_WM_DELETE     = "%s%s007" %(DIALOG,WM)  #外卖已关闭
+def wm_score(num):
+    return {'code':CODE_WM_SCORE,'title':u"集点成功" , 'content':u'获得了%s点' %(num)}
+def wm_share(num):
+    return {'code':CODE_WM_SHARE,'title':u"获得福利分享券" , 'content':u'获得了%s张券'%(num)}
+def wm_all(score_num,share_num):
+    return {'code':CODE_WM_ALL,
+        'title':u"集点成功，并获得福利分享券" ,
+        'content':u'获得了%s点，获得了%s张券'%(score_num,share_num)}
+def wm_close():
+    return {'code':CODE_WM_CLOSE,'title':u"温馨提示" , 'content':u'店家已经关闭外卖功能'}
+def wm_time_out():
+    return {'code':CODE_WM_TIME_OUT,'title':u"温馨提示" , 'content':u'二维码已经过期'}
+def wm_used():
+    return {'code':CODE_WM_USED,'title':u"温馨提示" , 'content':u'二维码已使用'}
+def wm_delete():
+    return {'code':CODE_WM_DELETE,'title':u"温馨提示" , 'content':u'二维码已废弃'}
+
+
+print (CODE_WM_SCORE)

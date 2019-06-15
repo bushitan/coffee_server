@@ -16,7 +16,7 @@ from lib.short_uuid import short_uuid_create
 class Base(models.Model):
     name = models.CharField(max_length=32, verbose_name=u'名字',default="",null=True,blank=True)
     uuid = models.CharField(max_length=36, verbose_name=u'uuid',default="",null=True,blank=True)
-    # short_uuid = models.CharField(max_length=36, verbose_name=u'短uuid',default="",null=True,blank=True)
+    short_uuid = models.CharField(max_length=36, verbose_name=u'短uuid',default="",null=True,blank=True)
     create_time = models.DateTimeField(u'创建时间',default = timezone.now)
     class Meta:
         abstract = True
@@ -25,8 +25,8 @@ class Base(models.Model):
             print (self)
             if not self.uuid:
                 self.uuid = str( uuid.uuid1())
-            # if not self.short_uuid:
-            #     self.short_uuid = short_uuid_create()
+            if not self.short_uuid:
+                self.short_uuid = short_uuid_create(self.uuid)
             super(Base,self).save(*args, **kwargs)
 
 # 店铺
@@ -62,6 +62,10 @@ class Store(Base):
     icon_un_check_image_url = models.CharField(max_length=500, verbose_name=u'未集点印章图标',default="",null=True,blank=True)
     icon_full_image_url = models.CharField(max_length=500, verbose_name=u'集满点印章图标',default="",null=True,blank=True)
     icon_un_full_image_url = models.CharField(max_length=500, verbose_name=u'未集满点印章图标',default="",null=True,blank=True)
+
+    wm_mode = models.IntegerField(u'外卖模式',default=STORE_WM_MODE_NORMAL,choices=STORE_WM_MODE.items())
+    wm_check_num =  models.IntegerField(u'发放普通核销点数量',default=1)
+    wm_share_num =  models.IntegerField(u'发放分享券数量',default=1)
 
     start_time = models.DateTimeField(u'集点开始时间',default = timezone.now)
     end_time = models.DateTimeField(u'集点结束时间',default = day_365_hence)
@@ -130,6 +134,7 @@ class DataBase(Base):
     customer = models.ForeignKey(Customer,verbose_name=u'所属客户',null=True,blank=True)
     valid_time = models.DateTimeField(u'有效期',default = timezone.now)
     is_delete = models.BooleanField(u'是否被删除',default=False)
+    # source = models.IntegerField(u'来源（默认扫码）',default=DATA_SOURCE_SCAN,choices=DATA_SOURCE.items())
     class Meta:
         abstract = True
 # 积分
@@ -137,11 +142,25 @@ class Score(DataBase):
     is_used= models.BooleanField(u'是否已使用',default=False)
     exchange_time = models.DateTimeField(u'礼物兑换时间',default = timezone.now)
     share = models.ForeignKey('Share', verbose_name=u'分享券',null=True,blank=True)
+    wm_ticket = models.ForeignKey('WmTicket', verbose_name=u'外卖码',null=True,blank=True)
 
     # is_delete = models.BooleanField(u'是否被删除',default=False)
     delete_seller = models.ForeignKey(Seller, related_name='score_delete_seller',verbose_name=u'删除的店员',null=True,blank=True)
     class Meta:
         verbose_name_plural = verbose_name = u'积分'
+        ordering = ['-create_time']
+    def __str__(self):
+        return '%s' % (self.id)
+
+# 分享券
+class Share(DataBase):
+    receive_customer = models.ForeignKey(Customer,related_name='receive_customer', verbose_name=u'接受客户',null=True,blank=True)
+    receive_time = models.DateTimeField(u'接受时间',default = timezone.now)
+    alive = models.IntegerField(u'有效份数',default=1)
+    delete_seller = models.ForeignKey(Seller, related_name='share_delete_seller',verbose_name=u'删除的店员',null=True,blank=True)
+    wm_ticket = models.ForeignKey('WmTicket', verbose_name=u'外卖码',null=True,blank=True)
+    class Meta:
+        verbose_name_plural = verbose_name = u'分享券'
         ordering = ['-create_time']
     def __str__(self):
         return '%s' % (self.id)
@@ -154,37 +173,21 @@ class Prize(DataBase):
         ordering = ['-create_time']
     def __str__(self):
         return '%s' % (self.id)
-# 分享券
-class Share(DataBase):
-    receive_customer = models.ForeignKey(Customer,related_name='receive_customer', verbose_name=u'接受客户',null=True,blank=True)
-    receive_time = models.DateTimeField(u'接受时间',default = timezone.now)
-    alive = models.IntegerField(u'有效份数',default=1)
-    delete_seller = models.ForeignKey(Seller, related_name='share_delete_seller',verbose_name=u'删除的店员',null=True,blank=True)
-    class Meta:
-        verbose_name_plural = verbose_name = u'分享券'
-        ordering = ['-create_time']
-    def __str__(self):
-        return '%s' % (self.id)
-
 
 
 
 class WmTicket(Base):
-
-
-
+    store = models.ForeignKey(Store,verbose_name=u'所属店铺',null=True,blank=True)
+    customer = models.ForeignKey(Customer,verbose_name=u'领取客户',null=True,blank=True)
+    is_used= models.BooleanField(u'是否已使用',default=False)
+    is_delete = models.BooleanField(u'是否被删除',default=False)
+    start_time = models.DateTimeField(u'外卖活动开始时间',default = timezone.now)
+    end_time = models.DateTimeField(u'外卖活动结束时间',default = day_365_hence)
     class Meta:
         verbose_name_plural = verbose_name = u'外卖二维码'
         ordering = ['-create_time']
     def __str__(self):
         return '%s' % (self.id)
-    def save(self, *args, **kwargs):
-        # 创建用户时，生成唯一ID
-        super(Base,self).save(*args, **kwargs)
-        # print (self)
-        if not self.short_uuid:
-            self.short_uuid = short_uuid_create()
-        super(Base,self).save(*args, **kwargs)
 
 
 

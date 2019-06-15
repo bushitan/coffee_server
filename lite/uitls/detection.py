@@ -7,12 +7,14 @@ from lite.db.db_customer import *
 from lite.db.db_score import *
 from lite.db.db_prize import *
 from lite.db.db_share import *
+from lite.db.db_wm_ticket import *
 db_store = DBStore()
 db_seller = DBSeller()
 db_customer = DBCustomer()
 db_score = DBScore()
 db_prize = DBPrize()
 db_share = DBShare()
+db_wm_ticket = DBWmTicket()
 
 def base(func):
     def wrapper(self,request,*args, **kwargs):
@@ -189,9 +191,28 @@ def seller_own_share(func):
         return func(self,request,*args, **kwargs)
     return wrapper
 
-
-
-
+###############外卖#################
+# 外卖二维码是否存在
+def wm_qr_exist(func):
+    @base
+    def wrapper(self,request,*args, **kwargs):
+        wm_short_uuid = request.POST.get('wm_short_uuid',"")
+        if db_wm_ticket.is_exists(short_uuid = wm_short_uuid) is False:
+            return MSG.wm_time_out(), {} # 二维码已过期
+        return func(self,request,*args, **kwargs)
+    return wrapper
+# 外卖二维码状态校验
+def wm_qr_status(func):
+    @base
+    def wrapper(self,request,*args, **kwargs):
+        wm_short_uuid = request.POST.get('wm_short_uuid',"")
+        wm_ticket = db_wm_ticket.get(short_uuid = wm_short_uuid)
+        if wm_ticket.is_used is True: #已经使用
+            return MSG.wm_used(), {"store_uuid":db_wm_ticket.get(short_uuid = wm_short_uuid).store.uuid} # 二维码已使用
+        if wm_ticket.is_delete is True: #已经删除
+            return MSG.wm_delete(),{"store_uuid":db_wm_ticket.get(short_uuid = wm_short_uuid).store.uuid}# 二维码已删除
+        return func(self,request,*args, **kwargs)
+    return wrapper
 
 
 
