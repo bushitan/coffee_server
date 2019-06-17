@@ -1,3 +1,4 @@
+#coding:utf-8
 """
 Django settings for ai_server_coupon project.
 
@@ -89,7 +90,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False #��������ڵ�ʱ��#
+USE_TZ = False #计算机所在地时间#
 
 LOG_FILE = "./all.log"
 LOGGING = {
@@ -153,13 +154,13 @@ LOGGING = {
 
 
 
-# ���߻������ݿ�汾
-# TODO ��dev + ���ڣ����磺dev20190611 ��Ϊ��ţ��������ݿ�汾��
+# 上线环境数据库版本
+# TODO 以coffee_server + 日期 + 系统版本号，例如：coffee_server_2019_6_15_v1_3_10 作为编号，区分数据库版本号
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'coffee_server',
-        'NAME': 'coffee_server_20190611', # TODO
+        'NAME': 'coffee_server_2019_6_15_v1_3_10', # TODO
         'USER': 'root',
         'PASSWORD':'root',
         'HOST':'127.0.0.1',
@@ -167,14 +168,15 @@ DATABASES = {
     }
 }
 
-# ���߻����汾��
-# TODO ��dev + ���ڣ����磺dev20190611 ��Ϊ��ţ����ַ������汾��
+# 上线环境版本号
+# TODO 以dev + 日期，例如：dev20190611 作为编号，区分服务器版本号
 ENV_URL = 'dev/' # TODO
+# ENV_URL = 'coffee_server_2019_6_15_v1_3_10/' # 上线
 
-STATIC_URL = '/static/' #��̬�ļ���nginx�Ѿ��̶�Ŀ¼�����Բ���Ҫ����
+STATIC_URL = '/static/' #静态文件，nginx已经固定目录，可以不需要更改
 # ENV_URL = ''
 
 
-# ԭ������
+# 原生操作
 # STATIC_URL = '/static/'
 # STATIC_ROOT = '/static/'

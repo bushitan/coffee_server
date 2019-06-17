@@ -76,6 +76,20 @@ class Store(Base):
 
         return '%s' % (self.title )
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 用户 虚函数
 class User(Base):
     nick_name =  models.CharField(max_length=100, verbose_name=u'昵称',default="",null=True,blank=True)
@@ -117,6 +131,28 @@ class RelStoreCustomer(User):
         verbose_name_plural = verbose_name = u'客户访问的店铺表'
     def __unicode__(self):
         return '%s' % (self.id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
