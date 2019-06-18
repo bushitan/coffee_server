@@ -11,6 +11,7 @@ PRIZE = "03"     # 礼品
 SHARE = "04"    #分享
 SCAN  = "05"     #扫码
 WM  = "06"     #外卖
+MAP  = "07"     #地图
 
 # 00 系统
 CODE_SYS_SUCCESS = "%s%s001" %(DIALOG,SYS)  # 正常返回，无任何提示
@@ -134,7 +135,7 @@ def scan_prize_none():
     return {'code':CODE_SCAN_PRIZE_USED,'title':u"兑换失败" , 'content':u'兑换福利所需点数不够'}
 
 
-# 05 扫码
+# 06 扫码
 CODE_WM_SCORE      = "%s%s001" %(DIALOG,WM)  #发放集点
 CODE_WM_SHARE      = "%s%s002" %(DIALOG,WM)  #发放福利分享券
 CODE_WM_ALL      = "%s%s003" %(DIALOG,WM)  #并行模式
@@ -160,4 +161,9 @@ def wm_delete():
     return {'code':CODE_WM_DELETE,'title':u"温馨提示" , 'content':u'二维码已废弃'}
 
 
-print (CODE_WM_SCORE)
+# 07 地图
+# CODE_WM_SCORE      = "%s%s001" %(DIALOG,WM)  #发放集点
+# def wm_score(num):
+#     return {'code':CODE_WM_SCORE,'title':u"集点成功" , 'content':u'获得了%s点' %(num)}
+
+# print (CODE_WM_SCORE)

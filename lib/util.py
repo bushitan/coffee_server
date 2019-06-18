@@ -1,5 +1,17 @@
 #coding:utf-8
+
+#############基础##################
 UNIT_SECOND = 86400 # 每日的秒数
+
+#图片分类
+BASE_IMAGE_TYPE_COVER = 1  #封面
+BASE_IMAGE_TYPE_ICON = 2	#图标
+BASE_IMAGE_TYPE_QR = 3		#二维码
+BASE_IMAGE_TYPE = {
+	BASE_IMAGE_TYPE_COVER : 1,
+	BASE_IMAGE_TYPE_ICON : 2,
+	BASE_IMAGE_TYPE_QR : 3,
+}
 
 ###########店铺的集点模式################
 # 店铺集点模式
@@ -53,8 +65,23 @@ SCORE_MODE_PRIZE = 3    #奖品
 
 
 
+###########地图#############
+	###########Tag的服务状态#############
+MAP_TAG_SERVICE_NORMAL = 1 #正常模式
+MAP_TAG_SERVICE = {
+	MAP_TAG_SERVICE_NORMAL:1,
+}
 
+	########文章##########
+MAP_ARTICLE_TYPE_WX = 1	#微信公众号
+MAP_ARTICLE_TYPE_RED = 2 #小红书
+MAP_ARTICLE_TYPE_NAVIGATE = 3 #导航
 
+MAP_ARTICLE_TYPE = {
+	MAP_ARTICLE_TYPE_WX:1,
+	MAP_ARTICLE_TYPE_RED:2,
+	MAP_ARTICLE_TYPE_NAVIGATE:3,
+}
 
 
 

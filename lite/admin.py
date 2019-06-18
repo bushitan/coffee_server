@@ -31,9 +31,12 @@ class StoreAdmin(BaseAdmin):
 	qr_image.short_description = u'店铺二维码'
 	qr_image.allow_tags = True
 	readonly_fields = ("uuid",'qr_image',)
-
 admin.site.register(Store,StoreAdmin)
 
+
+class BaseImageAdmin(admin.ModelAdmin):
+	pass
+admin.site.register(BaseImage,BaseImageAdmin)
 
 class SellerAdmin(BaseAdmin):
 	list_display = ('id','store','is_host','nick_name','uuid','wx_openid',)
