@@ -8,7 +8,7 @@ from lite.admin import *
 class MapPOIAdmin(BaseAdmin):
 	list_display = ('id','store','title','latitude','longitude',)
 	fieldsets = (
-        (u"名称", {'fields': ['uuid','name']}),
+        (u"名称", {'fields': ['uuid','name','is_show',]}),
         (u"归属", {'fields': ['store','tag',]}),
 		(u"内容", {'fields': ['icon','title','summary','description',]}),
 		(u"地址", {'fields': ['address','latitude','longitude',]}),
@@ -30,7 +30,7 @@ admin.site.register(MapPOI,MapPOIAdmin)
 class MapTagAdmin(BaseAdmin):
 	list_display = ('id','name_admin','name','father','service','is_top','sort',)
 	fieldsets = (
-        (u"名称", {'fields': ['uuid','name','name_admin',]}),
+        (u"名称", {'fields': ['uuid','name','name_admin','is_show',]}),
         (u"归属", {'fields': ['father','service',]}),
 		(u"内容", {'fields': ['is_top','service','sort',]}),
     )
@@ -54,7 +54,7 @@ admin.site.register(MapVisitor,MapVisitorAdmin)
 class MapArticleAdmin(BaseAdmin):
 	list_display = ('id','poi','type','title',)
 	fieldsets = (
-        (u"名称", {'fields': ['uuid','name']}),
+        (u"名称", {'fields': ['uuid','name','is_show',]}),
         (u"归属", {'fields': ['poi','type',]}),
 		(u"内容", {'fields': ['cover','title','summary','description','content',]}),
 		(u"地址", {'fields': ['url','qr',]}),

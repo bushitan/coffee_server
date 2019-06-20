@@ -16,7 +16,7 @@ class MapPOI(Base):
     latitude =  models.FloatField( verbose_name=u'纬度',default=0,null=True,blank=True)
     longitude =  models.FloatField(  verbose_name=u'经度',default=0,null=True,blank=True)
 
-    is_show = models.BooleanField(u'是否展示',default=False)
+    is_show = models.BooleanField(u'是否展示',default=True)
     class Meta:
         verbose_name_plural = verbose_name = u'POI地址'
     def __str__(self):
@@ -28,8 +28,7 @@ class MapTag(Base):
     sort = models.IntegerField(u'排序',default=0)
     is_top = models.BooleanField(u'是否置顶',default=False)
     service = models.IntegerField(u'服务状态',default=STORE_MODE_NORMAL,choices=STORE_MODE.items())
-
-    is_show = models.BooleanField(u'是否展示',default=False)
+    is_show = models.BooleanField(u'是否展示',default=True)
     class Meta:
         verbose_name_plural = verbose_name = u'标签'
     def __str__(self):
@@ -38,6 +37,7 @@ class MapTag(Base):
 
 # 客户
 class MapVisitor(User):
+    type = models.IntegerField(u'类别',default=MAP_VISITOR_TYPE_NORMAL,choices=MAP_VISITOR_TYPE.items())
     class Meta:
         verbose_name_plural = verbose_name = u'浏览者'
     def __str__(self):
@@ -50,6 +50,8 @@ class MapArticle(Base):
     poi = models.ForeignKey(MapPOI, verbose_name=u'所属POI点',null=True,blank=True)
     type = models.IntegerField(u'类别',default=MAP_ARTICLE_TYPE_WX,choices=MAP_ARTICLE_TYPE.items())
 
+    author = models.ForeignKey(MapVisitor, verbose_name=u'博主',null=True,blank=True)
+
     cover = models.ForeignKey(BaseImage, verbose_name=u'封面图片',related_name='cover',null=True,blank=True)
     title = models.CharField(max_length=100, verbose_name=u'标题',default="",null=True,blank=True)
     summary = models.CharField(max_length=200, verbose_name=u'简介',default="",null=True,blank=True)
@@ -58,7 +60,7 @@ class MapArticle(Base):
     url = models.CharField(max_length=1000, verbose_name=u'web地址',null=True,blank=True)
     qr = models.ForeignKey(BaseImage, verbose_name=u'二维码',related_name='qr',null=True,blank=True)
 
-    is_show = models.BooleanField(u'是否展示',default=False)
+    is_show = models.BooleanField(u'是否展示',default=True)
     class Meta:
         verbose_name_plural = verbose_name = u'文章'
     def __str__(self):

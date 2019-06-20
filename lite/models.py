@@ -32,7 +32,7 @@ class Base(models.Model):
 # 图片库
 class BaseImage(Base):
     url = models.CharField(max_length=1000, verbose_name=u'云地址',null=True,blank=True)
-    local_path = models.ImageField(u'图标',upload_to='img/')
+    local_path = models.ImageField(u'图标',upload_to='img/',null=True,blank=True)
     type = models.IntegerField(u'类别',default=BASE_IMAGE_TYPE_COVER,choices=BASE_IMAGE_TYPE.items())
     class Meta:
         verbose_name_plural = verbose_name = u'图库'

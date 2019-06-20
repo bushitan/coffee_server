@@ -19,18 +19,31 @@ class MapIndex(ListView):
         }
         return MSG.sys_success(), _dict
 
+# @地图初始化
+class MapGetPOIList(ListView):
+    @logged
+    def post(self, request, *args, **kwargs):
+        tag_uuid = request.POST.get('tag_uuid','')
+        poi_list = action_search.get_poi_by_tag(tag_uuid)
+        _dict = {
+            'poi_list':poi_list,
+        }
+        return MSG.sys_success(), _dict
+
 # 查询poi点信息
-class MapGetPOI(ListView):
+class MapGetPOIDetail(ListView):
     @logged
     def post(self, request, *args, **kwargs):
         poi_uuid = request.POST.get('poi_uuid','')
         poi_dict = action_search.get_poi(poi_uuid)
-        article_list = action_search.get_article_by_poi(poi_uuid)
+        article_list = action_search.get_article_list_by_poi(poi_uuid)
         _dict = {
             'poi_dict':poi_dict,
             'article_list':article_list,
         }
         return MSG.sys_success(), _dict
+        #
+        #
 
 # 查询poi点信息
 class MapGetArticle(ListView):

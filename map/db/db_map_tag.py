@@ -19,7 +19,13 @@ class DBMapTag(DB):
         }
         return dict(_base,**_new)
 
+    def get_index(self):
+        _m = self.model.objects.filter(is_show = True).exclude(father = None)
+        return self._pack_list( self._pack_dict,_m)
+
 if __name__ == '__main__':
+    import django
+    django.setup()
     s = DBMapTag()
     l = s.get_list()
     print (l)
