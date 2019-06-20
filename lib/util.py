@@ -8,9 +8,9 @@ BASE_IMAGE_TYPE_COVER = 1  #封面
 BASE_IMAGE_TYPE_ICON = 2	#图标
 BASE_IMAGE_TYPE_QR = 3		#二维码
 BASE_IMAGE_TYPE = {
-	BASE_IMAGE_TYPE_COVER : 1,
-	BASE_IMAGE_TYPE_ICON : 2,
-	BASE_IMAGE_TYPE_QR : 3,
+	BASE_IMAGE_TYPE_COVER : u'封面',
+	BASE_IMAGE_TYPE_ICON : u'图标',
+	BASE_IMAGE_TYPE_QR : u'二维码',
 }
 
 ###########店铺的集点模式################
@@ -69,7 +69,7 @@ SCORE_MODE_PRIZE = 3    #奖品
 	###########Tag的服务状态#############
 MAP_TAG_SERVICE_NORMAL = 1 #正常模式
 MAP_TAG_SERVICE = {
-	MAP_TAG_SERVICE_NORMAL:1,
+	MAP_TAG_SERVICE_NORMAL:u"正常模式",
 }
 
 	#文章

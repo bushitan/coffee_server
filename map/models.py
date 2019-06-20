@@ -37,7 +37,7 @@ class MapTag(Base):
 
 # 客户
 class MapVisitor(User):
-    type = models.IntegerField(u'类别',default=MAP_VISITOR_TYPE_NORMAL,choices=MAP_VISITOR_TYPE.items())
+    type = models.IntegerField(u'类别',default=MAP_VISITOR_TYPE_AUTHOR,choices=MAP_VISITOR_TYPE.items())
     class Meta:
         verbose_name_plural = verbose_name = u'浏览者'
     def __str__(self):

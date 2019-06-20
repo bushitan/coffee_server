@@ -39,30 +39,46 @@ admin.site.register(MapTag,MapTagAdmin)
 
 
 class MapVisitorAdmin(BaseAdmin):
-	list_display = ('id','name','nick_name','uuid','wx_openid',)
+	list_display = ('id','logo_image','nick_name','uuid','wx_openid',)
 	fieldsets = (
-        (u"客户属性", {'fields': ['uuid','name',]}),
-		(u"微信数据", {'fields': ['nick_name','avatar_url','gender','city','province','country',]}),
+        (u"客户属性", {'fields': ['type','uuid','name',]}),
+		(u"微信数据", {'fields': ['logo_image','nick_name','avatar_url','gender','city','province','country',]}),
 		(u"系统数据", {'fields': ['wx_openid','wx_session','wx_unionid',]}),
     )
+	def logo_image(self, obj):
+		return  mark_safe('<img src="%s" width="50px" />' % (obj.avatar_url))
+	logo_image.short_description = u'图片'
+	logo_image.allow_tags = True
 	search_fields = ('id','wx_openid','uuid',)
-	readonly_fields = ("uuid",'wx_openid','wx_session','wx_unionid',)
+	readonly_fields = ("uuid",'wx_openid','wx_session','wx_unionid','logo_image',)
 admin.site.register(MapVisitor,MapVisitorAdmin)
 
 
 
 class MapArticleAdmin(BaseAdmin):
-	list_display = ('id','poi','type','title',)
+	list_display = ('id','cover_image','author','poi','type','title',)
 	fieldsets = (
         (u"名称", {'fields': ['uuid','name','is_show',]}),
         (u"归属", {'fields': ['poi','type',]}),
-		(u"内容", {'fields': ['cover','title','summary','description','content',]}),
-		(u"地址", {'fields': ['url','qr',]}),
+        (u"作者", {'fields': ['author',]}),
+		(u"内容", {'fields': ['cover_image','cover','title','summary','description','content',]}),
+		(u"地址", {'fields': ['url','qr_image','qr',]}),
     )
-	raw_id_fields = ("poi",'cover','qr',)
-
-			# kwargs["queryset"]=User.objects.filter(profile_user__pid=self.user.id)
-	# search_fields = ('id','wx_openid','uuid','store__title',)
-	# readonly_fields = ("uuid",'wx_openid','wx_session','wx_unionid',)
+	raw_id_fields = ("poi",'cover','qr','author',)
+	def cover_image(self, obj):
+		if obj.cover is not None:
+			return  mark_safe('<img src="%s" width="50px" />' % (obj.cover.url))
+		else:
+			return  mark_safe('<img src="" width="50px" />' )
+	cover_image.short_description = u'图片'
+	cover_image.allow_tags = True
+	def qr_image(self, obj):
+		if obj.cover is not None:
+			return  mark_safe('<img src="%s" width="50px" />' % (obj.qr.url))
+		else:
+			return  mark_safe('<img src="" width="50px" />' )
+	qr_image.short_description = u'图片'
+	qr_image.allow_tags = True
+	readonly_fields = ("cover_image","qr_image",)
 admin.site.register(MapArticle,MapArticleAdmin)
 

@@ -9,9 +9,10 @@ import uuid
 import pymysql
 pymysql.install_as_MySQLdb()
 
-
+from lib.image_utils import *
 
 from lib.short_uuid import short_uuid_create
+
 # 基础类 虚函数
 class Base(models.Model):
     name = models.CharField(max_length=32, verbose_name=u'名字',default="",null=True,blank=True)
@@ -32,7 +33,7 @@ class Base(models.Model):
 # 图片库
 class BaseImage(Base):
     url = models.CharField(max_length=1000, verbose_name=u'云地址',null=True,blank=True)
-    local_path = models.ImageField(u'图标',upload_to='img/',null=True,blank=True)
+    local_path = models.ImageField(u'图标',upload_to=ImageUtils.rename,null=True,blank=True)
     type = models.IntegerField(u'类别',default=BASE_IMAGE_TYPE_COVER,choices=BASE_IMAGE_TYPE.items())
     class Meta:
         verbose_name_plural = verbose_name = u'图库'
@@ -40,6 +41,15 @@ class BaseImage(Base):
         return '%s' % (self.id)
     def save(self):
         super().save()
+        if not self.url:
+            self.url = QINIU_HOST + self.local_path.url
+        key = self.local_path.url
+        local_file = MEDIA_ROOT+key
+        ImageUtils.put(key,local_file)
+        super().save()
+        # image_utils = ImageUtils()
+        # # image_utils.rename()
+        # print (self.local_path)
 
 
 # 店铺

@@ -22,6 +22,10 @@ class DBMapArticle(DB):
 
             "url":object.url,
             "qr":object.qr.url if object.qr is not None else "" ,
+
+
+            "author_nick_name":object.author.nick_name if object.author is not None else "" ,
+            "author_avatar_url":object.author.avatar_url if object.author is not None else "" ,
         }
         return dict(_base,**_new)
 

@@ -176,7 +176,9 @@ ENV_URL = 'dev/' # TODO
 
 STATIC_URL = '/static/' #静态文件，nginx已经固定目录，可以不需要更改
 # ENV_URL = ''
+MEDIA_ROOT = 'C:/server/'
 
+QINIU_HOST = 'http://img.12xiong.top/'
 
 # 原生操作
 # STATIC_URL = '/static/'

@@ -35,7 +35,12 @@ admin.site.register(Store,StoreAdmin)
 
 
 class BaseImageAdmin(admin.ModelAdmin):
-	pass
+	list_display = ('id','url_image','url','local_path','type',)
+	def url_image(self, obj):
+		return  mark_safe('<img src="%s" width="50px" />' % (obj.url))
+	url_image.short_description = u'图片'
+	url_image.allow_tags = True
+
 admin.site.register(BaseImage,BaseImageAdmin)
 
 class SellerAdmin(BaseAdmin):
