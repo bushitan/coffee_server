@@ -31,25 +31,46 @@ class ActionUser():
 
 	# 获取不受限制的菊花吗
 	def get_un_limit_qr(self,access_token ,data):
+
+		file_name = data["scene"] + ".jpg" #按照sence，生成菊花码图片文件
+		file_path = "C:\server\wxacodeunlimit/" + file_name
+		self._post_qr(access_token ,data,file_path)
+		return file_name
+
+	# 获取外卖二维码
+	def get_wm_qr(self,access_token ,data):
+		file_name = data["scene"] + ".jpg" #按照sence，生成菊花码图片文件
+		file_path = "C:/server/coffee_image/wm/" + file_name
+		self._post_qr(access_token ,data,file_path)
+		return file_name
+		# url = 'https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=%s' % (access_token)
+		# headers = {'content-type': 'application/json'}
+		# r = requests.post(url,data=json.dumps(data), headers=headers )
+
+		## file_name = "aa1a.jpg"
+		# file_name = data["scene"] + ".jpg" #按照sence，生成菊花码图片文件
+		# file_path = "C:\server\wxacodeunlimit/" + file_name
+		# f=open(file_path,"wb")
+		# f.write(r.content)
+		# f.close()
+		# return file_name
+
+	def _post_qr(self,access_token ,data,file_path):
 		url = 'https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=%s' % (access_token)
 		headers = {'content-type': 'application/json'}
 		r = requests.post(url,data=json.dumps(data), headers=headers )
-
-		# file_name = "aa1a.jpg"
-		file_name = data["scene"] + ".jpg" #按照sence，生成菊花码图片文件
-		file_path = "C:\server\wxacodeunlimit/" + file_name
 		f=open(file_path,"wb")
 		f.write(r.content)
 		f.close()
-		return file_name
+		return True
 
 	# 获取token
 	def get_access_token(self):
-		print ('in token ', self.ACCESS_TOKEN)
+		# print ('in token ', self.ACCESS_TOKEN)
 		current_unix = time.time()
 		if current_unix > self.ACCESS_TOKEN['valid_unix']:
 			self._update_token()
-		print ('out token ',self.ACCESS_TOKEN)
+		# print ('out token ',self.ACCESS_TOKEN)
 		return self.ACCESS_TOKEN['access_token']
 
 	# 更新touken

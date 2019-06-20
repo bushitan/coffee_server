@@ -11,10 +11,8 @@ class DBWmTicket(DB):
     def _pack_dict(self,object):
         _base = super()._pack_dict(object)
         _new = {
+            "short_uuid":object.short_uuid,
             "store_id":object.store_id,
-            "share_id":object.share_id,
-            "score_id":object.score_id,
-            "customer_id":object.customer_id,
             "is_used":object.is_used,
             "is_delete":object.is_delete,
             "start_time":object.start_time,

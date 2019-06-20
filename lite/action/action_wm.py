@@ -71,6 +71,24 @@ class ActionWm():
             wm_ticket_query.update(is_used = True)
         return store.wm_share_num
 
+
+    #获取自助二维码信息
+    def get_ticket_qr(self,store_uuid):
+        if self.db_store.is_exists(uuid = store_uuid) is False:
+            return False
+
+        store = self.db_store.get(uuid = store_uuid)
+        # end_unix = int( time.time() + STORE_AUTO_SHARE_EXPIRES)
+        # scene = "sh_%s_%s_%s" % ( str(store_id),str(seller_id), str(end_unix))
+        ticket = self.db_wm_ticket.add(
+            store = store
+        )
+        scene = 'wm_' + ticket['short_uuid']
+        return {
+            "scene":scene
+        }
+
+
 if __name__  == '__main__':
     wm = ActionWm()
        # 3smX46fZ
