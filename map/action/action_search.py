@@ -24,10 +24,13 @@ class ActionSearch():
     # 获取单个poi点位
     def get_poi(self,poi_uuid):
          return self.db_map_poi.get_detail(poi_uuid)
+    # 获取单个poi点位
+    def get_poi_by_id(self,poi_id):
+         return self.db_map_poi.get_detail_by_id(poi_id)
 
     # POI点，获取文章列表
-    def get_article_list_by_poi(self,poi_uuid):
-        return self.db_map_article.get_list_by_poi(poi_uuid)
+    def get_article_list_by_poi(self,poi_id):
+        return self.db_map_article.get_list_by_poi(poi_id)
 
     # 获取文章内容
     def get_article(self,article_uuid):

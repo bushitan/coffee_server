@@ -11,11 +11,12 @@ action_search = ActionSearch()
 class MapIndex(ListView):
     @logged
     def post(self, request, *args, **kwargs):
-        tag_list = action_search.get_tag()
-        poi_list = action_search.get_poi_by_tag(tag_list[0]['uuid'])
+        # tag_list = action_search.get_tag()
+        # poi_list = action_search.get_poi_by_tag(tag_list[0]['uuid'])
         _dict = {
-            'tag_list':tag_list,
-            'poi_list':poi_list,
+            'drink_list':action_search.get_poi_by_tag('be62eade-9566-11e9-940a-e95aa2c51b5d'),
+            'eat_list':action_search.get_poi_by_tag('e946a302-9241-11e9-93cb-e95aa2c51b5d'),
+            'play_list':action_search.get_poi_by_tag('c275b3ae-9566-11e9-8016-e95aa2c51b5d'),
         }
         return MSG.sys_success(), _dict
 
@@ -34,9 +35,9 @@ class MapGetPOIList(ListView):
 class MapGetPOIDetail(ListView):
     @logged
     def post(self, request, *args, **kwargs):
-        poi_uuid = request.POST.get('poi_uuid','')
-        poi_dict = action_search.get_poi(poi_uuid)
-        article_list = action_search.get_article_list_by_poi(poi_uuid)
+        poi_id = request.POST.get('poi_id','')
+        poi_dict = action_search.get_poi_by_id(poi_id)
+        article_list = action_search.get_article_list_by_poi(poi_id)
         _dict = {
             'poi_dict':poi_dict,
             'article_list':article_list,

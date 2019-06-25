@@ -20,7 +20,7 @@ class MapPOI(Base):
     class Meta:
         verbose_name_plural = verbose_name = u'POI地址'
     def __str__(self):
-        return '%s' % (self.title )
+        return '%s' % (self.name )
 
 class MapTag(Base):
     name_admin = models.CharField(max_length=32, verbose_name=u'后台显示名字',default="",null=True,blank=True)
@@ -48,7 +48,7 @@ class MapVisitor(User):
 # 客户
 class MapArticle(Base):
     poi = models.ForeignKey(MapPOI, verbose_name=u'所属POI点',null=True,blank=True)
-    type = models.IntegerField(u'类别',default=MAP_ARTICLE_TYPE_WX,choices=MAP_ARTICLE_TYPE.items())
+    type = models.IntegerField(u'类别',default=MAP_ARTICLE_TYPE_RED,choices=MAP_ARTICLE_TYPE.items())
 
     author = models.ForeignKey(MapVisitor, verbose_name=u'博主',null=True,blank=True)
 

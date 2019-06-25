@@ -30,8 +30,8 @@ class DBMapArticle(DB):
         return dict(_base,**_new)
 
     # 获取poi的详情，获取相关文章
-    def get_list_by_poi(self,poi_uuid):
-        _m = self.model.objects.filter(poi__uuid=poi_uuid, is_show = True)
+    def get_list_by_poi(self,poi_id):
+        _m = self.model.objects.filter(poi_id=poi_id, is_show = True)
         return self._pack_list( self._pack_dict,_m)
 
 

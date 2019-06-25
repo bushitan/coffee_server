@@ -23,6 +23,13 @@ class DBMapTag(DB):
         _m = self.model.objects.filter(is_show = True).exclude(father = None)
         return self._pack_list( self._pack_dict,_m)
 
+    def get_name_admin(self,tag_list):
+        str = ''
+        for tag in tag_list:
+            str = str + tag.name_admin
+            # list.append(tag.name_admin)
+        return str
+
 if __name__ == '__main__':
     import django
     django.setup()
