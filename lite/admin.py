@@ -120,5 +120,5 @@ class WmTicketAdmin(BaseAdmin):
 	#     (u"兑换", {'fields': ['uuid','store','seller','customer','receive_customer','receive_time','alive','valid_time','create_time',]}),
 	#     (u" 删除状态", {'fields': ['is_delete','delete_seller',]}),
 	# )
-	search_fields = ('id',)
+	search_fields = ('id','short_uuid')
 admin.site.register(WmTicket,WmTicketAdmin)

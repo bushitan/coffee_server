@@ -167,6 +167,13 @@ class CustomerScanWm(ListView):
         else : #外卖已关闭
             return MSG.wm_close() ,{}
 
+# 外卖模式--客户自助扫领取
+class CustomerScanWmCheck(ListView):
+    @logged
+    @det.wm_qr_exist
+    def post(self, request, *args, **kwargs):
+        wm_short_uuid = request.POST.get('wm_short_uuid',"")
+        return MSG.sys_success() ,action_wm.get_ticket_info(wm_short_uuid)
 
 # 客户自助扫二维码领券(已废弃）
 # class CustomerScanAutoShare111111(ListView):

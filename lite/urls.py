@@ -1,14 +1,14 @@
-
+#coding:utf-8
 from django.conf.urls import url
 from .views import  *
 
 urlpatterns = [
-    # ¹«¹²
+    # å…¬å…±
     url(r'^route/user/login/',UserLogin.as_view()),
     url(r'^route/user/update/',UserUpdate.as_view()),
     url(r'^store/info/',StoreInfo.as_view()),
 
-    # ¿Í»§
+    # å®¢æˆ·
     url(r'^store/list/customer/',CustomerStore.as_view()),
     url(r'^store/data/customer/',CustomerData.as_view()),
     url(r'^store/detail/customer/',CustomerDetail.as_view()),
@@ -16,13 +16,14 @@ urlpatterns = [
     url(r'^refresh/customer',CustomerRefresh.as_view()),
 
     url(r'^scan/auto_share/customer/',CustomerScanAutoShare.as_view()),
-    url(r'^scan/wm/customer/',CustomerScanWm.as_view()), #¿Í»§É¨Âë£¬×ÔÖúÄ£Ê½
+    url(r'^scan/wm/customer/',CustomerScanWm.as_view()), #å®¢æˆ·æ‰«ç ï¼Œè‡ªåŠ©æ¨¡å¼
+    url(r'^scan/wm/check/customer/',CustomerScanWmCheck.as_view()),
 
-    # ÉÌ»§
+    # å•†æˆ·
     url(r'^store/update/seller/',SellerUpdate.as_view()),
     url(r'^store/data/seller/',SellerData.as_view()),
     url(r'^store/host/data/seller/',SellerHostData.as_view()),
-    url(r'^store/auto_share/qr/seller/',SellerAutoShareQR.as_view()),  #»ñÈ¡×ÔÖú¶şÎ¬Âë
+    url(r'^store/auto_share/qr/seller/',SellerAutoShareQR.as_view()),  #è·å–è‡ªåŠ©äºŒç»´ç 
 
     url(r'^share/delete/seller/',SellerShareDelete.as_view()),
 
@@ -31,8 +32,10 @@ urlpatterns = [
     url(r'^scan/share/seller/',SellerScanShare.as_view()),
     url(r'^scan/prize/seller/',SellerScanPrize.as_view()),
 
+    # url(r'^scan/info/',SellerScanPrize.as_view()),
+
  # url(r'^store/invite/seller/',SellerInvite.as_view()),
  #    url(r'^store/quit/seller/',SellerQuit.as_view()),
-    # url(r'^store/apply/seller/',SellerApply.as_view()), # ÔİÎŞ
+    # url(r'^store/apply/seller/',SellerApply.as_view()), # æš‚æ— 
     # url(r'^store/dissolve/seller/',Index55.as_view()),
 ]
