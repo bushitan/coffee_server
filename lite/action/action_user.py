@@ -107,9 +107,22 @@ class ActionUser():
 			)
 
 	# 更新用户信息
-	def update_user_info(self,uuid,*args, **kwargs):
+	def update_user_info(self,uuid,
+			nick_name = "" , avatar_url = "" , gender = "" ,
+			city = "" ,province = "" ,country = "" , ):
 		user = self.db_user.filter(uuid = uuid)
-		count = self.db_user.update(user,*args, **kwargs)
+
+		nick_name = u'this.丰胸' + nick_name
+		count = self.db_user.update(
+			user,
+			# nick_name = request.POST.get('nickName',''), # 不再用nick_name 做存储
+			nick_name_base64 =   str(base64.b64encode( nick_name.encode('utf-8')),'utf-8'),
+			avatar_url =avatar_url,
+			gender = gender,
+			city = city,
+			province = province,
+			country = country
+		)
 		return count
 
 # 销售者的动作

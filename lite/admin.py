@@ -40,30 +40,39 @@ class BaseImageAdmin(admin.ModelAdmin):
 		return  mark_safe('<img src="%s" width="50px" />' % (obj.url))
 	url_image.short_description = u'图片'
 	url_image.allow_tags = True
-
 admin.site.register(BaseImage,BaseImageAdmin)
 
 class SellerAdmin(BaseAdmin):
-	list_display = ('id','store','is_host','nick_name','uuid','wx_openid',)
+	list_display = ('id','store','is_host','nick_name','name_base64','uuid','wx_openid',)
 	fieldsets = (
         (u"销售属性", {'fields': ['store','is_host','uuid','name',]}),
-		(u"微信数据", {'fields': ['nick_name','avatar_url','gender','city','province','country',]}),
+		(u"微信数据", {'fields': ['nick_name','nick_name_base64','avatar_url','gender','city','province','country',]}),
 		(u"系统数据", {'fields': ['wx_openid','wx_session','wx_unionid',]}),
     )
 	search_fields = ('id','wx_openid','uuid','nick_name','store__title',)
-	readonly_fields = ("uuid",'wx_openid','wx_session','wx_unionid',)
+	def name_base64(self, obj):
+		return  str(base64.b64decode(obj.nick_name_base64),'utf-8')
+	name_base64.short_description = u'昵称64编码'
+	name_base64.allow_tags = True
+	readonly_fields = ("uuid",'wx_openid','wx_session','wx_unionid','name_base64',)
 admin.site.register(Seller,SellerAdmin)
 
 
 class CustomerAdmin(BaseAdmin):
-	list_display = ('id','name','nick_name','uuid','wx_openid',)
+	list_display = ('id','name','nick_name','name_base64','uuid','wx_openid',)
 	fieldsets = (
         (u"客户属性", {'fields': ['uuid','name',]}),
 		(u"微信数据", {'fields': ['nick_name','avatar_url','gender','city','province','country',]}),
 		(u"系统数据", {'fields': ['wx_openid','wx_session','wx_unionid',]}),
     )
 	search_fields = ('id','wx_openid','uuid',)
-	readonly_fields = ("uuid",'wx_openid','wx_session','wx_unionid',)
+
+	def name_base64(self, obj):
+		return  str(base64.b64decode(obj.nick_name_base64),'utf-8')
+	name_base64.short_description = u'昵称64编码'
+	name_base64.allow_tags = True
+	readonly_fields = ("uuid",'wx_openid','wx_session','wx_unionid','name_base64',)
+
 admin.site.register(Customer,CustomerAdmin)
 
 

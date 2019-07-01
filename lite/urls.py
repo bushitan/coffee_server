@@ -3,6 +3,9 @@ from django.conf.urls import url
 from .views import  *
 
 urlpatterns = [
+
+    url(r'^error/test/',ErrorTest.as_view()),
+
     # 公共
     url(r'^route/user/login/',UserLogin.as_view()),
     url(r'^route/user/update/',UserUpdate.as_view()),

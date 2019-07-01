@@ -12,6 +12,7 @@ pymysql.install_as_MySQLdb()
 from lib.image_utils import *
 
 from lib.short_uuid import short_uuid_create
+import base64
 
 # 基础类 虚函数
 class Base(models.Model):
@@ -23,7 +24,7 @@ class Base(models.Model):
         abstract = True
     def save(self, *args, **kwargs):
             # 创建用户时，生成唯一ID
-            print (self)
+            # print (self)
             if not self.uuid:
                 self.uuid = str( uuid.uuid1())
             if not self.short_uuid:
@@ -116,6 +117,7 @@ class Store(Base):
 # 用户 虚函数
 class User(Base):
     nick_name =  models.CharField(max_length=100, verbose_name=u'昵称',default="",null=True,blank=True)
+    nick_name_base64 =  models.TextField(verbose_name=u'昵称base64',default="",null=True,blank=True)
     avatar_url =  models.CharField(max_length=500, verbose_name=u'头像',default="",null=True,blank=True)
     gender =  models.CharField(max_length=100, verbose_name=u'性别',default="",null=True,blank=True)
     city =  models.CharField(max_length=100, verbose_name=u'城市',default="",null=True,blank=True)
@@ -127,6 +129,18 @@ class User(Base):
     wx_unionid = models.CharField(max_length=50, verbose_name=u'微信UnionID',default="",null=True,blank=True)
     class Meta:
         abstract = True
+    def __str__(self):
+        # return '%s' % (self.nick_name)
+        # print( str(self.nick_name,'utf-8') )
+        if self.nick_name != "":
+            print( len(self.nick_name ))
+            return '%s' % (self.nick_name)
+        # elif self.nick_name_base64 != "":
+        #     # return '%s' % ( base64.b64decode(self.nick_name_base64)   )
+        #     return '%s' % ( str(base64.b64decode(self.nick_name_base64),'utf-8')   )
+        else:
+            return u"ID_%s" % ( self.id)
+
 
 
 # 店家
@@ -136,15 +150,14 @@ class Seller(User):
 
     class Meta:
         verbose_name_plural = verbose_name = u'店家'
-    def __str__(self):
-        return '%s' % (self.nick_name)
+
 
 # 客户
 class Customer(User):
     class Meta:
         verbose_name_plural = verbose_name = u'客户'
-    def __str__(self):
-        return '%s' % (self.nick_name)
+    # def __str__(self):
+    #     return '%s' % (self.nick_name)
 
 # 客户访问的店铺表
 class RelStoreCustomer(User):

@@ -18,6 +18,30 @@ from lib.info_map import *
 info_map = InfoMap()
 from lib.util import *
 
+
+
+
+from lite.action.action_test import *
+action_test = ActionTest()
+import base64
+# @test
+class ErrorTest(ListView):
+    @logged
+    def post(self, request, *args, **kwargs):
+
+        nick_name = request.POST.get('nickName','')
+        nick_name = base64.b64encode(nick_name.encode('utf-8'))
+        print (nick_name)
+
+        decode =  base64.b64decode(nick_name)
+        print (decode)
+
+
+        action_test.t1()
+        return MSG.sys_success(),{}
+        # raise (u"shaidhsa 粗哦无敌")
+
+
 # @log
 class UserLogin(ListView):
     @logged
@@ -46,6 +70,7 @@ class UserUpdate(ListView):
             action_user =  action_seller
         user_info = action_user.update_user_info(
             uuid,
+            # nick_name = request.POST.get('nickName',''), # 不再用nick_name 做存储
             nick_name = request.POST.get('nickName',''),
             avatar_url = request.POST.get('avatarUrl',''),
             gender =request.POST.get('gender',''),

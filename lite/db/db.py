@@ -74,7 +74,7 @@ class DBUser(DB):
 		_new = {
             "name":object.name,
             "create_time":object.create_time.strftime("%Y-%m-%d"),
-
+            "id":object.id,
             "uuid":object.uuid,
             "nick_name":object.nick_name,
             "avatar_url":object.avatar_url,
