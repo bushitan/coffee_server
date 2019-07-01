@@ -206,11 +206,11 @@ def wm_qr_status(func):
     @base
     def wrapper(self,request,*args, **kwargs):
         wm_short_uuid = request.POST.get('wm_short_uuid',"")
-        wm_ticket = db_wm_ticket.get(short_uuid = wm_short_uuid)
+        wm_ticket = db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid)
         if wm_ticket.is_used is True: #已经使用
-            return MSG.wm_used(), {"store_uuid":db_wm_ticket.get(short_uuid = wm_short_uuid).store.uuid} # 二维码已使用
+            return MSG.wm_used(), {"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid} # 二维码已使用
         if wm_ticket.is_delete is True: #已经删除
-            return MSG.wm_delete(),{"store_uuid":db_wm_ticket.get(short_uuid = wm_short_uuid).store.uuid}# 二维码已删除
+            return MSG.wm_delete(),{"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid}# 二维码已删除
         return func(self,request,*args, **kwargs)
     return wrapper
 

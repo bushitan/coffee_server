@@ -78,7 +78,7 @@ admin.site.register(RelStoreCustomer,RelStoreCustomerAdmin)
 
 
 class ScoreAdmin(BaseAdmin):
-	list_display = ('id','is_used','store_id','seller_id','customer_id','exchange_time','share','is_delete','create_time',)
+	list_display = ('id','is_used','store_id','seller_id','customer_id','exchange_time','share','wm_ticket','is_delete','create_time',)
 	fieldsets = (
         (u"公共数据", {'fields': ['is_used','exchange_time','share','create_time',]}),
         (u"集点数据", {'fields': ['store','seller','customer',]}),
@@ -93,7 +93,7 @@ admin.site.register(Score,ScoreAdmin)
 
 class ShareAdmin(BaseAdmin):
 	list_display = ('id','store_id','uuid','seller_id','customer_id',
-					'alive','valid_time','is_delete','create_time',)
+					'alive','valid_time','is_delete','wm_ticket','create_time',)
 	fieldsets = (
         (u"兑换", {'fields': ['uuid','store','seller','customer','receive_customer','receive_time','alive','valid_time','create_time',]}),
         (u" 删除状态", {'fields': ['is_delete','delete_seller',]}),
