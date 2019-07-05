@@ -31,6 +31,8 @@ class MapGetPOIList(ListView):
         }
         return MSG.sys_success(), _dict
 
+
+
 # 查询poi点信息
 class MapGetPOIDetail(ListView):
     @logged
@@ -57,3 +59,22 @@ class MapGetArticle(ListView):
         }
         return MSG.sys_success(), _dict
 
+
+
+
+'''
+    @method
+        根据店铺uuid，获取poi列表
+    @param
+        store_uuid 店铺uuid
+    @return
+        poi_list poi列表
+'''
+class MapGetPOIByStore(ListView):
+    @logged
+    def post(self, request, *args, **kwargs):
+        store_id = request.POST.get('store_id','')
+        _dict = {
+            'poi_list':action_search.get_poi_by_store(store_id = store_id),
+        }
+        return MSG.sys_success(), _dict

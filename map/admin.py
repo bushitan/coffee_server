@@ -12,7 +12,7 @@ class MapPOIAdmin(BaseAdmin):
 	list_display = ('id','store','name','tag_name','title','latitude','longitude','uuid',)
 	fieldsets = (
         # (u"名称", {'fields': ['uuid','is_show','store',]}),
-        (u"归属", {'fields': ['name','title','tag',]}),
+        (u"归属", {'fields': ['store','name','title','tag',]}),
 		# (u"内容", {'fields': ['title']}),
 		# (u"内容", {'fields': ['icon','title','summary','description',]}),
 		(u"地址", {'fields': ['address','latitude','longitude',]}),

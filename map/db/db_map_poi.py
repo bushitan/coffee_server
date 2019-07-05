@@ -13,6 +13,7 @@ class DBMapPOI(DB):
         _base = super()._pack_dict(object)
         _new = {
             "id":object.id,
+            "uuid":object.uuid,
             "store_id":object.store_id,
 
             "icon":object.icon.url if object.icon is not None else "" ,
