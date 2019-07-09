@@ -57,8 +57,8 @@ class WmCreate:
     # @param
     #   store_uuid 店铺uuid
     #   num 生成的数量
-    def add_wm_ticket(self,store_uuid,num):
-        return action_wm.add_ticket_list(store_uuid,num)
+    def add_wm_ticket(self,store_uuid,num  ):
+        return action_wm.add_ticket_list(store_uuid,num )
 
 
 class WmUtils():
@@ -66,10 +66,10 @@ class WmUtils():
         pass
 
     # 重新创建外卖对象
-    def create(self,store_uuid,ticket_num):
+    def create(self,store_uuid,ticket_num  ):
         wc = WmCreate()
         # 增加ticket
-        store_id,start,end = wc.add_wm_ticket(store_uuid,ticket_num)
+        store_id,start,end = wc.add_wm_ticket(store_uuid,ticket_num )
         # 保存图片
         self.save_image(store_id,start,end)
 
@@ -87,10 +87,20 @@ class WmUtils():
 
 
 if __name__  == '__main__':
+    import django
+    django.setup()
     wm_utils = WmUtils()
 
     # store_uuid = '68e54718-7156-11e9-b456-e95aa2c51b5d' # 丰胸的点
     store_uuid = '54931e42-7c67-11e9-b94e-e95aa2c51b5d' # 17 白日梦想家
-    ticket_num = 400 # 外卖券数量
-    wm_utils.create(store_uuid,ticket_num)  # 重新创建
-    # wm_utils.save_image(1,1,63) # 再次生成
+    ticket_num = 2 # 外卖券数量
+    # sn_tag = u"2017_07_09_2"
+    num = ticket_num
+
+    # print ( "%s,%s" %( datetime.datetime.strftime( datetime.datetime.now(),'%Y_%m_%d_%H_%M_%S'),num ) )
+    # 重新创建
+    wm_utils.create(store_uuid,ticket_num )
+
+    # 再次生成
+    # store_id  , start , end
+    # wm_utils.save_image(17,501,1700)

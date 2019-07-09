@@ -104,13 +104,13 @@ class ActionWm():
         }
 
     #　批量插入ticket
-    def add_ticket_list(self,store_uuid,num):
+    def add_ticket_list(self,store_uuid,num ):
         if self.db_store.is_exists(uuid = store_uuid) is False:
             print (u"店铺不存在")
             return False
         # 组合数据
         store = self.db_store.get(uuid = store_uuid)
-        return self.db_wm_ticket.add_list(store,num)
+        return self.db_wm_ticket.add_list(store,num )
 
 
 

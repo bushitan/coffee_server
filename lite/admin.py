@@ -124,7 +124,7 @@ admin.site.register(Prize,PrizeAdmin)
 # 外卖
 
 class WmTicketAdmin(BaseAdmin):
-	list_display = ('id','short_uuid','store','customer','is_used','is_delete','create_time',)
+	list_display = ('id','short_uuid','store','customer','is_used','is_delete','create_time','name','sn',)
 	# fieldsets = (
 	#     (u"兑换", {'fields': ['uuid','store','seller','customer','receive_customer','receive_time','alive','valid_time','create_time',]}),
 	#     (u" 删除状态", {'fields': ['is_delete','delete_seller',]}),

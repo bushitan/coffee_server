@@ -1,7 +1,8 @@
 #coding:utf-8
 from lite.db.db import DB
 from lite.models import *
-
+from django.db import transaction
+import datetime
 
 class DBWmTicket(DB):
     def __init__(self):
@@ -23,12 +24,19 @@ class DBWmTicket(DB):
         return dict(_base,**_new)
 
     # 批量增加wm_ticket ，挨个保存生成short_uuid
+    # @ param
+    #   store 店铺
+    #   num 生成的数量
     # @return
     #   文件名字 1_55_56
     def add_list(self,store,num):
         count = self.model.objects.count()
-        for i in range(0,num):
-            self.add(store=store)
+
+        index = self.model.objects.filter(store=store).count()
+        name = "%s,%s" %( datetime.datetime.strftime( datetime.datetime.now(),'%Y_%m_%d_%H_%M_%S'),num )
+        with transaction.atomic():
+            for i in range(0,num):
+                self.add(store=store, sn = index + 1 + i, name = name)
 
         # return  "%s_%s_%s" %(store.id , count + 1 , count + num)
         return  store.id , count + 1 , count + num

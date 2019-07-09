@@ -214,7 +214,9 @@ class Score(DataBase):
     is_used= models.BooleanField(u'是否已使用',default=False)
     exchange_time = models.DateTimeField(u'礼物兑换时间',default = timezone.now)
     share = models.ForeignKey('Share', verbose_name=u'分享券',null=True,blank=True)
+    prize = models.ForeignKey('Prize', verbose_name=u'绑定的奖品',null=True,blank=True)
     wm_ticket = models.ForeignKey('WmTicket', verbose_name=u'外卖码',null=True,blank=True)
+
 
     # is_delete = models.BooleanField(u'是否被删除',default=False)
     delete_seller = models.ForeignKey(Seller, related_name='score_delete_seller',verbose_name=u'删除的店员',null=True,blank=True)
@@ -249,6 +251,7 @@ class Prize(DataBase):
 
 
 class WmTicket(Base):
+    sn = models.IntegerField(u'序列号',default=0)
     store = models.ForeignKey(Store,verbose_name=u'所属店铺',null=True,blank=True)
     customer = models.ForeignKey(Customer,verbose_name=u'领取客户',null=True,blank=True)
     is_used= models.BooleanField(u'是否已使用',default=False)
