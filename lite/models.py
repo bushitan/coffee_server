@@ -252,6 +252,8 @@ class Prize(DataBase):
 
 class WmTicket(Base):
     sn = models.IntegerField(u'序列号',default=0)
+    type = models.IntegerField(u'门票类型',default=TICKET_TYPE_SCORE,choices=TICKET_TYPE.items())
+    source = models.IntegerField(u'来源（默认扫码）',default=TICKET_SOURCE_SCAN,choices=TICKET_SOURCE.items())
     store = models.ForeignKey(Store,verbose_name=u'所属店铺',null=True,blank=True)
     customer = models.ForeignKey(Customer,verbose_name=u'领取客户',null=True,blank=True)
     is_used= models.BooleanField(u'是否已使用',default=False)
@@ -317,4 +319,4 @@ class WmTicket(Base):
 
 
 
-67
+

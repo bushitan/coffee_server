@@ -26,9 +26,20 @@ class ActionWm():
         self.db_share = DBShare()
         self.db_wm_ticket = DBWmTicket()
 
-    def get_mode(self,wm_short_uuid):
+    '''
+        @method 获取店铺的外卖的模式
+    '''
+    def get_store_mode(self,wm_short_uuid):
         wm_ticket = self.db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid) #外卖漂圈
         return wm_ticket.store.wm_mode
+
+    '''
+        @method 获取门票的类别   积分/外卖/并行
+    '''
+    def get_type(self,wm_short_uuid):
+        wm_ticket = self.db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid) #外卖漂圈
+        return wm_ticket.type
+
     def get_store_uuid(self,wm_short_uuid):
         wm_ticket = self.db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid) #外卖漂圈
         return  {"store_uuid":wm_ticket.store.uuid}
@@ -56,7 +67,7 @@ class ActionWm():
                     wm_ticket = wm_ticket,
                 )
             # 更新二维码使用状态
-            self.db_wm_ticket.set_used(wm_ticket.id)
+            self.db_wm_ticket.set_used(wm_ticket.id,customer)
             # wm_ticket_query.update(is_used = True)
         return store.wm_check_num
 
@@ -104,13 +115,13 @@ class ActionWm():
         }
 
     #　批量插入ticket
-    def add_ticket_list(self,store_uuid,num ):
+    def add_ticket_list(self,store_uuid,num ,ticket_type):
         if self.db_store.is_exists(uuid = store_uuid) is False:
             print (u"店铺不存在")
             return False
         # 组合数据
         store = self.db_store.get(uuid = store_uuid)
-        return self.db_wm_ticket.add_list(store,num )
+        return self.db_wm_ticket.add_list(store,num ,ticket_type)
 
 
 
@@ -125,12 +136,13 @@ if __name__  == '__main__':
     #     wm_short_uuid='3smX46fZ',
     #     customer_uuid="1eeabca4-7156-11e9-ad02-e95aa2c51b5d"
     # )
+    print(wm.get_type('MMIXf6fZ'))
 
-    print ( wm.get_mode("MMIXf6fZ") )
-    print ( wm.get_store_uuid("MMIXf6fZ") )
-    print ( wm.get_ticket_info("MMIXf6fZ") )
-    print ( wm.check_add_score("MMIXf6fZ","1eeabca4-7156-11e9-ad02-e95aa2c51b5d") )
-    print ( wm.check_add_share("MMIXf6fZ","1eeabca4-7156-11e9-ad02-e95aa2c51b5d") )
+    # print ( wm.get_store_mode("MMIXf6fZ") )
+    # print ( wm.get_store_uuid("MMIXf6fZ") )
+    # print ( wm.get_ticket_info("MMIXf6fZ") )
+    # print ( wm.check_add_score("MMIXf6fZ","1eeabca4-7156-11e9-ad02-e95aa2c51b5d") )
+    # print ( wm.check_add_share("MMIXf6fZ","1eeabca4-7156-11e9-ad02-e95aa2c51b5d") )
 
 
         # share_valid_time = store.share_valid_time

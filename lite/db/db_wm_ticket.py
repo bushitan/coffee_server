@@ -29,14 +29,14 @@ class DBWmTicket(DB):
     #   num 生成的数量
     # @return
     #   文件名字 1_55_56
-    def add_list(self,store,num):
+    def add_list(self,store,num,ticket_type):
         count = self.model.objects.count()
 
         index = self.model.objects.filter(store=store).count()
         name = "%s,%s" %( datetime.datetime.strftime( datetime.datetime.now(),'%Y_%m_%d_%H_%M_%S'),num )
         with transaction.atomic():
             for i in range(0,num):
-                self.add(store=store, sn = index + 1 + i, name = name) # 7.11版本
+                self.add(store=store, sn = index + 1 + i, name = name ,type = ticket_type) # 7.11版本
                 # self.add(store=store, name = name) # 6.15版本 没有sn
 
         # return  "%s_%s_%s" %(store.id , count + 1 , count + num)
@@ -45,9 +45,17 @@ class DBWmTicket(DB):
     def get_by_short_uuid(self,short_uuid):
          return self.model.objects.extra(where=['binary short_uuid=%s'], params=[short_uuid]).first()
 
-    def set_used(self,id):
+    '''
+        @method 外卖券设置为已使用
+        @param
+            id：外卖券的id
+            customer：使用的顾客对象
+        @return 返回更新成功信息
+    '''
+    def set_used(self,id,customer):
         ticket = self.model.objects.get(id = id)
         ticket.is_used = True
+        ticket.customer = customer
         ticket.save()
         return ticket
 

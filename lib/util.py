@@ -43,11 +43,14 @@ STORE_WM_MODE_NORMAL = 1 #普通
 STORE_WM_MODE_SHARE = 2  #分享
 STORE_WM_MODE_ALL = 3  #普通分享并行
 STORE_WM_MODE_CLOSE = 4  #普通分享并行
+STORE_WM_MODE_SELF = 5  #根据门票的信息自定义
 STORE_WM_MODE =  {
 	STORE_WM_MODE_NORMAL:u"普通模式",
 	STORE_WM_MODE_SHARE:u"分享模式",
     STORE_WM_MODE_ALL:u"普通分享并行模式",
+    STORE_WM_MODE_SELF:u"据门票的类别自定义",
     STORE_WM_MODE_CLOSE:u"关闭",
+
 }
 
 ############数据模块##################
@@ -64,6 +67,30 @@ SCORE_MODE_NORMAL = 1   #普通集点
 SCORE_MODE_SHARE = 2    #分享集点
 SCORE_MODE_PRIZE = 3    #奖品
 
+
+'''
+	WmTicket门票的类型
+'''
+TICKET_TYPE_SCORE = 1  #积分
+TICKET_TYPE_SHARE = 2	#分享
+TICKET_TYPE_DOUBLE = 3	#并行
+TICKET_TYPE_CLOSE = 4  #关闭
+TICKET_TYPE = {
+	TICKET_TYPE_SCORE : u'积分码',
+	TICKET_TYPE_SHARE : u'分享码',
+	TICKET_TYPE_DOUBLE : u'积分与分享共码',
+    TICKET_TYPE_CLOSE:u"关闭",
+}
+
+'''
+	WmTicket门票的来源
+'''
+TICKET_SOURCE_SCAN = 1 # 扫描来源
+TICKET_SOURCE_MAP = 2 # 地图来源
+TICKET_SOURCE =  {
+	TICKET_SOURCE_SCAN:u"扫描来源",
+	TICKET_SOURCE_MAP: u"地图来源",
+}
 
 
 

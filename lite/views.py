@@ -177,8 +177,10 @@ class CustomerScanWm(ListView):
     def post(self, request, *args, **kwargs):
         wm_short_uuid = request.POST.get('wm_short_uuid',"")
         customer_uuid =  request.POST.get('customer_uuid',"")
-        mode = action_wm.get_mode(wm_short_uuid)
+        mode = action_wm.get_store_mode(wm_short_uuid)
         call_back_data =  action_wm.get_store_uuid(wm_short_uuid)
+
+        # 店铺模式
         if mode == STORE_WM_MODE_NORMAL : #积分模式
             score_num = action_wm.check_add_score(wm_short_uuid,customer_uuid)
             return MSG.wm_score(score_num) ,call_back_data
@@ -189,6 +191,23 @@ class CustomerScanWm(ListView):
             score_num = action_wm.check_add_score(wm_short_uuid,customer_uuid)
             share_num = action_wm.check_add_share(wm_short_uuid,customer_uuid)
             return MSG.wm_all(score_num,share_num) ,call_back_data
+        elif mode == STORE_WM_MODE_SELF: #根据门票type
+
+            # 门票自身模式
+            ticket_type = action_wm.get_type(wm_short_uuid)
+            if ticket_type == TICKET_TYPE_SCORE:
+                score_num = action_wm.check_add_score(wm_short_uuid,customer_uuid)
+                return MSG.wm_score(score_num) ,call_back_data
+            elif ticket_type == TICKET_TYPE_SHARE:
+                share_num = action_wm.check_add_share(wm_short_uuid,customer_uuid)
+                return MSG.wm_share(share_num) ,call_back_data
+            elif ticket_type == TICKET_TYPE_DOUBLE:
+                score_num = action_wm.check_add_score(wm_short_uuid,customer_uuid)
+                share_num = action_wm.check_add_share(wm_short_uuid,customer_uuid)
+                return MSG.wm_all(score_num,share_num) ,call_back_data
+            else : #门票自身卖已关闭
+                return MSG.wm_close() ,{}
+
         else : #外卖已关闭
             return MSG.wm_close() ,{}
 
