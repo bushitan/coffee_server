@@ -36,7 +36,8 @@ class DBWmTicket(DB):
         name = "%s,%s" %( datetime.datetime.strftime( datetime.datetime.now(),'%Y_%m_%d_%H_%M_%S'),num )
         with transaction.atomic():
             for i in range(0,num):
-                self.add(store=store, sn = index + 1 + i, name = name)
+                self.add(store=store, sn = index + 1 + i, name = name) # 7.11版本
+                # self.add(store=store, name = name) # 6.15版本 没有sn
 
         # return  "%s_%s_%s" %(store.id , count + 1 , count + num)
         return  store.id , count + 1 , count + num

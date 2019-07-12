@@ -92,8 +92,10 @@ if __name__  == '__main__':
     wm_utils = WmUtils()
 
     # store_uuid = '68e54718-7156-11e9-b456-e95aa2c51b5d' # 丰胸的点
-    store_uuid = '54931e42-7c67-11e9-b94e-e95aa2c51b5d' # 17 白日梦想家
-    ticket_num = 2 # 外卖券数量
+    # store_uuid = '54931e42-7c67-11e9-b94e-e95aa2c51b5d' # 17 白日梦想家
+    store_uuid = 'e12675ca-76df-11e9-8b6c-e95aa2c51b5d' # 8 愉市
+
+    ticket_num = 600 # 外卖券数量
     # sn_tag = u"2017_07_09_2"
     num = ticket_num
 
