@@ -25,8 +25,9 @@ SECRET_KEY = 'ro6lerrgipj_y!1u%5+pzh@&d5_8y6k--uwi9p8!mqws%=h3he'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -96,7 +97,7 @@ USE_TZ = False #计算机所在地时间#
 
 # TODO 1 log文件地址
 LOG_FILE = "./all.log"
-# LOG_FILE = r"C:\server\log\coffee_server_2019_7_1_v1_4_7.log"
+# LOG_FILE = r"C:\server\log\coffee_server_2019_7_12_v1_5_2.log"
 
 LOGGING = {
         'version': 1,
@@ -161,7 +162,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'coffee_server',
         # 'NAME': 'coffee_server_2019_6_15_v1_3_10', # 上线运行版本
-        'NAME': 'coffee_server_2019_7_1_v1_4_7', # 测试版本
+        # 'NAME': 'coffee_server_2019_7_1_v1_4_7', # 测试版本
+        'NAME': 'coffee_server_2019_7_12_v1_5_2', # 测试版本
         'USER': 'root',
         'PASSWORD':'root',
         'HOST':'127.0.0.1',
@@ -174,6 +176,7 @@ DATABASES = {
 ENV_URL = 'dev/' # TODO
 # ENV_URL = 'coffee_server_2019_6_15_v1_3_10/' # 上线
 # ENV_URL = 'coffee_server_2019_7_1_v1_4_7/' # 测试
+# ENV_URL = 'coffee_server_2019_7_12_v1_5_2/' # 测试
 
 
 
