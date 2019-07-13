@@ -112,7 +112,7 @@ class ActionUser():
 			city = "" ,province = "" ,country = "" , ):
 		user = self.db_user.filter(uuid = uuid)
 
-		nick_name = u'this.丰胸' + nick_name
+		# nick_name = u'this.丰胸' + nick_name
 		count = self.db_user.update(
 			user,
 			# nick_name = request.POST.get('nickName',''), # 不再用nick_name 做存储

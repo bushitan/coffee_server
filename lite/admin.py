@@ -61,7 +61,7 @@ admin.site.register(Seller,SellerAdmin)
 class CustomerAdmin(BaseAdmin):
 	list_display = ('id','name','nick_name','name_base64','uuid','wx_openid',)
 	fieldsets = (
-        (u"客户属性", {'fields': ['uuid','name',]}),
+        (u"客户属性", {'fields': ['uuid','name','nick_name_base64']}),
 		(u"微信数据", {'fields': ['nick_name','avatar_url','gender','city','province','country',]}),
 		(u"系统数据", {'fields': ['wx_openid','wx_session','wx_unionid',]}),
     )
