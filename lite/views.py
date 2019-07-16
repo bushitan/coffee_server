@@ -174,6 +174,7 @@ class CustomerScanWm(ListView):
     @det.customer_exists
     @det.wm_qr_exist
     @det.wm_qr_status
+    @det.wm_qr_full
     def post(self, request, *args, **kwargs):
         wm_short_uuid = request.POST.get('wm_short_uuid',"")
         customer_uuid =  request.POST.get('customer_uuid',"")
@@ -211,7 +212,7 @@ class CustomerScanWm(ListView):
         else : #外卖已关闭
             return MSG.wm_close() ,{}
 
-# 外卖模式--客户自助扫领取
+# 检测信息
 class CustomerScanWmCheck(ListView):
     @logged
     @det.wm_qr_exist

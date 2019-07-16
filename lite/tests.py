@@ -12,6 +12,15 @@ print (info_map.pop('aa'))
 print (info_map.get_map())
 print (info_map.pop('aa'))
 print (info_map.get_map())
+
+# import requests
+# url = 'https://www.xiaohongshu.com/discovery/item/5d25f0f8000000002701243f'
+# headers = {'content-type': 'application/json'}
+# r = requests.get(url, headers=headers )
+# print(r)
+# f=open('red.html',"wb")
+# f.write(r.content)
+# f.close()
 # Create your tests here.
 # INFO_QUEUE = {}
 # INFO_QUEUE['aa'] = [ {'message':'me'}, {'message':'u1'},]

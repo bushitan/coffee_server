@@ -26,6 +26,14 @@ class DBScore(DBData):
         else:
             return False
 
+    '''
+        @method 用户可用点数
+        @summary 查询店铺有效期内的点数，有效期范围外的不计入
+        @param
+            store_uuid    店铺uuid
+            customer_uuid 顾客uuid
+        @return 有效总数
+    '''
     def count_valid(self,store_uuid,customer_uuid):
         db_store = DBStore()
         store = db_store.get(uuid = store_uuid)

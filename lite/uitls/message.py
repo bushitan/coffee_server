@@ -143,6 +143,7 @@ CODE_WM_CLOSE      = "%s%s004" %(DIALOG,WM)  #外卖已关闭
 CODE_WM_TIME_OUT      = "%s%s005" %(DIALOG,WM)  #外卖已关闭
 CODE_WM_USED      = "%s%s006" %(DIALOG,WM)  #外卖已关闭
 CODE_WM_DELETE     = "%s%s007" %(DIALOG,WM)  #外卖已关闭
+CODE_WM_FULL     = "%s%s008" %(DIALOG,WM)  #已集满点
 def wm_score(num):
     return {'code':CODE_WM_SCORE,'title':u"集点成功" , 'content':u'获得了%s点' %(num)}
 def wm_share(num):
@@ -159,6 +160,8 @@ def wm_used():
     return {'code':CODE_WM_USED,'title':u"温馨提示" , 'content':u'二维码已使用'}
 def wm_delete():
     return {'code':CODE_WM_DELETE,'title':u"温馨提示" , 'content':u'二维码已废弃'}
+def wm_full():
+    return {'code':CODE_WM_FULL,'title':u"您的点数已集满" , 'content':u'请先到店内兑换福利，或将此二维码分享朋友'}
 
 
 # 07 地图

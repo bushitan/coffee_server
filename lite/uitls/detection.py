@@ -214,5 +214,36 @@ def wm_qr_status(func):
         return func(self,request,*args, **kwargs)
     return wrapper
 
+'''
+    @method 检测用户满点
+    @summary 用户满点 ? 提示不能集点 : pass
+'''
+def wm_qr_full(func):
+    @base
+    def wrapper(self,request,*args, **kwargs):
+        wm_short_uuid = request.POST.get('wm_short_uuid',"")
+        customer_uuid =  request.POST.get('customer_uuid',"")
+
+
+        wm_ticket = db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid)
+
+        store = wm_ticket.store
+        score_count = db_score.count_valid(store.uuid,customer_uuid)
+        print (score_count)
+        if store.exchange_value <= score_count:
+            return MSG.wm_full(), {"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid}
+        return func(self,request,*args, **kwargs)
+    return wrapper
+
+if __name__ == '__main__':
+    import django
+    django.setup()
+    @wm_qr_full
+    def test(self,re):
+        pass
+        # print (123)
+    test(1,2)
+    # print( test(1,2))
+
 
 

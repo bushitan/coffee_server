@@ -161,9 +161,10 @@ DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'coffee_server',
+        'NAME': 'coffee_server_dev',  # 内测环境运行
         # 'NAME': 'coffee_server_2019_6_15_v1_3_10', # 上线运行版本
         # 'NAME': 'coffee_server_2019_7_1_v1_4_7', # 测试版本
-        'NAME': 'coffee_server_2019_7_12_v1_5_2', # 测试版本
+        # 'NAME': 'coffee_server_2019_7_12_v1_5_2', # 测试版本
         'USER': 'root',
         'PASSWORD':'root',
         'HOST':'127.0.0.1',
