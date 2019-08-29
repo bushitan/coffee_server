@@ -16,8 +16,9 @@ def logged(func):
                 'message':message ,
                 'data': data
             }
+            # raise ("123")
             return HttpResponse( json.dumps( _dict ),content_type="application/json" )
-        except BaseException as e:
+        except Exception as e:
             logger.error(self.__class__.__name__ +" ---- " + str(e)) #打印错误日志
             _dict = {
                 'message':MSG.sys_error() ,

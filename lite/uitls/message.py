@@ -15,13 +15,13 @@ MAP  = "07"     #地图
 
 # 00 系统
 CODE_SYS_SUCCESS = "%s%s001" %(DIALOG,SYS)  # 正常返回，无任何提示
-CODE_SYS_ERROR_ = "%s%s002" %(DIALOG,SYS)  #登陆成功
+CODE_SYS_ERROR = "%s%s002" %(DIALOG,SYS)  #登陆成功
 CODE_SYS_ERROR_NETWORK = "%s%s003" %(DIALOG,SYS)  #登陆成功
 def sys_success():
     return {'code':CODE_SYS_SUCCESS,'title':u"请求成功" , 'content':u'无任何提示'}
 
 def sys_error():
-    return {'code':CODE_SYS_ERROR_NETWORK,'title':u"系统超时" , 'content':u'请重试，如有问题请联系管理员'}
+    return {'code':CODE_SYS_ERROR,'title':u"系统超时" , 'content':u'请重试，如有问题请联系管理员'}
 def sys_error_network():
     return {'code':CODE_SYS_ERROR_NETWORK,'title':u"网络超时" , 'content':u''}
 

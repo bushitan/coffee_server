@@ -50,6 +50,7 @@ class WmCreate:
             data = {
                 "scene":"wm_%s" % (short_uuid),
                 "is_hyaline" :True,
+                "width":300,
             }
             a._post_qr(token,data,qr_path)
 
@@ -91,24 +92,23 @@ if __name__  == '__main__':
     django.setup()
     wm_utils = WmUtils()
 
-    # store_uuid = '68e54718-7156-11e9-b456-e95aa2c51b5d' # 丰兄的店
+    store_uuid = '68e54718-7156-11e9-b456-e95aa2c51b5d' # 1 丰兄的店
+    # store_uuid = '7d1dba9a-730b-11e9-9c73-e95aa2c51b5d' # 4 乐知咖啡
     # store_uuid = '54931e42-7c67-11e9-b94e-e95aa2c51b5d' # 17 白日梦想家
     # store_uuid = 'e12675ca-76df-11e9-8b6c-e95aa2c51b5d' # 8 愉市
-    store_uuid = 'a1828928-7860-11e9-be7b-e95aa2c51b5d' # 10 菓缇
-
-    ticket_num = 1198 # 外卖券数量
-    # sn_tag = u"2017_07_09_2"
+    # store_uuid = 'a1828928-7860-11e9-be7b-e95aa2c51b5d' # 10 菓缇
+    # store_uuid = 'b29c4dee-b35e-11e9-869d-e95aa2c51b5d' # 24 StrongCOFFEE(康浦店)
+    # store_uuid = 'b131ffba-b362-11e9-9abd-e95aa2c51b5d' # 25 O.CT
+    ticket_num = 600 # 外卖券数量
 
     '''门票的类别，默认为积分模式 '''
-    # ticket_type = TICKET_TYPE_SCORE   #积分
-    ticket_type = TICKET_TYPE_SHARE 	#分享
+    ticket_type = TICKET_TYPE_SCORE   #积分
+    # ticket_type = TICKET_TYPE_SHARE 	#分享
     # ticket_type = TICKET_TYPE_DOUBLE 	#并行
     # ticket_type = TICKET_TYPE_CLOSE   #关闭
 
-    # print ( "%s,%s" %( datetime.datetime.strftime( datetime.datetime.now(),'%Y_%m_%d_%H_%M_%S'),num ) )
-    # 重新创建
-    # wm_utils.create(store_uuid,ticket_num ,ticket_type)
+    # 创建新的外卖码
+    wm_utils.create(store_uuid,ticket_num ,ticket_type)
 
-    # 再次生成
-    # store_id  , start , end
-    wm_utils.save_image(10,2901,4100)
+    # 根据序号重复生成
+    # wm_utils.save_image(17,4101,6500)

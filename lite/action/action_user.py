@@ -74,6 +74,15 @@ class ActionUser():
 		return self.ACCESS_TOKEN['access_token']
 
 
+	# 更新touken
+	def _update_token(self):
+		expires_in = 7000
+		current_unix = time.time()
+		valid_unix = current_unix + expires_in
+		_res = self._weixin_token()
+		_res['valid_unix'] = valid_unix
+		self.ACCESS_TOKEN = _res
+		return  _res
 
 	# 请求token
 	def _weixin_token(self):

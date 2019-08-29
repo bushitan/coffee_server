@@ -96,7 +96,7 @@ USE_TZ = False #计算机所在地时间#
 
 
 # TODO 1 log文件地址
-LOG_FILE = "./all.log"
+# LOG_FILE = "./all.log"
 LOG_FILE = r"C:\server\log\coffee_server_2019_7_12_v1_5_2.log"
 
 LOGGING = {
@@ -161,10 +161,10 @@ DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'coffee_server',
-        'NAME': 'coffee_server_dev',  # 内测环境运行
+        # 'NAME': 'coffee_server_dev',  # 内测环境运行
         # 'NAME': 'coffee_server_2019_6_15_v1_3_10', # 上线运行版本
         # 'NAME': 'coffee_server_2019_7_1_v1_4_7', # 测试版本
-        # 'NAME': 'coffee_server_2019_7_12_v1_5_2', # 测试版本
+        'NAME': 'coffee_server_2019_7_12_v1_5_2', # 测试版本
         'USER': 'root',
         'PASSWORD':'root',
         'HOST':'127.0.0.1',
@@ -174,10 +174,10 @@ DATABASES = {
 
 # 上线环境版本号
 # TODO 3  以dev + 日期，例如：dev20190611 作为编号，区分服务器版本号
-ENV_URL = 'dev/' # TODO
+# ENV_URL = 'dev/' # TODO
 # ENV_URL = 'coffee_server_2019_6_15_v1_3_10/' # 上线
 # ENV_URL = 'coffee_server_2019_7_1_v1_4_7/' # 测试
-# ENV_URL = 'coffee_server_2019_7_12_v1_5_2/' # 测试
+ENV_URL = 'coffee_server_2019_7_12_v1_5_2/' # 测试
 
 
 
