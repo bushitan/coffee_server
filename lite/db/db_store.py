@@ -11,6 +11,10 @@ class DBStore(DB):
     def _pack_dict(self,object):
         _base = super()._pack_dict(object)
         _new = {
+
+            "is_business":object.is_business,
+            "is_ad":object.is_ad,
+
             "title":object.title,
             "summary":object.summary,
             "description":object.description,

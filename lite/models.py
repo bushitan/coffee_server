@@ -56,6 +56,7 @@ class BaseImage(Base):
 # 店铺
 class Store(Base):
     is_business = models.BooleanField(u'是否营业',default=True)
+    is_ad = models.BooleanField(u'是否展示广告',default=True)
     title = models.CharField(max_length=100, verbose_name=u'标题',default="",null=True,blank=True)
     summary = models.CharField(max_length=200, verbose_name=u'简介',default="",null=True,blank=True)
     description = models.CharField(max_length=500, verbose_name=u'描述',default="",null=True,blank=True)
@@ -101,8 +102,36 @@ class Store(Base):
         return '%s' % (self.title )
 
 
+# 广告
+class Ad(Base):
+    type = models.IntegerField(u'广告',default=AD_TYPE_IMAGE,choices=AD_TYPE.items())
+    cover =  models.CharField(max_length=2000, verbose_name=u'封面图',default="",null=True,blank=True)
+    web_url =  models.CharField(max_length=2000, verbose_name=u'内容地址',default="",null=True,blank=True)
+    is_show= models.BooleanField(u'是否展示',default=False)
+    sort = models.IntegerField(u'排序',default=0)
+    class Meta:
+        verbose_name_plural = verbose_name = u'广告位'
+        ordering = ['-sort']
+    def __str__(self):
+        return '%s' % (self.name )
 
+# 统计数据
+class Collect(Base):
+    store = models.ForeignKey('Store',verbose_name=u'店铺',null=True,blank=True)
+    customer = models.ForeignKey('Customer',verbose_name=u'客户',null=True,blank=True)
+    type = models.IntegerField(u'门票类型',default=COLLECT_TYPE_BASE,choices=COLLECT_TYPE.items())
+    # 2 广告
+    ad = models.ForeignKey('Ad',verbose_name=u'广告',null=True,blank=True)
+    # 3 外卖部分
+    wm_ticket = models.ForeignKey('WmTicket',verbose_name=u'外卖券',null=True,blank=True)
+    latitude =  models.FloatField( verbose_name=u'纬度',default=0,null=True,blank=True)
+    longitude =  models.FloatField(  verbose_name=u'经度',default=0,null=True,blank=True)
 
+    class Meta:
+        verbose_name_plural = verbose_name = u'数据统计'
+        # ordering = ['-sort']
+    def __str__(self):
+        return '%s' % (self.name )
 
 
 

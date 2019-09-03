@@ -150,6 +150,7 @@ class CustomerRefresh(ListView):
             'info_list':info_map.pop(customer_uuid)
         }
 
+
 # 客户自助扫二维码领券
 class CustomerScanAutoShare(ListView):
     @logged
@@ -219,6 +220,13 @@ class CustomerScanWmCheck(ListView):
     def post(self, request, *args, **kwargs):
         wm_short_uuid = request.POST.get('wm_short_uuid',"")
         return MSG.sys_success() ,action_wm.get_ticket_info(wm_short_uuid)
+
+
+# 客户端获取广告
+class CustomerGetAd(ListView):
+    @logged
+    def post(self, request, *args, **kwargs):
+        return MSG.sys_success() ,action_store_cus.get_ad_list()
 
 # 客户自助扫二维码领券(已废弃）
 # class CustomerScanAutoShare111111(ListView):

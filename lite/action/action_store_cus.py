@@ -8,6 +8,7 @@ from lite.db.db_rel_store_customer import *
 from lite.db.db_score import *
 from lite.db.db_prize import *
 from lite.db.db_share import *
+from lite.db.db_ad import *
 from lib.util import *
 import time
 import datetime
@@ -23,6 +24,7 @@ class ActionStoreCus():
         self.db_score = DBScore()
         self.db_prize = DBPrize()
         self.db_share = DBShare()
+        self.db_ad = DBAd()
 
     # 检测base64
     def check_qr_base64(self,qr_base64):
@@ -57,6 +59,14 @@ class ActionStoreCus():
                            alive = share_num,valid_time = valid_time)
 
         return True
+
+    def get_ad_list(self):
+        return self.db_ad.get_show_list()
+
+
+
+
+
 
     # 发放福利分享券（已废弃）
     # def get_auto_share11111(self,seller_uuid,customer_uuid):

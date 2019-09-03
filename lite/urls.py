@@ -17,10 +17,12 @@ urlpatterns = [
     url(r'^store/detail/customer/',CustomerDetail.as_view()),
     url(r'^store/share/customer/',CustomerShare.as_view()),
     url(r'^refresh/customer',CustomerRefresh.as_view()),
-
+    # 扫码领取
     url(r'^scan/auto_share/customer/',CustomerScanAutoShare.as_view()),
     url(r'^scan/wm/customer/',CustomerScanWm.as_view()), #客户扫码，自助模式
     url(r'^scan/wm/check/customer/',CustomerScanWmCheck.as_view()),
+    # 广告
+    url(r'^store/get_ad/customer/',CustomerGetAd.as_view()),
 
     # 商户
     url(r'^store/update/seller/',SellerUpdate.as_view()),

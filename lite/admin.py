@@ -42,6 +42,29 @@ class BaseImageAdmin(admin.ModelAdmin):
 	url_image.allow_tags = True
 admin.site.register(BaseImage,BaseImageAdmin)
 
+
+# 广告
+class AdAdmin(BaseAdmin):
+	list_display = ('id','type','cover','web_url','is_show','sort',)
+	fieldsets = (
+        (u"基础类别", {'fields': ['type','is_show','sort',]}),
+		(u"封面/内容", {'fields': ['cover','web_url']}),
+    )
+	list_editable = ('sort',)
+admin.site.register(Ad,AdAdmin)
+
+# 广告
+class CollectAdmin(BaseAdmin):
+	list_display = ('id','type','store','customer',)
+	fieldsets = (
+        (u"基础类别", {'fields': ['type','store','customer',]}),
+		(u"广告", {'fields': ['ad',]}),
+		(u"外卖", {'fields': ['wm_ticket','latitude','longitude',]}),
+    )
+admin.site.register(Collect,CollectAdmin)
+
+
+
 class SellerAdmin(BaseAdmin):
 	list_display = ('id','store','is_host','nick_name','name_base64','uuid','wx_openid',)
 	fieldsets = (

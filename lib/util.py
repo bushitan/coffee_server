@@ -122,8 +122,25 @@ MAP_VISITOR_TYPE = {
 
 
 
+#############广告 统计################
+AD_TYPE_IMAGE = 1
+AD_TYPE_WEB_VIEW = 2
+AD_TYPE = {
+	AD_TYPE_IMAGE:u'图片',
+	AD_TYPE_WEB_VIEW:u'浏览网页',
+}
 
 
+
+COLLECT_TYPE_BASE = 1
+COLLECT_TYPE_AD = 2
+COLLECT_TYPE_WM = 3
+# 收集数据的模式
+COLLECT_TYPE = {
+	COLLECT_TYPE_BASE:u"基础统计，无类别",
+	COLLECT_TYPE_AD:u"广告点击",
+	COLLECT_TYPE_WM:u"外卖扫码",
+}
 
 
 
