@@ -8,10 +8,10 @@ class BaseAdmin(admin.ModelAdmin):
 
 from django.utils.safestring import mark_safe
 class StoreAdmin(BaseAdmin):
-	list_display = ('id','is_business','title','uuid','icon_mode','is_auto','mode','exchange_value','address','start_time','end_time',)
+	list_display = ('id','is_business','is_ad','title','uuid','icon_mode','mode','exchange_value','address','start_time','end_time',)
 
 	fieldsets = (
-		(u"展示内容", {'fields': ['is_business','uuid','title','summary','description','logo','icon','phone',]}),
+		(u"展示内容", {'fields': ['is_business','is_ad','uuid','title','summary','description','logo','icon','phone',]}),
 		(u"分享内容", {'fields': ['share_logo','share_title',]}),
 		(u"二维码", {'fields': ['qr_image','qr',]}),
 		(u"地址", {'fields': ['address','latitude','longitude',]}),
@@ -31,6 +31,7 @@ class StoreAdmin(BaseAdmin):
 	qr_image.short_description = u'店铺二维码'
 	qr_image.allow_tags = True
 	readonly_fields = ("uuid",'qr_image',)
+	list_editable = ("is_ad",)
 admin.site.register(Store,StoreAdmin)
 
 
