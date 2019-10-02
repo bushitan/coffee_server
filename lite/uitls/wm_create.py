@@ -100,18 +100,18 @@ if __name__  == '__main__':
     # store_uuid = '3a257d7e-9e3e-11e9-bacb-e95aa2c51b5d' # 22 又至园精品咖啡馆
     # store_uuid = 'b29c4dee-b35e-11e9-869d-e95aa2c51b5d' # 24 StrongCOFFEE(康浦店)
     # store_uuid = 'b131ffba-b362-11e9-9abd-e95aa2c51b5d' # 25 O.CT
-    # store_uuid = 'a85e7854-c268-11e9-97aa-e95aa2c51b5d' # 28 seeking
+    store_uuid = 'a85e7854-c268-11e9-97aa-e95aa2c51b5d' # 28 seeking
     # store_uuid = 'dfc006be-c0ca-11e9-9e96-e95aa2c51b5d' # 27 r-coffee
     # store_uuid = 'aa03edc2-ce62-11e9-afbe-e95aa2c51b5d' # 29 白鲸手作（广场东里店、和平路店）
     # store_uuid = 'afe5a7ba-d3ae-11e9-841f-e95aa2c51b5d' # 30 一城之肆
     # store_uuid = '381719ac-d499-11e9-95a1-e95aa2c51b5d' # 31 白鲸手作（贵兴店）
     # store_uuid = '7ecc8afa-d9ee-11e9-8590-e95aa2c51b5d' # 32 TJ
-    store_uuid = 'b5eb1a3e-dd39-11e9-b2c8-e95aa2c51b5d' # 34 2F Nail美甲美睫美颜
+    # store_uuid = 'b5eb1a3e-dd39-11e9-b2c8-e95aa2c51b5d' # 34 2F Nail美甲美睫美颜
 
 
 
 
-    ticket_num = 1200 # 外卖券数量
+    # ticket_num = 7200 # 外卖券数量
 
     '''门票的类别，默认为积分模式 '''
     ticket_type = TICKET_TYPE_SCORE   #积分
@@ -120,7 +120,9 @@ if __name__  == '__main__':
     # ticket_type = TICKET_TYPE_CLOSE   #关闭
 
     # 创建新的外卖码
-    wm_utils.create(store_uuid,ticket_num ,ticket_type)
+    # wm_utils.create(store_uuid,ticket_num ,ticket_type)
 
     # 根据序号重复生成
-    # wm_utils.save_image(31,31101,32300)
+    wm_utils.save_image(28,37401,39800)
+    wm_utils.save_image(28,39801,42200)
+    wm_utils.save_image(28,42201,44600)
