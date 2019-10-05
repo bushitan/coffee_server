@@ -97,7 +97,7 @@ USE_TZ = False #计算机所在地时间#
 
 # TODO 1 log文件地址
 # LOG_FILE = "./all.log"
-LOG_FILE = r"C:\server\log\coffee_server_2019_8_29_v1_6_1.log"
+LOG_FILE = r"C:\coffee_server_2019_8_29_v1_6_1.log"
 
 LOGGING = {
         'version': 1,

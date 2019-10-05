@@ -21,6 +21,7 @@ urlpatterns = [
     url(ENV_URL + r'admin/', include(admin.site.urls)),
     url(ENV_URL + r'lite/', include('lite.urls')),
     url(ENV_URL + r'map/', include('map.urls')),
+    url(ENV_URL + r'host_total/', include('host_total.urls')),
 ]
 # urlpatterns = [
 #     url(r'^admin/', include(admin.site.urls)),
