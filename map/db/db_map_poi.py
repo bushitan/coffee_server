@@ -57,7 +57,16 @@ if __name__ == '__main__':
     # print ( s.get_list_by_tag("e946a302-9241-11e9-93cb-e95aa2c51b5d") )
     # print ( s.get_detail("a17fc138-9243-11e9-9c7f-e95aa2c51b5d") )
 
-    print (s.get_tag_name('a17fc138-9243-11e9-9c7f-e95aa2c51b5d'))
+    # print (s.get_tag_name('a17fc138-9243-11e9-9c7f-e95aa2c51b5d'))
+
+
+
+    from django.db.models import Q
+    # a = s.filter(tag=1).filter(tag=None)
+    a = s.filter(Q(tag=34) | Q(tag=None))
+    # b = s.filter(tag=None)
+    print (a)
+    # print ( type(s.get(id=488).tag))
 
     # l = s.get_list()
 

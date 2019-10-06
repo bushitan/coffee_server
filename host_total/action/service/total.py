@@ -17,13 +17,13 @@ class ActionTotal(ActionBase):
 
     # 1.1 检测账号是否存在
     def check_account(self,username,password):
-        # return db_utils.seller.is_exists( username=username,password=password )
-        return db_utils.seller.is_exists( id=1 )
+        return db_utils.seller.is_exists( username=username,password=password )
+        # return db_utils.seller.is_exists( id=1 )
 
     # 1.2 获取用户信息
     def get_seller_info(self,username,password):
-        # return db_utils.seller.get_dict( username=username,password=password )
-        return db_utils.seller.get_dict(  id=1 )
+        return db_utils.seller.get_dict( username=username,password=password )
+        # return db_utils.seller.get_dict(  id=1 )
 
     # 1.3 检查token是否存在
     def check_token(self,token):

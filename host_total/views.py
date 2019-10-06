@@ -159,8 +159,8 @@ class SellerDetail(ListView):
     @action.detect.user_token
     def post(self, request, *args, **kwargs):
         seller_id = request.POST.get('seller_id','')
-        index = request.POST.get('index','')
-        range = request.POST.get('range','')
+        index = int(request.POST.get('index',''))
+        range = int(request.POST.get('range',''))
         score_list = action.total.get_score_by_seller(seller_id,index,range)
         return {
             'data':{

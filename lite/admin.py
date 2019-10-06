@@ -67,10 +67,11 @@ admin.site.register(Collect,CollectAdmin)
 
 
 class SellerAdmin(BaseAdmin):
-	list_display = ('id','store','is_host','nick_name','name_base64','uuid','wx_openid',)
+	list_display = ('id','store','is_host','nick_name','name_base64','uuid','wx_openid','username','password',)
 	fieldsets = (
         (u"销售属性", {'fields': ['store','is_host','uuid','name',]}),
 		(u"微信数据", {'fields': ['nick_name','nick_name_base64','avatar_url','gender','city','province','country',]}),
+		(u"数据账号", {'fields': ['username','password',]}),
 		(u"系统数据", {'fields': ['wx_openid','wx_session','wx_unionid',]}),
     )
 	search_fields = ('id','wx_openid','uuid','nick_name','store__title',)

@@ -177,11 +177,13 @@ DATABASES = {
 
 # 上线环境版本号
 # TODO 3  以dev + 日期，例如：dev20190611 作为编号，区分服务器版本号
-ENV_URL = 'dev/' # TODO
+# ENV_URL = 'dev/' # TODO
 # ENV_URL = 'coffee_server_2019_6_15_v1_3_10/' # 上线
 # ENV_URL = 'coffee_server_2019_7_1_v1_4_7/' # 测试
 # ENV_URL = 'coffee_server_2019_7_12_v1_5_2/' # 测试
 # ENV_URL = 'coffee_server_2019_8_29_v1_6_1/' # 测试
+ENV_URL = 'coffee_server_2019_10_2_v2_1_1/' # 测试
+
 
 
 
