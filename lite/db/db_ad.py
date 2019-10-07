@@ -13,8 +13,8 @@ class DBAd(DB):
         _new = {
             "id":object.id,
             "type":object.type,
-            'cover_image':object.cover_image,
-            'content_image':object.content_image,
+            "cover_image_url":object.cover_image.url if object.cover_image is not None else "" ,
+            "content_image_url":object.content_image.url if object.content_image is not None else "" ,
             'content_url':object.content_url,
             'content_lite_app_id':object.content_lite_app_id,
             'content_lite_path':object.content_lite_path,
