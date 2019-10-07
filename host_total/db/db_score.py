@@ -18,6 +18,11 @@ class DBScore(DBData):
         }
         return dict(_base,**_new)
 
+    def get_range(self,seller_id,index,range):
+        score_filter = self.model.objects.filter(seller_id = seller_id)[index:range]
+        return self._pack_list( self._pack_dict,score_filter)
+
+
     def latest(self,customer,store):
         if self.model.objects.filter(customer = customer,store = store,)\
                 .exclude(share=None).exists() is True:

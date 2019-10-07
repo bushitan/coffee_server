@@ -7,10 +7,12 @@ UNIT_SECOND = 86400 # 每日的秒数
 BASE_IMAGE_TYPE_COVER = 1  #封面
 BASE_IMAGE_TYPE_ICON = 2	#图标
 BASE_IMAGE_TYPE_QR = 3		#二维码
+BASE_IMAGE_TYPE_AD_CONTENT = 4		#广告内容
 BASE_IMAGE_TYPE = {
 	BASE_IMAGE_TYPE_COVER : u'封面',
 	BASE_IMAGE_TYPE_ICON : u'图标',
 	BASE_IMAGE_TYPE_QR : u'二维码',
+	BASE_IMAGE_TYPE_AD_CONTENT : u'广告内容',
 }
 
 ###########店铺的集点模式################

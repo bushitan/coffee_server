@@ -56,7 +56,8 @@ class ActionTotal(ActionBase):
 
     # 3 获取核销员核销的积分详情
     def get_score_by_seller(self,seller_id,index,range):
-        return db_utils.score.get_list(seller_id = seller_id)[index:range]
+        # return db_utils.score.get_list(seller_id = seller_id)[index:range]
+        return db_utils.score.get_range(seller_id,index,range)
 
 
 if __name__ == "__main__":

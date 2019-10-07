@@ -60,8 +60,16 @@ class ActionStoreCus():
 
         return True
 
+    '''
+        @method 获取所有的挂广告
+    '''
     def get_ad_list(self):
         return self.db_ad.get_show_list()
+    '''
+        @method 获取店铺的广告信息
+    '''
+    def get_current_store_ad_list(self,store_uuid):
+        return self.db_ad.get_store_list(store_uuid)
 
 
 

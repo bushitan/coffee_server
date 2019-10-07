@@ -1,5 +1,6 @@
 #coding:utf-8
 from django.db import models
+from django.db.models import Q
 from lib.util import *
 import django.utils.timezone as timezone
 def day_365_hence(): #集点默认365天有效期
@@ -12,6 +13,7 @@ pymysql.install_as_MySQLdb()
 from lib.image_utils import *
 
 from lib.short_uuid import short_uuid_create
+
 import base64
 
 # 基础类 虚函数
@@ -39,9 +41,10 @@ class BaseImage(Base):
     class Meta:
         verbose_name_plural = verbose_name = u'图库'
     def __unicode__(self):
-        return '%s' % (self.id)
+        return '%s' % (self.name)
     def save(self):
         super().save()
+
         if not self.url:
             self.url = QINIU_HOST + self.local_path.url
         key = self.local_path.url
@@ -110,7 +113,7 @@ class Ad(Base):
     cover_image = models.ForeignKey(BaseImage, verbose_name=u'封面图片',related_name='cover_image',null=True,blank=True)
 
     # 内容1：图片
-    content_image = models.ForeignKey(BaseImage, verbose_name=u'封面图片',related_name='content_image',null=True,blank=True)
+    content_image = models.ForeignKey(BaseImage, verbose_name=u'内容图片',related_name='content_image',null=True,blank=True)
     # 内容2：链接
     content_url = models.CharField(max_length=2000, verbose_name=u'内容地址',default="",null=True,blank=True)
     # 内容3: 打开小程序

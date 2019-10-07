@@ -35,23 +35,54 @@ class StoreAdmin(BaseAdmin):
 admin.site.register(Store,StoreAdmin)
 
 
-class BaseImageAdmin(admin.ModelAdmin):
-	list_display = ('id','url_image','url','local_path','type',)
+class BaseImageAdmin(BaseAdmin):
+	list_display = ('id','name','url_image','url','local_path','type',)
 	def url_image(self, obj):
 		return  mark_safe('<img src="%s" width="50px" />' % (obj.url))
 	url_image.short_description = u'图片'
 	url_image.allow_tags = True
+	search_fields = ('id','name','uuid',)
+	list_filter = ('type', ) #店铺过滤
 admin.site.register(BaseImage,BaseImageAdmin)
 
 
 # 广告
 class AdAdmin(BaseAdmin):
-	list_display = ('id','type','cover','web_url','is_show','sort',)
+	list_display = ('id','type','store_name','cover_image_html','is_show','sort',)
 	fieldsets = (
         (u"基础类别", {'fields': ['type','is_show','sort',]}),
+		(u"封面", {'fields': ['cover_image']}),
+		(u"内容：图片", {'fields': ['content_image']}),
+		(u"内容：web链接", {'fields': ['content_url']}),
+		(u"内容：小程序", {'fields': ['content_lite_app_id','content_lite_path','content_lite_extra_data','content_lite_env_version',]}),
+
 		(u"封面/内容", {'fields': ['cover','web_url']}),
+		(u"所属店铺", {'fields': ['store',]}),
     )
 	list_editable = ('sort',)
+	filter_horizontal = ('store',) #店铺选择列表
+	list_filter = ('store', ) #店铺过滤
+	raw_id_fields = ('cover_image','content_image',)
+	# 在list中展示店铺的名字
+	def store_name(self,obj):
+		display_store = obj.store.all()
+		storeStr = ''
+		for store in display_store:
+			storeStr = storeStr + store.title
+		if storeStr == "":
+			return u"所有"
+		return storeStr
+
+	def cover_image_html(self, obj):
+		if obj.cover_image is None:
+			return ""
+		else:
+			return  mark_safe('<img src="%s" width="50px" />' % (obj.cover_image.url))
+	cover_image_html.short_description = u'封面图片'
+	cover_image_html.allow_tags = True
+
+	store_name.short_description = u'展示的店铺'
+
 admin.site.register(Ad,AdAdmin)
 
 # 广告

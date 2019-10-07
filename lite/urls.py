@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^scan/wm/customer/',CustomerScanWm.as_view()), #客户扫码，自助模式
     url(r'^scan/wm/check/customer/',CustomerScanWmCheck.as_view()),
     # 广告
-    url(r'^store/get_ad/customer/',CustomerGetAd.as_view()),
+    url(r'^store/get_ad/customer/',CustomerGetAdByStore.as_view()), #获取所有的广告
 
     # 商户
     url(r'^store/update/seller/',SellerUpdate.as_view()),
