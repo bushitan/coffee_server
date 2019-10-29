@@ -29,8 +29,9 @@ class Base(models.Model):
             # print (self)
             if not self.uuid:
                 self.uuid = str( uuid.uuid1())
-            if not self.short_uuid:
-                self.short_uuid = short_uuid_create(self.uuid)
+            # if not self.short_uuid:
+            #     # self.short_uuid = short_uuid_create(self.uuid)
+            #     self.short_uuid = short_uuid_create(self.store.id,self.sn)
             super(Base,self).save(*args, **kwargs)
 
 # 图片库
@@ -319,6 +320,15 @@ class WmTicket(Base):
     def __str__(self):
         return '%s' % (self.id)
 
+    def save(self, *args, **kwargs):
+            # 创建用户时，生成唯一ID
+            # print (self)
+            if not self.uuid:
+                self.uuid = str( uuid.uuid1())
+            if not self.short_uuid:
+                # self.short_uuid = short_uuid_create(self.uuid)
+                self.short_uuid = short_uuid_create(self.store.id,self.sn)
+            super(Base,self).save(*args, **kwargs)
 
 
 

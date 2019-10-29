@@ -107,11 +107,14 @@ if __name__  == '__main__':
     # store_uuid = '381719ac-d499-11e9-95a1-e95aa2c51b5d' # 31 白鲸手作（贵兴店）
     # store_uuid = '7ecc8afa-d9ee-11e9-8590-e95aa2c51b5d' # 32 TJ
     # store_uuid = 'b5eb1a3e-dd39-11e9-b2c8-e95aa2c51b5d' # 34 2F Nail美甲美睫美颜
+    # store_uuid = "3e5075ee-f2e5-11e9-8fd0-e95aa2c51b5d" # 35 The Knowhere Mixology
+    # store_uuid = "001fc670-f4b3-11e9-aa2b-e95aa2c51b5d" # 36 FIGAS
 
 
 
 
-    # ticket_num = 7200 # 外卖券数量
+
+    ticket_num = 12000  # 外卖券数量
 
     '''门票的类别，默认为积分模式 '''
     ticket_type = TICKET_TYPE_SCORE   #积分
@@ -123,6 +126,23 @@ if __name__  == '__main__':
     # wm_utils.create(store_uuid,ticket_num ,ticket_type)
 
     # 根据序号重复生成
-    wm_utils.save_image(28,37401,39800)
-    wm_utils.save_image(28,39801,42200)
-    wm_utils.save_image(28,42201,44600)
+    wm_utils.save_image(28, 80601, 83000 )
+    wm_utils.save_image(28, 83001, 85400 )
+    wm_utils.save_image(28, 85401, 87800 )
+    wm_utils.save_image(28, 87801, 90200 )
+    wm_utils.save_image(28, 90201, 92600 )
+    # wm_utils.save_image(28,56901,58100)
+    # wm_utils.save_image(28,58101,59300)
+
+    # wm_utils.save_image(28,,)
+
+
+# mysql 查询重复
+ # select  store_id  , id ,short_uuid , is_used  from `lite_wmticket` where short_uuid in  (
+	# 	SELECT  short_uuid   FROM `lite_wmticket` GROUP BY binary short_uuid HAVING COUNT( binary short_uuid)>1
+ #  ) and create_time>"2019-10-24"  order by store_id  , short_uuid desc
+
+
+
+
+
