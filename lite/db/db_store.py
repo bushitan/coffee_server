@@ -46,6 +46,7 @@ class DBStore(DB):
             'icon_check_image_url':object.icon_check_image_url,
             'icon_un_check_image_url':object.icon_un_check_image_url,
             'icon_full_image_url':object.icon_full_image_url,
+            'icon_ladder_cover_image_url':object.icon_ladder_cover_image_url,
 
             # 外卖模式
             "wm_mode":object.wm_mode,

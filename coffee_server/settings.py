@@ -165,8 +165,8 @@ DATABASES = {
         # 'NAME': 'coffee_server_2019_6_15_v1_3_10', # 取消版本
         # 'NAME': 'coffee_server_2019_7_1_v1_4_7', # 取消版本
         # 'NAME': 'coffee_server_2019_7_12_v1_5_2', # 备份版本
-        'NAME': 'coffee_server_2019_8_29_v1_6_1', # 在线版本
-        # 'NAME': 'coffee_server_2019_10_2_v2_1_1', # 测试版本
+        # 'NAME': 'coffee_server_2019_8_29_v1_6_1', # 在线版本
+        'NAME': 'coffee_server_2019_10_2_v2_1_1', # 测试版本
 
         'USER': 'root',
         'PASSWORD':'root',

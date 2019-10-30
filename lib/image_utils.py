@@ -14,7 +14,7 @@ class ImageUtils:
     @staticmethod
     def rename(instance, filename):
         suffix = filename.split('.')[-1]
-        key = '%s/%s.%s' %( COFFEE_IMAGE_SPACE,instance.short_uuid ,suffix)
+        key = '%s/%s.%s' %( COFFEE_IMAGE_SPACE,instance.uuid ,suffix)
         print ( os.path.isfile(MEDIA_ROOT+key))
         local_file = MEDIA_ROOT+key
         if os.path.isfile(local_file):

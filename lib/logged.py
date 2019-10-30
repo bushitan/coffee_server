@@ -27,3 +27,5 @@ def logged(func):
             }
             return HttpResponse( json.dumps( _dict ),content_type="application/json" )
     return wrapper
+
+

@@ -91,6 +91,7 @@ class Store(Base):
     icon_un_check_image_url = models.CharField(max_length=500, verbose_name=u'未集点印章图标',default="",null=True,blank=True)
     icon_full_image_url = models.CharField(max_length=500, verbose_name=u'集满点印章图标',default="",null=True,blank=True)
     icon_un_full_image_url = models.CharField(max_length=500, verbose_name=u'未集满点印章图标',default="",null=True,blank=True)
+    icon_ladder_cover_image_url = models.CharField(max_length=500, verbose_name=u'天梯模式海报',default="",null=True,blank=True)
 
     wm_mode = models.IntegerField(u'外卖模式',default=STORE_WM_MODE_NORMAL,choices=STORE_WM_MODE.items())
     wm_check_num =  models.IntegerField(u'发放普通核销点数量',default=1)
