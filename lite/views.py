@@ -409,6 +409,35 @@ class SellerScanPrize(ListView):
             return MSG.scan_prize_none(),{}
 
 
+
+
+# 检测信息
+class PrintGetWMList(ListView):
+    @logged
+    # @det.wm_qr_exist
+    def post(self, request, *args, **kwargs):
+        token = request.POST.get('token',"")
+        start = request.POST.get('start',"")
+        end = request.POST.get('end',"")
+
+        # 强制token
+        if token != "bushitan":
+            return MSG.scan_prize_none(),{}
+
+        return MSG.sys_success() ,{
+            "wm_list":action_wm.get_ticket_start_end(start,end)
+        }
+
+
+
+
+
+
+
+
+
+
+
         # if model == 'score': # 发放积分 or 分享券
         #     is_score = action_store.add_score(seller_uuid,customer_uuid)
         #     if is_score:
@@ -469,6 +498,17 @@ class SellerQuit(ListView):
         host_uuid = request.POST.get('host_uuid','')
         employee_uuid = request.POST.get('employee_uuid','')
         return action_store.quit_store_employee( host_uuid ,employee_uuid)
+
+
+
+
+
+
+
+
+
+
+
 
 
 

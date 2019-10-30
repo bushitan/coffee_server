@@ -99,8 +99,8 @@ if __name__  == '__main__':
     # store_uuid = 'a1828928-7860-11e9-be7b-e95aa2c51b5d' # 10 菓缇
     # store_uuid = '3a257d7e-9e3e-11e9-bacb-e95aa2c51b5d' # 22 又至园精品咖啡馆
     # store_uuid = 'b29c4dee-b35e-11e9-869d-e95aa2c51b5d' # 24 StrongCOFFEE(康浦店)
-    # store_uuid = 'b131ffba-b362-11e9-9abd-e95aa2c51b5d' # 25 O.CT
-    store_uuid = 'a85e7854-c268-11e9-97aa-e95aa2c51b5d' # 28 seeking
+    store_uuid = 'b131ffba-b362-11e9-9abd-e95aa2c51b5d' # 25 O.CT
+    # store_uuid = 'a85e7854-c268-11e9-97aa-e95aa2c51b5d' # 28 seeking
     # store_uuid = 'dfc006be-c0ca-11e9-9e96-e95aa2c51b5d' # 27 r-coffee
     # store_uuid = 'aa03edc2-ce62-11e9-afbe-e95aa2c51b5d' # 29 白鲸手作（广场东里店、和平路店）
     # store_uuid = 'afe5a7ba-d3ae-11e9-841f-e95aa2c51b5d' # 30 一城之肆
@@ -114,7 +114,7 @@ if __name__  == '__main__':
 
 
 
-    ticket_num = 12000  # 外卖券数量
+    ticket_num = 600  # 外卖券数量
 
     '''门票的类别，默认为积分模式 '''
     ticket_type = TICKET_TYPE_SCORE   #积分
@@ -123,14 +123,14 @@ if __name__  == '__main__':
     # ticket_type = TICKET_TYPE_CLOSE   #关闭
 
     # 创建新的外卖码
-    # wm_utils.create(store_uuid,ticket_num ,ticket_type)
+    wm_utils.create(store_uuid,ticket_num ,ticket_type)
 
     # 根据序号重复生成
-    wm_utils.save_image(28, 80601, 83000 )
-    wm_utils.save_image(28, 83001, 85400 )
-    wm_utils.save_image(28, 85401, 87800 )
-    wm_utils.save_image(28, 87801, 90200 )
-    wm_utils.save_image(28, 90201, 92600 )
+    # wm_utils.save_image(28, 80601, 83000 )
+    # wm_utils.save_image(28, 83001, 85400 )
+    # wm_utils.save_image(28, 85401, 87800 )
+    # wm_utils.save_image(28, 87801, 90200 )
+    # wm_utils.save_image(28, 90201, 92600 )
     # wm_utils.save_image(28,56901,58100)
     # wm_utils.save_image(28,58101,59300)
 

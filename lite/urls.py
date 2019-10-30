@@ -37,6 +37,13 @@ urlpatterns = [
     url(r'^scan/share/seller/',SellerScanShare.as_view()),
     url(r'^scan/prize/seller/',SellerScanPrize.as_view()),
 
+
+    #打印相关
+    url(r'^print/get/wm_list/',PrintGetWMList.as_view()),
+
+
+
+
     # url(r'^scan/info/',SellerScanPrize.as_view()),
 
  # url(r'^store/invite/seller/',SellerInvite.as_view()),

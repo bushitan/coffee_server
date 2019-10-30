@@ -59,6 +59,20 @@ class DBWmTicket(DB):
         ticket.save()
         return ticket
 
+    '''
+        @method 根据开-结束的范围，获取tikect的信息
+        @param
+            start 开始的序号
+            end 结束的徐hao
+        @return
+            wm_list 外卖列表
+    '''
+    def get_start_end(self,start,end):
+        ticket_filter = self.model.objects.filter(id__gte = start, id__lte = end)
+        return self._pack_list(self._pack_dict,ticket_filter)
+
+
+
 if __name__  == '__main__':
     import django
     django.setup()

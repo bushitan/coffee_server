@@ -124,6 +124,17 @@ class ActionWm():
         return self.db_wm_ticket.add_list(store,num ,ticket_type)
 
 
+    '''
+        @mehotd 获取打印二维码使用
+        @param
+            start 开始的序号
+            end 结束的徐hao
+        @return
+            wm_list 外卖列表
+    '''
+    def get_ticket_start_end(self,start,end):
+         return self.db_wm_ticket.get_start_end(start,end)
+
 
 if __name__  == '__main__':
     wm = ActionWm()
