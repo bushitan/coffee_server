@@ -1,0 +1,29 @@
+﻿1、兑换福利，积分应该加上prize（已修改）
+    self.db_score.update(score_filter,is_used = True，prize=111   )
+
+    # 兑换福利
+    def add_prize(self,seller_uuid,customer_uuid):
+        seller = self.db_seller.get(uuid =seller_uuid)
+        customer = self.db_customer.get(uuid =customer_uuid)
+        store = seller.store
+        score_count = self.db_score.count_valid(store.uuid,customer_uuid)
+        print ( store.exchange_value, score_count)
+        if store.exchange_value <= score_count:
+            with transaction.atomic():
+                score_filter = self.db_score.filter(store=store,customer=customer,is_used = False,is_delete=False)
+                self.db_prize.add(store = store ,seller = seller ,customer = customer) #增加奖品
+                self.db_score.update(score_filter,is_used = True   )
+            return True
+        else:
+            return False
+
+2019-11-15 修改方案
+	在普通模式、天梯模式下，兑换礼物的score未绑定prize，因此不能查询这个用户兑换了几点
+	1、在db.py 第96行 增加： "id":object.id,
+	2、action_store.py 第115行，
+	    原有：
+		self.db_prize.add(store = store ,seller = seller ,customer = customer) #增加奖品
+                self.db_score.update(score_filter,is_used = True,  )
+	    变化:
+                prize = self.db_prize.add(store = store ,seller = seller ,customer = customer) #增加奖品
+                self.db_score.update(score_filter,is_used = True,prize_id = prize["id"]   )

@@ -93,6 +93,7 @@ class DBData(DB):
 	def _pack_dict(self,object):
 		_base = super()._pack_dict(object)
 		_new = {
+			"id":object.id,
 			"share_uuid":object.uuid,
 			"store_id":object.store_id,
 			"seller_id":object.seller_id,

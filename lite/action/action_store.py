@@ -151,8 +151,8 @@ class ActionStore():
         if store.exchange_value <= score_count:
             with transaction.atomic():
                 score_filter = self.db_score.filter(store=store,customer=customer,is_used = False,is_delete=False)
-                self.db_prize.add(store = store ,seller = seller ,customer = customer) #增加奖品
-                self.db_score.update(score_filter,is_used = True   )
+                prize = self.db_prize.add(store = store ,seller = seller ,customer = customer) #增加奖品
+                self.db_score.update(score_filter,is_used = True,prize_id = prize["id"]   )
             return True
         else:
             return False
