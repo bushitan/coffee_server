@@ -41,6 +41,11 @@
 		if  db_score.count_valid(store.uuid,customer_uuid) >= 20:
                     return MSG.wm_full(), {"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid}
 
+7、印章模式，un_full的图片没有传到前台，
+	db_store.py第49行，增加：
+		'icon_un_full_image_url':object.icon_un_full_image_url,
+
+
 
 
 
