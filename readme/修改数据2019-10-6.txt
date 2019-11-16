@@ -36,5 +36,13 @@
                 prize = self.db_prize.add(store = store ,seller = seller ,customer = customer) #增加奖品
                 self.db_score.update(score_filter,is_used = True,prize_id = prize["id"]   )
 
- 
+6、天梯模式，集20点，提示集满
+	1、detection.py第234行，增加天梯模式下的判断：
+		if  db_score.count_valid(store.uuid,customer_uuid) >= 20:
+                    return MSG.wm_full(), {"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid}
+
+
+
+
+
 

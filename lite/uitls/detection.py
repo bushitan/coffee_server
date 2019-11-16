@@ -231,9 +231,12 @@ def wm_qr_full(func):
 
         # 图标为天梯模式时，不检测满点，跳过本步骤
         if store.icon_mode == STORE_ICON_MODE_LADDER:
+            if  db_score.count_valid(store.uuid,customer_uuid) >= 20:
+                return MSG.wm_full(), {"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid}
             return func(self,request,*args, **kwargs)
 
         score_count = db_score.count_valid(store.uuid,customer_uuid)
+
         print (score_count)
         if store.exchange_value <= score_count:
             return MSG.wm_full(), {"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid}
