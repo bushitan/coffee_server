@@ -196,11 +196,9 @@ def seller_own_share(func):
 def wm_qr_exist(func):
     @base
     def wrapper(self,request,*args, **kwargs):
-        time1 = time.time()
         wm_short_uuid = request.POST.get('wm_short_uuid',"")
         if db_wm_ticket.is_exists(short_uuid = wm_short_uuid) is False:
             return MSG.wm_time_out(), {} # 二维码已过期
-        print('2 wm_qr_exist',  time.time()-time1)
         return func(self,request,*args, **kwargs)
     return wrapper
 # 外卖二维码状态校验
@@ -223,13 +221,11 @@ def wm_qr_full(func):
         seller_uuid = request.POST.get('seller_uuid',"")
         customer_uuid =  request.POST.get('customer_uuid',"")
 
-        # jia
         wm_ticket = db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid)
+        kwargs['wm_ticket'] = wm_ticket
         if wm_ticket.is_used is True: #已经使用
-            # return MSG.wm_used(), {"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid} # 二维码已使用
             return MSG.wm_used(), {"store_uuid":wm_ticket.store.uuid} # 二维码已使用
         if wm_ticket.is_delete is True: #已经删除
-            # return MSG.wm_delete(),{"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid}# 二维码已删除
             return MSG.wm_delete(),{"store_uuid":wm_ticket.store.uuid}# 二维码已删除
 
         store = {}

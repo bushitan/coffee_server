@@ -4,7 +4,7 @@ from lite.models import *
 from django.db import transaction
 import datetime
 from django.db.models import Max
-import time
+
 class DBWmTicket(DB):
     def __init__(self):
         super().__init__(WmTicket)
@@ -48,12 +48,7 @@ class DBWmTicket(DB):
         return  store.id , count + 1 , count + num
 
     def get_by_short_uuid(self,short_uuid):
-
-        time1 = time.time()
-        wm = self.model.objects.extra(where=['binary short_uuid=%s'], params=[short_uuid]).first()
-        # wm = self.model.objects.get()
-        print('11 get_by_short_uuid',  time.time()-time1)
-        return wm
+         return self.model.objects.extra(where=['binary short_uuid=%s'], params=[short_uuid]).first()
 
     '''
         @method 外卖券设置为已使用
