@@ -48,40 +48,41 @@ admin.site.register(BaseImage,BaseImageAdmin)
 
 # 广告
 class AdAdmin(BaseAdmin):
-	list_display = ('id','type','store_name','cover_image_html','is_show','sort',)
-	fieldsets = (
-        (u"基础类别", {'fields': ['type','is_show','sort',]}),
-		(u"封面", {'fields': ['cover_image']}),
-		(u"内容：图片", {'fields': ['content_image']}),
-		(u"内容：web链接", {'fields': ['content_url']}),
-		(u"内容：小程序", {'fields': ['content_lite_app_id','content_lite_path','content_lite_extra_data','content_lite_env_version',]}),
-
-		(u"封面/内容", {'fields': ['cover','web_url']}),
-		(u"所属店铺", {'fields': ['store',]}),
-    )
-	list_editable = ('sort',)
-	filter_horizontal = ('store',) #店铺选择列表
-	list_filter = ('store', ) #店铺过滤
-	raw_id_fields = ('cover_image','content_image',)
-	# 在list中展示店铺的名字
-	def store_name(self,obj):
-		display_store = obj.store.all()
-		storeStr = ''
-		for store in display_store:
-			storeStr = storeStr + store.title
-		if storeStr == "":
-			return u"所有"
-		return storeStr
-
-	def cover_image_html(self, obj):
-		if obj.cover_image is None:
-			return ""
-		else:
-			return  mark_safe('<img src="%s" width="50px" />' % (obj.cover_image.url))
-	cover_image_html.short_description = u'封面图片'
-	cover_image_html.allow_tags = True
-
-	store_name.short_description = u'展示的店铺'
+	pass
+	# list_display = ('id','type','store_name','cover_image_html','is_show','sort',)
+	# fieldsets = (
+     #    (u"基础类别", {'fields': ['type','is_show','sort',]}),
+	# 	(u"封面", {'fields': ['cover_image']}),
+	# 	(u"内容：图片", {'fields': ['content_image']}),
+	# 	(u"内容：web链接", {'fields': ['content_url']}),
+	# 	(u"内容：小程序", {'fields': ['content_lite_app_id','content_lite_path','content_lite_extra_data','content_lite_env_version',]}),
+    #
+	# 	(u"封面/内容", {'fields': ['cover','web_url']}),
+	# 	(u"所属店铺", {'fields': ['store',]}),
+    # )
+	# list_editable = ('sort',)
+	# filter_horizontal = ('store',) #店铺选择列表
+	# list_filter = ('store', ) #店铺过滤
+	# raw_id_fields = ('cover_image','content_image',)
+	# # 在list中展示店铺的名字
+	# def store_name(self,obj):
+	# 	display_store = obj.store.all()
+	# 	storeStr = ''
+	# 	for store in display_store:
+	# 		storeStr = storeStr + store.title
+	# 	if storeStr == "":
+	# 		return u"所有"
+	# 	return storeStr
+    #
+	# def cover_image_html(self, obj):
+	# 	if obj.cover_image is None:
+	# 		return ""
+	# 	else:
+	# 		return  mark_safe('<img src="%s" width="50px" />' % (obj.cover_image.url))
+	# cover_image_html.short_description = u'封面图片'
+	# cover_image_html.allow_tags = True
+    #
+	# store_name.short_description = u'展示的店铺'
 
 admin.site.register(Ad,AdAdmin)
 
@@ -98,11 +99,13 @@ admin.site.register(Collect,CollectAdmin)
 
 
 class SellerAdmin(BaseAdmin):
-	list_display = ('id','store','is_host','nick_name','name_base64','uuid','wx_openid','username','password',)
+	list_display = ('id','store','is_host','nick_name','name_base64','uuid','wx_openid',
+					# 'username','password',
+					)
 	fieldsets = (
         (u"销售属性", {'fields': ['store','is_host','uuid','name',]}),
 		(u"微信数据", {'fields': ['nick_name','nick_name_base64','avatar_url','gender','city','province','country',]}),
-		(u"数据账号", {'fields': ['username','password',]}),
+		# (u"数据账号", {'fields': ['username','password',]}),
 		(u"系统数据", {'fields': ['wx_openid','wx_session','wx_unionid',]}),
     )
 	search_fields = ('id','wx_openid','uuid','nick_name','store__title',)
@@ -111,6 +114,7 @@ class SellerAdmin(BaseAdmin):
 	name_base64.short_description = u'昵称64编码'
 	name_base64.allow_tags = True
 	readonly_fields = ("uuid",'wx_openid','wx_session','wx_unionid','name_base64',)
+	raw_id_fields = ('store',)
 admin.site.register(Seller,SellerAdmin)
 
 
@@ -152,6 +156,7 @@ class ScoreAdmin(BaseAdmin):
         # (u"分享积分", {'fields': ['share',]}),
     )
 	search_fields = ('id',)
+	raw_id_fields = ('store','seller','customer', 'wm_ticket', )
 admin.site.register(Score,ScoreAdmin)
 
 
@@ -165,6 +170,7 @@ class ShareAdmin(BaseAdmin):
         (u" 外卖", {'fields': ['wm_ticket',]}),
     )
 	search_fields = ('id',)
+	raw_id_fields = ('store','seller','customer','receive_customer', 'delete_seller', 'wm_ticket', )
 admin.site.register(Share,ShareAdmin)
 
 class PrizeAdmin(BaseAdmin):
@@ -174,6 +180,7 @@ class PrizeAdmin(BaseAdmin):
         (u" 删除状态", {'fields': ['is_delete','delete_seller',]}),
     )
 	search_fields = ('id',)
+	raw_id_fields = ('store','seller','customer', 'delete_seller', )
 admin.site.register(Prize,PrizeAdmin)
 
 
@@ -188,4 +195,5 @@ class WmTicketAdmin(BaseAdmin):
 	#     (u" 删除状态", {'fields': ['is_delete','delete_seller',]}),
 	# )
 	search_fields = ('id','short_uuid')
+	raw_id_fields = ('store','customer',)
 admin.site.register(WmTicket,WmTicketAdmin)

@@ -38,8 +38,8 @@ if __name__ == '__main__':
     import base64
     import json
     encodestr = base64.b64decode('eyJtb2RlIjoiYXV0b19zaGFyZSIsInN0b3JlX3V1aWQiOiIzMjEiLCJzZWxsZXJfdXVpZCI6IjEyMyIsImRlYWRfdGltZSI6IjIwMTktNS0zMCJ9')
-    print(encodestr)
+    # print(encodestr)
     j = json.loads( str(encodestr,'utf-8'))
-    print (j['mode'])
+    # print (j['mode'])
     # print (c)
     # print (l)

@@ -161,7 +161,7 @@ def wm_used():
 def wm_delete():
     return {'code':CODE_WM_DELETE,'title':u"温馨提示" , 'content':u'二维码已废弃'}
 def wm_full():
-    return {'code':CODE_WM_FULL,'title':u"您的点数已集满" , 'content':u'请先到店内兑换福利，或将此二维码分享朋友'}
+    return {'code':CODE_WM_FULL,'title':u"您的点数已集满" , 'content':u'请先到店内兑换福利'}
 
 
 # 07 地图

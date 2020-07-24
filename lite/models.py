@@ -91,7 +91,7 @@ class Store(Base):
     icon_un_check_image_url = models.CharField(max_length=500, verbose_name=u'未集点印章图标',default="",null=True,blank=True)
     icon_full_image_url = models.CharField(max_length=500, verbose_name=u'集满点印章图标',default="",null=True,blank=True)
     icon_un_full_image_url = models.CharField(max_length=500, verbose_name=u'未集满点印章图标',default="",null=True,blank=True)
-    icon_ladder_cover_image_url = models.CharField(max_length=500, verbose_name=u'天梯模式海报',default="",null=True,blank=True)
+    # icon_ladder_cover_image_url = models.CharField(max_length=500, verbose_name=u'天梯模式海报',default="",null=True,blank=True)
 
     wm_mode = models.IntegerField(u'外卖模式',default=STORE_WM_MODE_NORMAL,choices=STORE_WM_MODE.items())
     wm_check_num =  models.IntegerField(u'发放普通核销点数量',default=1)
@@ -110,19 +110,19 @@ class Store(Base):
 # 广告
 class Ad(Base):
     type = models.IntegerField(u'广告',default=AD_TYPE_IMAGE,choices=AD_TYPE.items())
-    store = models.ManyToManyField('Store', verbose_name=u'限制浏览店铺（不填则全部可浏览）',null=True,blank=True)
+    # store = models.ManyToManyField('Store', verbose_name=u'限制浏览店铺（不填则全部可浏览）',null=True,blank=True)
     # 封面图
-    cover_image = models.ForeignKey(BaseImage, verbose_name=u'封面图片',related_name='cover_image',null=True,blank=True)
+    # cover_image = models.ForeignKey(BaseImage, verbose_name=u'封面图片',related_name='cover_image',null=True,blank=True)
 
     # 内容1：图片
-    content_image = models.ForeignKey(BaseImage, verbose_name=u'内容图片',related_name='content_image',null=True,blank=True)
-    # 内容2：链接
-    content_url = models.CharField(max_length=2000, verbose_name=u'内容地址',default="",null=True,blank=True)
-    # 内容3: 打开小程序
-    content_lite_app_id = models.CharField(max_length=100, verbose_name=u'打开小程序的app_id',default="",null=True,blank=True)
-    content_lite_path = models.CharField(max_length=100, verbose_name=u'打开小程序的path',default="",null=True,blank=True)
-    content_lite_extra_data = models.CharField(max_length=100, verbose_name=u'打开小程序的extra_data',default="",null=True,blank=True)
-    content_lite_env_version = models.CharField(max_length=100, verbose_name=u'打开小程序的env_version',default="",null=True,blank=True)
+    # content_image = models.ForeignKey(BaseImage, verbose_name=u'内容图片',related_name='content_image',null=True,blank=True)
+    # # 内容2：链接
+    # content_url = models.CharField(max_length=2000, verbose_name=u'内容地址',default="",null=True,blank=True)
+    # # 内容3: 打开小程序
+    # content_lite_app_id = models.CharField(max_length=100, verbose_name=u'打开小程序的app_id',default="",null=True,blank=True)
+    # content_lite_path = models.CharField(max_length=100, verbose_name=u'打开小程序的path',default="",null=True,blank=True)
+    # content_lite_extra_data = models.CharField(max_length=100, verbose_name=u'打开小程序的extra_data',default="",null=True,blank=True)
+    # content_lite_env_version = models.CharField(max_length=100, verbose_name=u'打开小程序的env_version',default="",null=True,blank=True)
 
     cover =  models.CharField(max_length=2000, verbose_name=u'封面图',default="",null=True,blank=True)
     web_url =  models.CharField(max_length=2000, verbose_name=u'内容地址',default="",null=True,blank=True)
@@ -183,7 +183,7 @@ class User(Base):
         # return '%s' % (self.nick_name)
         # print( str(self.nick_name,'utf-8') )
         if self.nick_name != "":
-            print( len(self.nick_name ))
+            # print( len(self.nick_name ))
             return '%s' % (self.nick_name)
         # elif self.nick_name_base64 != "":
         #     # return '%s' % ( base64.b64decode(self.nick_name_base64)   )
@@ -197,8 +197,8 @@ class User(Base):
 class Seller(User):
     is_host= models.BooleanField(u'是否店主',default=False)
     store = models.ForeignKey(Store, verbose_name=u'所属店铺',null=True,blank=True)
-    username = models.CharField(max_length=32, verbose_name=u'数据统计登陆账号',default="",null=True,blank=True)
-    password = models.CharField(max_length=32, verbose_name=u'数据统计密码',default="",null=True,blank=True)
+    # username = models.CharField(max_length=32, verbose_name=u'数据统计登陆账号',default="",null=True,blank=True)
+    # password = models.CharField(max_length=32, verbose_name=u'数据统计密码',default="",null=True,blank=True)
 
     class Meta:
         verbose_name_plural = verbose_name = u'店家'
@@ -259,8 +259,8 @@ class DataBase(Base):
     valid_time = models.DateTimeField(u'有效期',default = timezone.now)
     is_delete = models.BooleanField(u'是否被删除',default=False)
 
-    latitude =  models.FloatField( verbose_name=u'纬度',default=0,null=True,blank=True)
-    longitude =  models.FloatField(  verbose_name=u'经度',default=0,null=True,blank=True)
+    # latitude =  models.FloatField( verbose_name=u'纬度',default=0,null=True,blank=True)
+    # longitude =  models.FloatField(  verbose_name=u'经度',default=0,null=True,blank=True)
     # source = models.IntegerField(u'来源（默认扫码）',default=DATA_SOURCE_SCAN,choices=DATA_SOURCE.items())
     class Meta:
         abstract = True

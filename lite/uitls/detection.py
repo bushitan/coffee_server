@@ -196,9 +196,11 @@ def seller_own_share(func):
 def wm_qr_exist(func):
     @base
     def wrapper(self,request,*args, **kwargs):
+        time1 = time.time()
         wm_short_uuid = request.POST.get('wm_short_uuid',"")
         if db_wm_ticket.is_exists(short_uuid = wm_short_uuid) is False:
             return MSG.wm_time_out(), {} # 二维码已过期
+        print('2 wm_qr_exist',  time.time()-time1)
         return func(self,request,*args, **kwargs)
     return wrapper
 # 外卖二维码状态校验
@@ -206,11 +208,7 @@ def wm_qr_status(func):
     @base
     def wrapper(self,request,*args, **kwargs):
         wm_short_uuid = request.POST.get('wm_short_uuid',"")
-        wm_ticket = db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid)
-        if wm_ticket.is_used is True: #已经使用
-            return MSG.wm_used(), {"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid} # 二维码已使用
-        if wm_ticket.is_delete is True: #已经删除
-            return MSG.wm_delete(),{"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid}# 二维码已删除
+
         return func(self,request,*args, **kwargs)
     return wrapper
 
@@ -222,24 +220,69 @@ def wm_qr_full(func):
     @base
     def wrapper(self,request,*args, **kwargs):
         wm_short_uuid = request.POST.get('wm_short_uuid',"")
+        seller_uuid = request.POST.get('seller_uuid',"")
         customer_uuid =  request.POST.get('customer_uuid',"")
 
-
+        # jia
         wm_ticket = db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid)
+        if wm_ticket.is_used is True: #已经使用
+            # return MSG.wm_used(), {"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid} # 二维码已使用
+            return MSG.wm_used(), {"store_uuid":wm_ticket.store.uuid} # 二维码已使用
+        if wm_ticket.is_delete is True: #已经删除
+            # return MSG.wm_delete(),{"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid}# 二维码已删除
+            return MSG.wm_delete(),{"store_uuid":wm_ticket.store.uuid}# 二维码已删除
 
-        store = wm_ticket.store
+        store = {}
+        if wm_short_uuid != "":
+            # wm_ticket = db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid)
+            store = wm_ticket.store
+        if seller_uuid != "":
+            _seller = db_seller.get(uuid = seller_uuid)
+            store = _seller.store
 
-        # 图标为天梯模式时，不检测满点，跳过本步骤
-        if store.icon_mode == STORE_ICON_MODE_LADDER:
-            if  db_score.count_valid(store.uuid,customer_uuid) >= 20:
-                return MSG.wm_full(), {"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid}
+        if store.uuid == "b29c4dee-b35e-11e9-869d-e95aa2c51b5d": # 24 strong
+            if  db_score.count_valid(store.uuid,customer_uuid) >= 8:
+                return MSG.wm_full(), {"store_uuid":store.uuid}
             return func(self,request,*args, **kwargs)
 
+        if store.uuid == "a85e7854-c268-11e9-97aa-e95aa2c51b5d": # 28 seeking
+            if  db_score.count_valid(store.uuid,customer_uuid) >= 6:
+                return MSG.wm_full(), {"store_uuid":store.uuid}
+            return func(self,request,*args, **kwargs)
+
+        if store.uuid == "8c6e02de-3519-11ea-b35c-e95aa2c51b5d": # 58 方圆几里
+            if  db_score.count_valid(store.uuid,customer_uuid) >= 16:
+                return MSG.wm_full(), {"store_uuid":store.uuid}
+            return func(self,request,*args, **kwargs)
+
+        if store.uuid == "7263b5b6-0863-11ea-b6ff-e95aa2c51b5d" \
+            or store.uuid == "b131ffba-b362-11e9-9abd-e95aa2c51b5d"\
+            or store.uuid == "5340c542-074f-11ea-94f7-e95aa2c51b5d": # 浮梦造物\ # O.CT \ # Leisure
+            if  db_score.count_valid(store.uuid,customer_uuid) >= 10:
+                return MSG.wm_full(), {"store_uuid":store.uuid}
+            return func(self,request,*args, **kwargs)
+
+        if store.uuid == "3ce4a9f4-0521-11ea-b1ef-e95aa2c51b5d": # 40 CHOOSE COFFEE
+            if  db_score.count_valid(store.uuid,customer_uuid) >= 12:
+                return MSG.wm_full(), {"store_uuid":store.uuid}
+            return func(self,request,*args, **kwargs)
+
+        if store.uuid == "9a3e435e-62ad-11ea-95b0-e95aa2c51b5d": # 60 bai xiong coffee
+            if  db_score.count_valid(store.uuid,customer_uuid) >= 15:
+                return MSG.wm_full(), {"store_uuid":store.uuid}
+            return func(self,request,*args, **kwargs)
+        score_count = db_score.count_valid(store.uuid,customer_uuid)
+
+        if store.uuid == "de3da45a-8a3f-11ea-89a2-e95aa2c51b5d":# 72 霸王茶姬
+            if  db_score.count_valid(store.uuid,customer_uuid) >= 15:
+                return MSG.wm_full(), {"store_uuid":store.uuid}
+            return func(self,request,*args, **kwargs)
         score_count = db_score.count_valid(store.uuid,customer_uuid)
 
         print (score_count)
         if store.exchange_value <= score_count:
-            return MSG.wm_full(), {"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid}
+            return MSG.wm_full(), {"store_uuid":store.uuid}
+            # return MSG.wm_full(), {"store_uuid":db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid).store.uuid}
         return func(self,request,*args, **kwargs)
     return wrapper
 

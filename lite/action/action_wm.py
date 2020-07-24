@@ -55,10 +55,14 @@ class ActionWm():
         # wm_ticket_query = self.db_wm_ticket.filter(short_uuid = wm_short_uuid) #外卖漂圈
         # customer = self.db_customer.get(uuid =customer_uuid)
         # wm_ticket =  wm_ticket_query[0]
+        print('1 start',time.time())
         customer = self.db_customer.get(uuid =customer_uuid)
+        print('2 customer',time.time())
         wm_ticket =  self.db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid)
+        print('3 wm_ticket',time.time())
         store = wm_ticket.store
         with transaction.atomic():
+            print('4 in transaction',time.time())
             # 增加集点
             for i in range(0, store.wm_check_num):
                 self.db_score.add(
@@ -66,8 +70,10 @@ class ActionWm():
                     customer = customer,
                     wm_ticket = wm_ticket,
                 )
+            print('5 add',time.time())
             # 更新二维码使用状态
             self.db_wm_ticket.set_used(wm_ticket.id,customer)
+            print('6 is_user',time.time())
             # wm_ticket_query.update(is_used = True)
         return store.wm_check_num
 
@@ -76,7 +82,6 @@ class ActionWm():
         # wm_ticket_query = self.db_wm_ticket.filter(short_uuid = wm_short_uuid) #外卖漂圈
         # customer = self.db_customer.get(uuid =customer_uuid)
         # wm_ticket =  wm_ticket_query[0]
-
         customer = self.db_customer.get(uuid =customer_uuid)
         wm_ticket =  self.db_wm_ticket.get_by_short_uuid(short_uuid = wm_short_uuid)
 

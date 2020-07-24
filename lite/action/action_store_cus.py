@@ -65,11 +65,77 @@ class ActionStoreCus():
     '''
     def get_ad_list(self):
         return self.db_ad.get_show_list()
+
     '''
         @method 获取店铺的广告信息
     '''
     def get_current_store_ad_list(self,store_uuid):
-        return self.db_ad.get_store_list(store_uuid)
+
+
+        #  _list = self.db_ad.get_show_list()
+        # if store_uuid == "54931e42-7c67-11e9-b94e-e95aa2c51b5d": # 白日梦相家
+        #     _list.insert(0,{
+        #         "type":AD_TYPE_IMAGE,
+        #         "cover":"https://mmbiz.qpic.cn/mmbiz_jpg/49qhzgz5ydzzFxlFe6t2WicCiaXBBiarozwDt5icapj6D2q1ggCPtsrD83CpcwP2ofoW3WH76YYJKT4UMticoHdZoZw/0?wx_fmt=jpeg",
+        #         "web_url":"https://mmbiz.qpic.cn/mmbiz_jpg/49qhzgz5ydzzFxlFe6t2WicCiaXBBiarozwDt5icapj6D2q1ggCPtsrD83CpcwP2ofoW3WH76YYJKT4UMticoHdZoZw/0?wx_fmt=jpeg",
+        #     })
+        # if store_uuid == "b29c4dee-b35e-11e9-869d-e95aa2c51b5d": # strong
+        #     _list.insert(0,{
+        #         "type":AD_TYPE_IMAGE,
+        #         "cover":"https://mmbiz.qpic.cn/mmbiz_jpg/49qhzgz5ydzzFxlFe6t2WicCiaXBBiarozwdbjv20BTVSN2B026JgxynK8QpFrCUhiaw0u6tbTfagiaj2j65oY94QGQ/0?wx_fmt=jpeg",
+        #         "web_url":"https://mmbiz.qpic.cn/mmbiz_jpg/49qhzgz5ydzzFxlFe6t2WicCiaXBBiarozwdbjv20BTVSN2B026JgxynK8QpFrCUhiaw0u6tbTfagiaj2j65oY94QGQ/0?wx_fmt=jpeg",
+        #     })
+
+
+
+        _list = self.db_ad.get_show_list()
+        ad1 = {
+                "type":AD_TYPE_WEB_VIEW,
+                "cover":"https://mmbiz.qpic.cn/mmbiz_jpg/49qhzgz5ydzqLSa9h50XyibCENKdl5nPOdwOS99gLm89qwNkU5ZibVrFHO4hKWTpsy4QZp7c56pkCibpfTSGnibUYw/0?wx_fmt=jpeg",
+                "web_url":"https://mp.weixin.qq.com/s/vUP-Oi197514DluigfRkAw",
+        }
+        ad2 = {
+                "type":AD_TYPE_IMAGE,
+                "cover":"https://mmbiz.qpic.cn/mmbiz_jpg/49qhzgz5ydzPGU3EmdXeg6yAOEZOHXGkfqMy0Jb3hks0GbOP01GKSgauENialhambiaeicFNZV0hFzBvsa2gO9b0w/0?wx_fmt=jpeg",
+                "web_url":"https://mmbiz.qpic.cn/mmbiz_jpg/49qhzgz5ydzPGU3EmdXeg6yAOEZOHXGkoRyHYeG2q2NmAXdSczVxjArOJLrRBAYoSib3cJ73VZgHrqEP48VJYmA/0?wx_fmt=jpeg",
+        }
+
+        if store_uuid == "54931e42-7c67-11e9-b94e-e95aa2c51b5d": # 白日梦相家
+            _list.insert(0,ad2)
+            _list.insert(0,ad1)
+        if store_uuid == "b29c4dee-b35e-11e9-869d-e95aa2c51b5d": # strong
+            _list.insert(0,{
+                "type":AD_TYPE_WEB_VIEW,
+                "cover":"https://mmbiz.qpic.cn/mmbiz_jpg/49qhzgz5ydwfYkMWFDtCO0YZ3LUbZrShwJh5Wx5IWjkNBIlRHwOcgibvPA9pJPgVWbiadqd7k6mMITnx7C9UicfTQ/0?wx_fmt=jpeg",
+                "web_url":"https://sj.qskjad.top/product/detail?id=bf9c8a4f-ddac-446a-9c82-885d5b664181&tjUser=7160dac4-542a-4fa7-b220-652a9358443d",
+            })
+            _list.insert(0,{
+                "type":AD_TYPE_IMAGE,
+                "cover":"https://mmbiz.qpic.cn/mmbiz_jpg/49qhzgz5ydzzFxlFe6t2WicCiaXBBiarozwdbjv20BTVSN2B026JgxynK8QpFrCUhiaw0u6tbTfagiaj2j65oY94QGQ/0?wx_fmt=jpeg",
+                "web_url":"https://mmbiz.qpic.cn/mmbiz_jpg/49qhzgz5ydzzFxlFe6t2WicCiaXBBiarozwdbjv20BTVSN2B026JgxynK8QpFrCUhiaw0u6tbTfagiaj2j65oY94QGQ/0?wx_fmt=jpeg",
+            })
+        if store_uuid == "001fc670-f4b3-11e9-aa2b-e95aa2c51b5d": # figas
+            _list.insert(0,ad2)
+            _list.insert(0,ad1)
+        if store_uuid == "7263b5b6-0863-11ea-b6ff-e95aa2c51b5d": # 浮梦造物
+            _list.insert(0,ad2)
+            _list.insert(0,ad1)
+            _list.insert(0,{
+                "type":AD_TYPE_WEB_VIEW,
+                "cover":"https://mmbiz.qpic.cn/mmbiz_jpg/49qhzgz5ydwfYkMWFDtCO0YZ3LUbZrShIGFtbibpgic3k0DppgYQZJEcemkxR8zqvUv1GIDgSJQnKXwruZibmvrCw/0?wx_fmt=jpeg",
+                "web_url":"https://mp.weixin.qq.com/s/2Oul2t7W_IFHbOveqTUwRg",
+            })
+        if store_uuid == "b131ffba-b362-11e9-9abd-e95aa2c51b5d": # O.CT
+            _list.insert(0,ad2)
+            _list.insert(0,ad1)
+        if store_uuid == "5340c542-074f-11ea-94f7-e95aa2c51b5d": # Leisure
+            _list.insert(0,ad2)
+            _list.insert(0,ad1)
+        if store_uuid == "68e54718-7156-11e9-b456-e95aa2c51b5d": # 丰丰的咖啡店
+            _list.insert(0,ad2)
+            _list.insert(0,ad1)
+
+        return _list
 
 
 

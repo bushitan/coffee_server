@@ -3,7 +3,8 @@ from lite.db.db import DB
 from lite.models import *
 from django.db import transaction
 import datetime
-
+from django.db.models import Max
+import time
 class DBWmTicket(DB):
     def __init__(self):
         super().__init__(WmTicket)
@@ -30,7 +31,11 @@ class DBWmTicket(DB):
     # @return
     #   文件名字 1_55_56
     def add_list(self,store,num,ticket_type):
-        count = self.model.objects.count()
+        count = self.model.objects.all().aggregate(Max('id'))['id__max']
+        # print (count )
+        # return  store.id , count + 1 , count + num
+        #
+        # count = self.model.objects.count()
 
         index = self.model.objects.filter(store=store).count()
         name = "%s,%s" %( datetime.datetime.strftime( datetime.datetime.now(),'%Y_%m_%d_%H_%M_%S'),num )
@@ -43,7 +48,12 @@ class DBWmTicket(DB):
         return  store.id , count + 1 , count + num
 
     def get_by_short_uuid(self,short_uuid):
-         return self.model.objects.extra(where=['binary short_uuid=%s'], params=[short_uuid]).first()
+
+        time1 = time.time()
+        wm = self.model.objects.extra(where=['binary short_uuid=%s'], params=[short_uuid]).first()
+        # wm = self.model.objects.get()
+        print('11 get_by_short_uuid',  time.time()-time1)
+        return wm
 
     '''
         @method 外卖券设置为已使用

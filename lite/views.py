@@ -174,8 +174,8 @@ class CustomerScanWm(ListView):
     @logged
     @det.customer_exists
     @det.wm_qr_exist
-    @det.wm_qr_status
     @det.wm_qr_full
+    @det.wm_qr_status
     def post(self, request, *args, **kwargs):
         wm_short_uuid = request.POST.get('wm_short_uuid',"")
         customer_uuid =  request.POST.get('customer_uuid',"")
@@ -233,7 +233,8 @@ class CustomerGetAdByStore(ListView):
     @logged
     def post(self, request, *args, **kwargs):
         store_uuid = request.POST.get('store_uuid',"")
-        return MSG.sys_success() ,{'ad':action_store_cus.get_current_store_ad_list(store_uuid)}
+        # return MSG.sys_success() ,{'ad':action_store_cus.get_current_store_ad_list(store_uuid)}
+        return MSG.sys_success() ,action_store_cus.get_current_store_ad_list(store_uuid)
 
 
 # 客户自助扫二维码领券(已废弃）
@@ -372,6 +373,7 @@ class SellerScanScore(ListView):
     @det.seller_exists
     @det.customer_exists
     @det.scan_exists
+    @det.wm_qr_full
     def post(self, request, *args, **kwargs):
         seller_uuid = request.POST.get('seller_uuid','')
         customer_uuid = request.POST.get('customer_uuid','')
@@ -423,9 +425,9 @@ class PrintGetWMList(ListView):
         # 强制token
         if token != "bushitan":
             return MSG.scan_prize_none(),{}
-
+        wm_list = action_wm.get_ticket_start_end(start,end)
         return MSG.sys_success() ,{
-            "wm_list":action_wm.get_ticket_start_end(start,end)
+            "wm_list":wm_list
         }
 
 

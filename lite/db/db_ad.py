@@ -11,15 +11,20 @@ class DBAd(DB):
     def _pack_dict(self,object):
         _base = super()._pack_dict(object)
         _new = {
-            "id":object.id,
+            # "id":object.id,
+            # "type":object.type,
+            # "cover_image_url":object.cover_image.url if object.cover_image is not None else "" ,
+            # "content_image_url":object.content_image.url if object.content_image is not None else "" ,
+            # 'content_url':object.content_url,
+            # 'content_lite_app_id':object.content_lite_app_id,
+            # 'content_lite_path':object.content_lite_path,
+            # 'content_lite_extra_data':object.content_lite_extra_data,
+            # 'content_lite_env_version':object.content_lite_env_version,
+            # "cover":object.cover,
+            # "web_url":object.web_url,
+            # "sort":object.sort,
+
             "type":object.type,
-            "cover_image_url":object.cover_image.url if object.cover_image is not None else "" ,
-            "content_image_url":object.content_image.url if object.content_image is not None else "" ,
-            'content_url':object.content_url,
-            'content_lite_app_id':object.content_lite_app_id,
-            'content_lite_path':object.content_lite_path,
-            'content_lite_extra_data':object.content_lite_extra_data,
-            'content_lite_env_version':object.content_lite_env_version,
             "cover":object.cover,
             "web_url":object.web_url,
             "sort":object.sort,
@@ -36,9 +41,9 @@ class DBAd(DB):
         @method 获取店铺能展示的广告
     '''
     def get_store_list(self,store_uuid):
-        q = self.model.objects.filter(Q(is_show = True) &  Q( Q(store__uuid = store_uuid) | Q(store__uuid = None)))
-        return self._pack_list(self._pack_dict,q)
-        # return self.get_list(is_show = True)
+        # q = self.model.objects.filter(Q(is_show = True) &  Q( Q(store__uuid = store_uuid) | Q(store__uuid = None)))
+        # return self._pack_list(self._pack_dict,q)
+        return self.get_list(is_show = True)
 
 
 if __name__ == '__main__':
