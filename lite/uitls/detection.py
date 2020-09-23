@@ -267,7 +267,6 @@ def wm_qr_full(func):
             if  db_score.count_valid(store.uuid,customer_uuid) >= 15:
                 return MSG.wm_full(), {"store_uuid":store.uuid}
             return func(self,request,*args, **kwargs)
-        score_count = db_score.count_valid(store.uuid,customer_uuid)
 
         if store.uuid == "de3da45a-8a3f-11ea-89a2-e95aa2c51b5d":# 72 霸王茶姬
             if  db_score.count_valid(store.uuid,customer_uuid) >= 15:

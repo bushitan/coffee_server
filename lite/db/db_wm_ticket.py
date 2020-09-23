@@ -48,7 +48,7 @@ class DBWmTicket(DB):
         return  store.id , count + 1 , count + num
 
     def get_by_short_uuid(self,short_uuid):
-         return self.model.objects.extra(where=['binary short_uuid=%s'], params=[short_uuid]).first()
+         return self.model.objects.extra(where=['short_uuid=%s'], params=[short_uuid]).first()
 
     '''
         @method 外卖券设置为已使用
